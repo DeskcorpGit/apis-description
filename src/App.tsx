@@ -1,4 +1,4 @@
-import { ApiDocumentationCard } from "@/components/ApiDocumentationCard"
+import { ApiDocumentationCard } from "@/components/api-documentation"
 import { basaApiSections } from "@/data/basa-drop1-apis"
 
 function App() {
