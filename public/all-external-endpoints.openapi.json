@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "BASA Fabric - All External Integration Endpoints",
-    "description": "Auto-generated OpenAPI specification combining all *external* integration endpoints across the BASA Fabric mobile/web banking projects: BASA, Onboarding, Documents, Homepage, and Pix. \"External\" means the operation's Fabric Endpoint definition is type `JSON` (a `jsonConnector` REST call to a real outbound URL - core banking T24/IRF, AuthCube OAuth, DBP, ASAP/CorebanX, NeoBiz, IDVerse, Corebanx Pix), as opposed to internal `Java` connector services that only invoke in-process Java classes and never leave the platform. DB-backed integrations (`CustomDataAdapter` type, e.g. `dbpRbExtendedServicesdb`, `dbtest`, `onboardingServicesDb`) are excluded as they are JDBC connections, not HTTP endpoints. Two entries were removed on request (`SpotlightContentIntegrationService`, `MilestoneNewServices`), and cross-project duplicate integrations (identical connectors copied into multiple projects, e.g. `authCube`, `T24irfextension`, `T24irfprovider`, `NeoBizTermsJSONServices`, `OnboardingT24Utils`) were de-duplicated to a single canonical entry - see each operation's `x-project` field for which project it was sourced from, and `x-source-file` for the exact XML.  The `Profile` project ended up with zero unique external integrations after de-duplication and is not represented here. \n\nEach path (`/{IntegrationName}/{operationId}`) represents the Fabric-exposed contract consumers call; `x-external-endpoint-url` / `x-external-endpoint-method` record the real downstream URL and HTTP verb the connector forwards the call to. Request/response fields were reverse-engineered from each operation's `service-input` / `service-output` XML; outputs with no explicit mapping are documented as raw JSON passthrough. Sensitive example values (passwords, secrets, tokens) are redacted.",
+    "description": "",
     "version": "1.0.0"
   },
   "tags": [
@@ -128,7 +128,7 @@
     }
   ],
   "paths": {
-    "/BeneficiaryTransactServices/createBeneficiary": {
+    "/irf-extension-api/api/v1.0.0/party/beneficiaries": {
       "post": {
         "tags": [
           "BeneficiaryTransactServices"
@@ -255,11 +255,17 @@
         "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/party/beneficiaries",
         "x-external-endpoint-method": "POST",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/BeneficiaryTransactServices/1.0/Operations/createBeneficiary.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/BeneficiaryTransactServices/deleteBeneficiary": {
-      "post": {
+    "/irf-extension-api/api/v1.0.0/party/beneficiaries/$beneficiaryId": {
+      "delete": {
         "tags": [
           "BeneficiaryTransactServices"
         ],
@@ -308,11 +314,15 @@
         "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/party/beneficiaries/$beneficiaryId",
         "x-external-endpoint-method": "DELETE",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/BeneficiaryTransactServices/1.0/Operations/deleteBeneficiary.xml",
-        "x-project": "BASA"
-      }
-    },
-    "/BeneficiaryTransactServices/getBeneficiary": {
-      "post": {
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
+      },
+      "get": {
         "tags": [
           "BeneficiaryTransactServices"
         ],
@@ -413,75 +423,15 @@
         "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/party/beneficiaries/$beneficiaryId",
         "x-external-endpoint-method": "GET",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/BeneficiaryTransactServices/1.0/Operations/getBeneficiary.xml",
-        "x-project": "BASA"
-      }
-    },
-    "/BeneficiaryTransactServices/getPaymentsBeneficiaries": {
-      "post": {
-        "tags": [
-          "BeneficiaryTransactServices"
-        ],
-        "operationId": "BeneficiaryTransactServices_getPaymentsBeneficiaries",
-        "summary": "getPaymentsBeneficiaries",
-        "description": "Kony/Temenos Fabric integration operation. Internally proxies to external endpoint: `GET https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/party/beneficiaries/$owningCustomer/$owningAccount`. Security level: `public`.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "owningCustomer": {
-                    "type": "string",
-                    "example": "1000000757"
-                  },
-                  "owningAccount": {
-                    "type": "string",
-                    "example": "1000008431"
-                  }
-                }
-              }
-            }
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
           }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "beneficiaryList": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Error response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/party/beneficiaries/$owningCustomer/$owningAccount",
-        "x-external-endpoint-method": "GET",
-        "x-source-file": "BASA (v1.0)/Apps/_Integration/BeneficiaryTransactServices/1.0/Operations/getPaymentsBeneficiaries.xml",
-        "x-project": "BASA"
-      }
-    },
-    "/BeneficiaryTransactServices/updateBeneficiary": {
-      "post": {
+        ]
+      },
+      "put": {
         "tags": [
           "BeneficiaryTransactServices"
         ],
@@ -580,11 +530,87 @@
         "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/party/beneficiaries/$beneficiaryId",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/BeneficiaryTransactServices/1.0/Operations/updateBeneficiary.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24irfextension/NewOperation": {
-      "post": {
+    "/irf-extension-api/api/v1.0.0/party/beneficiaries/$owningCustomer/$owningAccount": {
+      "get": {
+        "tags": [
+          "BeneficiaryTransactServices"
+        ],
+        "operationId": "BeneficiaryTransactServices_getPaymentsBeneficiaries",
+        "summary": "getPaymentsBeneficiaries",
+        "description": "Kony/Temenos Fabric integration operation. Internally proxies to external endpoint: `GET https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/party/beneficiaries/$owningCustomer/$owningAccount`. Security level: `public`.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "owningCustomer": {
+                    "type": "string",
+                    "example": "1000000757"
+                  },
+                  "owningAccount": {
+                    "type": "string",
+                    "example": "1000008431"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "beneficiaryList": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/party/beneficiaries/$owningCustomer/$owningAccount",
+        "x-external-endpoint-method": "GET",
+        "x-source-file": "BASA (v1.0)/Apps/_Integration/BeneficiaryTransactServices/1.0/Operations/getPaymentsBeneficiaries.xml",
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
+      }
+    },
+    "/irf-extension-api/api/v4.0.0/holdings/customers/1000000689/holdings": {
+      "get": {
         "tags": [
           "T24irfextension"
         ],
@@ -617,11 +643,17 @@
         "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v4.0.0/holdings/customers/1000000689/holdings",
         "x-external-endpoint-method": "GET",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/T24irfextension/1.0/Operations/NewOperation.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24irfextension/TestUpdateCustomer": {
-      "post": {
+    "/irf-extension-api/api/v1.0.0/party/customers/updateCustomer/$coreCustomerId": {
+      "put": {
         "tags": [
           "T24irfextension"
         ],
@@ -760,11 +792,17 @@
         "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/party/customers/updateCustomer/$coreCustomerId",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/T24irfextension/1.0/Operations/TestUpdateCustomer.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24irfextension/TestgetCustomerData": {
-      "post": {
+    "/irf-extension-api/api/v1.0.0/party/customers/getCustomerData?customerNo=$coreCustomerId": {
+      "get": {
         "tags": [
           "T24irfextension"
         ],
@@ -817,11 +855,17 @@
         "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/party/customers/getCustomerData?customerNo=$coreCustomerId",
         "x-external-endpoint-method": "GET",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/T24irfextension/1.0/Operations/TestgetCustomerData.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24irfextension/TestupdateCustomerIncome": {
-      "post": {
+    "/irf-extension-api/api/v1.0.0/party/customers/updateIncomeAssets/$coreCustomerId": {
+      "put": {
         "tags": [
           "T24irfextension"
         ],
@@ -882,10 +926,16 @@
         "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/party/customers/updateIncomeAssets/$coreCustomerId",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/T24irfextension/1.0/Operations/TestupdateCustomerIncome.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24irfextension/createCustomer": {
+    "/irf-extension-api/api/v1.0.0/party/customers/createCustomer": {
       "post": {
         "tags": [
           "T24irfextension"
@@ -1029,11 +1079,17 @@
         "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/party/customers/createCustomer",
         "x-external-endpoint-method": "POST",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/T24irfextension/1.0/Operations/createCustomer.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24irfextension/getBRBASE": {
-      "post": {
+    "/irf-extension-api/api//v1.0.0/party/customers/getCustomerAdditionalDetails/$coreCustomerId": {
+      "get": {
         "tags": [
           "T24irfextension"
         ],
@@ -1082,11 +1138,17 @@
         "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api//v1.0.0/party/customers/getCustomerAdditionalDetails/$coreCustomerId",
         "x-external-endpoint-method": "GET",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/T24irfextension/1.0/Operations/getBRBASE.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24irfextension/getBankList": {
-      "post": {
+    "/irf-extension-api/api/v1.0.0/reference/compensationsParam/getBrBankCompensationCodes": {
+      "get": {
         "tags": [
           "T24irfextension"
         ],
@@ -1119,11 +1181,17 @@
         "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/reference/compensationsParam/getBrBankCompensationCodes",
         "x-external-endpoint-method": "GET",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/T24irfextension/1.0/Operations/getBankList.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24irfextension/getCustomerCommunication": {
-      "post": {
+    "/irf-extension-api/api/v1.0.0/party/customers/getCustomerData?mnemonic=C$cpf": {
+      "get": {
         "tags": [
           "T24irfextension"
         ],
@@ -1176,11 +1244,17 @@
         "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/party/customers/getCustomerData?mnemonic=C$cpf",
         "x-external-endpoint-method": "GET",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/T24irfextension/1.0/Operations/getCustomerCommunication.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24irfextension/getCustomerData": {
-      "post": {
+    "/irf-extension-api/api/v1.0.0/party/customers/getCustomerData?customerNo=$coreCustomerId&_fabric=T24irfextension_getCustomerData": {
+      "get": {
         "tags": [
           "T24irfextension"
         ],
@@ -1233,11 +1307,17 @@
         "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/party/customers/getCustomerData?customerNo=$coreCustomerId",
         "x-external-endpoint-method": "GET",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/T24irfextension/1.0/Operations/getCustomerData.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24irfextension/getPaymentsBeneficiaries": {
-      "post": {
+    "/irf-extension-api/api/v1.0.0/party/beneficiaries/$owningCustomer/$owningAccount?_fabric=T24irfextension_getPaymentsBeneficiaries": {
+      "get": {
         "tags": [
           "T24irfextension"
         ],
@@ -1290,11 +1370,17 @@
         "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/party/beneficiaries/$owningCustomer/$owningAccount",
         "x-external-endpoint-method": "GET",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/T24irfextension/1.0/Operations/getPaymentsBeneficiaries.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24irfextension/updateCustomer": {
-      "post": {
+    "/irf-extension-api/api/v1.0.0/party/customers/updateCustomer/$coreCustomerId?_fabric=T24irfextension_updateCustomer": {
+      "put": {
         "tags": [
           "T24irfextension"
         ],
@@ -1425,11 +1511,17 @@
         "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/party/customers/updateCustomer/$coreCustomerId",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/T24irfextension/1.0/Operations/updateCustomer.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24irfextension/updateCustomerContact": {
-      "post": {
+    "/irf-extension-api/api/v1.0.0/party/customers/updateCustomer/$coreCustomerId?_fabric=T24irfextension_updateCustomerContact": {
+      "put": {
         "tags": [
           "T24irfextension"
         ],
@@ -1599,11 +1691,17 @@
         "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/party/customers/updateCustomer/$coreCustomerId",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/T24irfextension/1.0/Operations/updateCustomerContact.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24irfextension/updateCustomerIncome": {
-      "post": {
+    "/irf-extension-api/api/v1.0.0/party/customers/updateIncomeAssets/$coreCustomerId?_fabric=T24irfextension_updateCustomerIncome": {
+      "put": {
         "tags": [
           "T24irfextension"
         ],
@@ -1664,11 +1762,17 @@
         "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/party/customers/updateIncomeAssets/$coreCustomerId",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/T24irfextension/1.0/Operations/updateCustomerIncome.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24irfprovider/customerData": {
-      "post": {
+    "/irf-provider-container/api/v1.1.0/party/onboarding/customers/1000000601": {
+      "get": {
         "tags": [
           "T24irfprovider"
         ],
@@ -1712,11 +1816,17 @@
         "x-external-endpoint-url": "https://transact-api-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-provider-container/api/v1.1.0/party/onboarding/customers/1000000601",
         "x-external-endpoint-method": "GET",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/T24irfprovider/1.0/Operations/customerData.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://transact-api-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24irfprovider/getAccountDetailsV2": {
-      "post": {
+    "/irf-provider-container/api/v2.0.0/holdings/accounts/$accountId": {
+      "get": {
         "tags": [
           "T24irfprovider"
         ],
@@ -1765,11 +1875,17 @@
         "x-external-endpoint-url": "https://transact-api-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-provider-container/api/v2.0.0/holdings/accounts/$accountId",
         "x-external-endpoint-method": "GET",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/T24irfprovider/1.0/Operations/getAccountDetailsV2.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://transact-api-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24irfprovider/getAccountDetailsV9": {
-      "post": {
+    "/irf-provider-container/api/v9.4.0/holdings/accounts/accountsDetails?accountId=$accountId": {
+      "get": {
         "tags": [
           "T24irfprovider"
         ],
@@ -1818,11 +1934,17 @@
         "x-external-endpoint-url": "https://transact-api-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-provider-container/api/v9.4.0/holdings/accounts/accountsDetails?accountId=$accountId",
         "x-external-endpoint-method": "GET",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/T24irfprovider/1.0/Operations/getAccountDetailsV9.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://transact-api-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24irfprovider/getCustomerAccounts": {
-      "post": {
+    "/irf-provider-container/api/v4.0.0/holdings/customers/$coreCustomerId/holdings": {
+      "get": {
         "tags": [
           "T24irfprovider"
         ],
@@ -1871,11 +1993,17 @@
         "x-external-endpoint-url": "https://transact-api-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-provider-container/api/v4.0.0/holdings/customers/$coreCustomerId/holdings",
         "x-external-endpoint-method": "GET",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/T24irfprovider/1.0/Operations/getCustomerAccounts.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://transact-api-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24irfprovider/getJobList": {
-      "post": {
+    "/irf-provider-container/api/v1.0.0/reference/jobTitles/": {
+      "get": {
         "tags": [
           "T24irfprovider"
         ],
@@ -1928,11 +2056,17 @@
         "x-external-endpoint-url": "https://transact-api-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-provider-container/api/v1.0.0/reference/jobTitles/",
         "x-external-endpoint-method": "GET",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/T24irfprovider/1.0/Operations/getJobList.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://transact-api-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24irfprovider/getTransactionHistory": {
-      "post": {
+    "/irf-provider-container/api//v2.3.0/holdings/transactions?listType=RECENT&accountId=$accountId&statementSortMethod=DESCENDING&suppressMaskEntries=YES&transactionCount=20": {
+      "get": {
         "tags": [
           "T24irfprovider"
         ],
@@ -1981,10 +2115,16 @@
         "x-external-endpoint-url": "https://transact-api-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-provider-container/api//v2.3.0/holdings/transactions?listType=RECENT&accountId=$accountId&statementSortMethod=DESCENDING&suppressMaskEntries=YES&transactionCount=20",
         "x-external-endpoint-method": "GET",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/T24irfprovider/1.0/Operations/getTransactionHistory.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://transact-api-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/asaptech/NewOperation": {
+    "/device-administration/api/v1/auth/login": {
       "post": {
         "tags": [
           "asaptech"
@@ -2018,11 +2158,17 @@
         "x-external-endpoint-url": "https://api-corebanx-gate-layer-apicast-staging.apps.clu3-qa.bancoamazonia.sa/device-administration/api/v1/auth/login",
         "x-external-endpoint-method": "POST",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/asaptech/1.0/Operations/NewOperation.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://api-corebanx-gate-layer-apicast-staging.apps.clu3-qa.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/authCube/forgotPassword": {
-      "post": {
+    "/api/applications/BasaSIT/users/$username": {
+      "put": {
         "tags": [
           "authCube"
         ],
@@ -2102,11 +2248,17 @@
         "x-external-endpoint-url": "https://oauthcube-devqa.basa.com.br/api/applications/BasaSIT/users/$username",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/authCube/1.0/Operations/forgotPassword.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://oauthcube-devqa.basa.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/authCube/getLoginCookies": {
-      "post": {
+    "/api/BasaSIT/login": {
+      "get": {
         "tags": [
           "authCube"
         ],
@@ -2154,10 +2306,97 @@
         "x-external-endpoint-url": "https://oauthcube-devqa.basa.com.br/api/BasaSIT/login",
         "x-external-endpoint-method": "GET",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/authCube/1.0/Operations/getLoginCookies.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://oauthcube-devqa.basa.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "authCube"
+        ],
+        "operationId": "authCube_postUserCredentials",
+        "summary": "postUserCredentials",
+        "description": "Kony/Temenos Fabric integration operation. Internally proxies to external endpoint: `POST https://oauthcube-devqa.basa.com.br/api/BasaSIT/login`. Security level: `authorized_app_user`.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "***REDACTED***"
+            }
+          },
+          {
+            "name": "Cookie",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "session=.eJx1UMtuwyAQ_Je91o6KY2zDqe0fVD1WkUVglSBhsHg4qqL-e5dG6SXqbZjZnRn2CvOKcVEefQaZY8EG1LqChDeV1Mf7K9C75POc7YIg2Th1fOh7xhpw4XRCM1t_34vBYQL5eV-VqhibEznciZIwJhlRmQfyEm3GGmYWcmxAO1srNWBwQxeoJGHrN5qqaI12sw5rgb_J6tsG774IV1M4NJDURiO_EdTs-vA3XJR1xKApKpqwO4Z4wvSSib1Yb9Jlp8NS887B4-zLciRfCU-c90wIJvquH4eqW51LpAv54twt3qt6MWBs2nM-TGLYw_fhJs3WkKJENzx3k26NoOI9ctEeR6ZaMRoxTFzrUe_hf68fqtONSw.aj_GOw.TDO5birec2AGSwaXB4VRR-AhEGQ"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "example": "11835568963"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "***REDACTED***"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Raw JSON response passed through from the external system (no explicit field-level output mapping is defined on this connector operation)."
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "x-external-endpoint-url": "https://oauthcube-devqa.basa.com.br/api/BasaSIT/login",
+        "x-external-endpoint-method": "POST",
+        "x-source-file": "BASA (v1.0)/Apps/_Integration/authCube/1.0/Operations/postUserCredentials.xml",
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://oauthcube-devqa.basa.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/authCube/login": {
+    "/BasaSIT/connect/token": {
       "post": {
         "tags": [
           "authCube"
@@ -2255,88 +2494,17 @@
         "x-external-endpoint-url": "https://oauthcube-devqa.basa.com.br/BasaSIT/connect/token",
         "x-external-endpoint-method": "POST",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/authCube/1.0/Operations/login.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://oauthcube-devqa.basa.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/authCube/postUserCredentials": {
-      "post": {
-        "tags": [
-          "authCube"
-        ],
-        "operationId": "authCube_postUserCredentials",
-        "summary": "postUserCredentials",
-        "description": "Kony/Temenos Fabric integration operation. Internally proxies to external endpoint: `POST https://oauthcube-devqa.basa.com.br/api/BasaSIT/login`. Security level: `authorized_app_user`.",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "example": "***REDACTED***"
-            }
-          },
-          {
-            "name": "Cookie",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "example": "session=.eJx1UMtuwyAQ_Je91o6KY2zDqe0fVD1WkUVglSBhsHg4qqL-e5dG6SXqbZjZnRn2CvOKcVEefQaZY8EG1LqChDeV1Mf7K9C75POc7YIg2Th1fOh7xhpw4XRCM1t_34vBYQL5eV-VqhibEznciZIwJhlRmQfyEm3GGmYWcmxAO1srNWBwQxeoJGHrN5qqaI12sw5rgb_J6tsG774IV1M4NJDURiO_EdTs-vA3XJR1xKApKpqwO4Z4wvSSib1Yb9Jlp8NS887B4-zLciRfCU-c90wIJvquH4eqW51LpAv54twt3qt6MWBs2nM-TGLYw_fhJs3WkKJENzx3k26NoOI9ctEeR6ZaMRoxTFzrUe_hf68fqtONSw.aj_GOw.TDO5birec2AGSwaXB4VRR-AhEGQ"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "username": {
-                    "type": "string",
-                    "example": "11835568963"
-                  },
-                  "password": {
-                    "type": "string",
-                    "example": "***REDACTED***"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "description": "Raw JSON response passed through from the external system (no explicit field-level output mapping is defined on this connector operation)."
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Error response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "x-external-endpoint-url": "https://oauthcube-devqa.basa.com.br/api/BasaSIT/login",
-        "x-external-endpoint-method": "POST",
-        "x-source-file": "BASA (v1.0)/Apps/_Integration/authCube/1.0/Operations/postUserCredentials.xml",
-        "x-project": "BASA"
-      }
-    },
-    "/authCube/updateTransactionId": {
-      "post": {
+    "/api/applications/BasaSIT/users/$username?_fabric=authCube_updateTransactionId": {
+      "put": {
         "tags": [
           "authCube"
         ],
@@ -2398,10 +2566,16 @@
         "x-external-endpoint-url": "https://oauthcube-devqa.basa.com.br/api/applications/BasaSIT/users/$username",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/authCube/1.0/Operations/updateTransactionId.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://oauthcube-devqa.basa.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/authCube/validatePassword": {
+    "/api/BasaSIT/login?_fabric=authCube_validatePassword": {
       "post": {
         "tags": [
           "authCube"
@@ -2466,10 +2640,16 @@
         "x-external-endpoint-url": "https://oauthcube-devqa.basa.com.br/api/BasaSIT/login",
         "x-external-endpoint-method": "POST",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/authCube/1.0/Operations/validatePassword.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://oauthcube-devqa.basa.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/dbpDbxCustomerLogin/CustomerLogin": {
+    "/services/dbpProductServices/CustomerLogin": {
       "post": {
         "tags": [
           "dbpDbxCustomerLogin"
@@ -2656,10 +2836,16 @@
         "x-external-endpoint-url": "https://_$_DBP_HOST_URL_$_/services/dbpProductServices/CustomerLogin",
         "x-external-endpoint-method": "POST",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/dbpDbxCustomerLogin/1.0/Operations/CustomerLogin.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://_$_dbp_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/dbpDbxCustomerLoginExtension/CustomerLoginExtension": {
+    "/services/BasaDbxJavaServices/dbxCustomerLogin": {
       "post": {
         "tags": [
           "dbpDbxCustomerLoginExtension"
@@ -2858,10 +3044,16 @@
         "x-external-endpoint-url": "https://_$_DBP_HOST_URL_$_/services/BasaDbxJavaServices/dbxCustomerLogin",
         "x-external-endpoint-method": "POST",
         "x-source-file": "BASA (v1.0)/Apps/_Integration/dbpDbxCustomerLoginExtension/1.0/Operations/CustomerLoginExtension.xml",
-        "x-project": "BASA"
+        "x-project": "BASA",
+        "servers": [
+          {
+            "url": "https://_$_dbp_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/IDVerseJSONServices/oauthToken": {
+    "/api/3.5/oauthToken": {
       "post": {
         "tags": [
           "IDVerseJSONServices"
@@ -2929,10 +3121,16 @@
         "x-external-endpoint-url": "https://staging.bancobasa.idkit.co/api/3.5/oauthToken",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/IDVerseJSONServices/1.0/Operations/oauthToken.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://staging.bancobasa.idkit.co",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/IDVerseJSONServices/storeTransaction": {
+    "/api/3.5/storeTransaction": {
       "post": {
         "tags": [
           "IDVerseJSONServices"
@@ -3024,10 +3222,16 @@
         "x-external-endpoint-url": "https://staging.bancobasa.idkit.co/api/3.5/storeTransaction",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/IDVerseJSONServices/1.0/Operations/storeTransaction.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://staging.bancobasa.idkit.co",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/MilestoneServices/acceptedTerms": {
+    "/v1/onboarding/accept-terms": {
       "post": {
         "tags": [
           "MilestoneServices"
@@ -3076,10 +3280,16 @@
         "x-external-endpoint-url": "https://uat-onboarding.corebanxapp.com.br/v1/onboarding/accept-terms",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/MilestoneServices/1.0/Operations/acceptedTerms.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://uat-onboarding.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/MilestoneServices/checkCPF": {
+    "/v1/onboarding/check-cpf": {
       "post": {
         "tags": [
           "MilestoneServices"
@@ -3154,10 +3364,16 @@
         "x-external-endpoint-url": "https://uat-onboarding.corebanxapp.com.br/v1/onboarding/check-cpf",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/MilestoneServices/1.0/Operations/checkCPF.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://uat-onboarding.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/MilestoneServices/createEntity": {
+    "/v1/onboarding/entities": {
       "post": {
         "tags": [
           "MilestoneServices"
@@ -3250,10 +3466,16 @@
         "x-external-endpoint-url": "https://uat-onboarding.corebanxapp.com.br/v1/onboarding/entities",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/MilestoneServices/1.0/Operations/createEntity.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://uat-onboarding.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/MilestoneServices/deleteEntity": {
+    "/v1/onboarding/reset/entity": {
       "post": {
         "tags": [
           "MilestoneServices"
@@ -3305,11 +3527,17 @@
         "x-external-endpoint-url": "https://uat-onboarding.corebanxapp.com.br/v1/onboarding/reset/entity",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/MilestoneServices/1.0/Operations/deleteEntity.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://uat-onboarding.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/MilestoneServices/loginEntity": {
-      "post": {
+    "/v1/onboarding/info": {
+      "get": {
         "tags": [
           "MilestoneServices"
         ],
@@ -3513,10 +3741,16 @@
         "x-external-endpoint-url": "https://uat-onboarding.corebanxapp.com.br/v1/onboarding/info",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/MilestoneServices/1.0/Operations/loginEntity.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://uat-onboarding.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/MilestoneServices/submitEntity": {
+    "/v1/onboarding/submit": {
       "post": {
         "tags": [
           "MilestoneServices"
@@ -3561,11 +3795,17 @@
         "x-external-endpoint-url": "https://uat-onboarding.corebanxapp.com.br/v1/onboarding/submit",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/MilestoneServices/1.0/Operations/submitEntity.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://uat-onboarding.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/MilestoneServices/updateBusiness": {
-      "post": {
+    "/v1/entities/update": {
+      "put": {
         "tags": [
           "MilestoneServices"
         ],
@@ -3633,11 +3873,17 @@
         "x-external-endpoint-url": "https://uat-onboarding.corebanxapp.com.br/v1/entities/update",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/MilestoneServices/1.0/Operations/updateBusiness.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://uat-onboarding.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/MilestoneServices/updateCNPJ": {
-      "post": {
+    "/v1/entities/person/cnpj/$cnpj": {
+      "put": {
         "tags": [
           "MilestoneServices"
         ],
@@ -3709,11 +3955,17 @@
         "x-external-endpoint-url": "https://uat-onboarding.corebanxapp.com.br/v1/entities/person/cnpj/$cnpj",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/MilestoneServices/1.0/Operations/updateCNPJ.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://uat-onboarding.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/MilestoneServices/updatePerson": {
-      "post": {
+    "/v1/onboarding/demographics": {
+      "put": {
         "tags": [
           "MilestoneServices"
         ],
@@ -3848,10 +4100,16 @@
         "x-external-endpoint-url": "https://uat-onboarding.corebanxapp.com.br/v1/onboarding/demographics",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/MilestoneServices/1.0/Operations/updatePerson.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://uat-onboarding.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/MilestoneServices/updateSessionId": {
+    "/v1/onboarding/threat-metrix?session_id=$session_id?&ip_address=$ipAddress&web_session_id=$webSessionId": {
       "post": {
         "tags": [
           "MilestoneServices"
@@ -3931,10 +4189,16 @@
         "x-external-endpoint-url": "https://uat-onboarding.corebanxapp.com.br/v1/onboarding/threat-metrix?session_id=$session_id?&ip_address=$ipAddress&web_session_id=$webSessionId",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/MilestoneServices/1.0/Operations/updateSessionId.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://uat-onboarding.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/MilestoneServices/uploadSocialContract": {
+    "/v1/upload/files/business/social_contract": {
       "post": {
         "tags": [
           "MilestoneServices"
@@ -3998,10 +4262,16 @@
         "x-external-endpoint-url": "https://uat-onboarding.corebanxapp.com.br/v1/upload/files/business/social_contract",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/MilestoneServices/1.0/Operations/uploadSocialContract.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://uat-onboarding.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/NeoBizTermsJSONServices/consultaCEP": {
+    "/bpm/app/public/consultar/endereco": {
       "post": {
         "tags": [
           "NeoBizTermsJSONServices"
@@ -4071,10 +4341,16 @@
         "x-external-endpoint-url": "https://plataforma.neobiz.com.br/bpm/app/public/consultar/endereco",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/NeoBizTermsJSONServices/1.0/Operations/consultaCEP.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://plataforma.neobiz.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/NeoBizTermsJSONServices/inserirAceiteDeTermos": {
+    "/bpm/app/public/insereAceiteTermosCondicoes": {
       "post": {
         "tags": [
           "NeoBizTermsJSONServices"
@@ -4179,10 +4455,16 @@
         "x-external-endpoint-url": "https://plataforma.neobiz.com.br/bpm/app/public/insereAceiteTermosCondicoes",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/NeoBizTermsJSONServices/1.0/Operations/inserirAceiteDeTermos.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://plataforma.neobiz.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/NeoBizTermsJSONServices/inserirAceiteDeTermosPostLogin": {
+    "/bpm/app/public/insereAceiteTermosCondicoes?_fabric=NeoBizTermsJSONServices_inserirAceiteDeTermosPostLogin": {
       "post": {
         "tags": [
           "NeoBizTermsJSONServices"
@@ -4288,11 +4570,17 @@
         "x-external-endpoint-url": "https://plataforma.neobiz.com.br/bpm/app/public/insereAceiteTermosCondicoes",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/NeoBizTermsJSONServices/1.0/Operations/inserirAceiteDeTermosPostLogin.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://plataforma.neobiz.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/NeoBizTermsJSONServices/obtemModeloDocumento": {
-      "post": {
+    "/bpm/app/public/obtemModeloDocumento?modelo=$modelo&assuntoId=$assuntoId": {
+      "get": {
         "tags": [
           "NeoBizTermsJSONServices"
         ],
@@ -4368,10 +4656,16 @@
         "x-external-endpoint-url": "https://plataforma.neobiz.com.br/bpm/app/public/obtemModeloDocumento?modelo=$modelo&assuntoId=$assuntoId",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/NeoBizTermsJSONServices/1.0/Operations/obtemModeloDocumento.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://plataforma.neobiz.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/NeoBizTermsJSONServices/pesquisaAceiteTermosCondicoes": {
+    "/bpm/app/public/pesquisaAceiteTermosCondicoes": {
       "post": {
         "tags": [
           "NeoBizTermsJSONServices"
@@ -4463,10 +4757,16 @@
         "x-external-endpoint-url": "https://plataforma.neobiz.com.br/bpm/app/public/pesquisaAceiteTermosCondicoes",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/NeoBizTermsJSONServices/1.0/Operations/pesquisaAceiteTermosCondicoes.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://plataforma.neobiz.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/OnboardingIRISServices/createCustomer": {
+    "/irf-extension-api/api/v1.0.0/party/customers/createCustomer?_fabric=OnboardingIRISServices_createCustomer": {
       "post": {
         "tags": [
           "OnboardingIRISServices"
@@ -4666,11 +4966,17 @@
         "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/party/customers/createCustomer",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/OnboardingIRISServices/1.0/Operations/createCustomer.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/OnboardingIRISServices/getCustomerData": {
-      "post": {
+    "/irf-extension-api/api/v1.0.0/party/customers/getCustomerData?mnemonic=$cpf": {
+      "get": {
         "tags": [
           "OnboardingIRISServices"
         ],
@@ -4719,11 +5025,17 @@
         "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/party/customers/getCustomerData?mnemonic=$cpf",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/OnboardingIRISServices/1.0/Operations/getCustomerData.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/OnboardingIRISServices/updateIncomeAssets": {
-      "post": {
+    "/irf-extension-api/api/v1.0.0/party/customers/updateIncomeAssets/$coreCustomerId?_fabric=OnboardingIRISServices_updateIncomeAssets": {
+      "put": {
         "tags": [
           "OnboardingIRISServices"
         ],
@@ -4801,10 +5113,16 @@
         "x-external-endpoint-url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/v1.0.0/party/customers/updateIncomeAssets/$coreCustomerId",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/OnboardingIRISServices/1.0/Operations/updateIncomeAssets.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/OnboardingT24Utils/createAccount": {
+    "/irf-provider-container/api/v9.4.0/holdings/accounts/currentAccounts": {
       "post": {
         "tags": [
           "OnboardingT24Utils"
@@ -4890,11 +5208,17 @@
         "x-external-endpoint-url": "https://transact-api-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-provider-container/api/v9.4.0/holdings/accounts/currentAccounts",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/OnboardingT24Utils/1.0/Operations/createAccount.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://transact-api-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/OnboardingT24Utils/getJobList": {
-      "post": {
+    "/irf-provider-container/api/v1.0.0/reference/jobTitles?page_size=2700": {
+      "get": {
         "tags": [
           "OnboardingT24Utils"
         ],
@@ -4938,11 +5262,17 @@
         "x-external-endpoint-url": "https://transact-api-transact-uat.apps.ocp-core-stage.bancoamazonia.sa/irf-provider-container/api/v1.0.0/reference/jobTitles?page_size=2700",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Onboarding (v1.0)/Apps/_Integration/OnboardingT24Utils/1.0/Operations/getJobList.xml",
-        "x-project": "Onboarding"
+        "x-project": "Onboarding",
+        "servers": [
+          {
+            "url": "https://transact-api-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/NeoBizDocumentsJSONService/getFile": {
-      "post": {
+    "/service/ecmcore/api/v1/documents/$documentId/files/$fileUniqueId": {
+      "get": {
         "tags": [
           "NeoBizDocumentsJSONService"
         ],
@@ -5027,10 +5357,16 @@
         "x-external-endpoint-url": "https://api.lecom.com.br/service/ecmcore/api/v1/documents/$documentId/files/$fileUniqueId",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Documents (v1.0)/Apps/_Integration/NeoBizDocumentsJSONService/1.0/Operations/getFile.xml",
-        "x-project": "Documents"
+        "x-project": "Documents",
+        "servers": [
+          {
+            "url": "https://api.lecom.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/NeoBizDocumentsJSONService/saveFile": {
+    "/service/ecmcore/api/v1/templates/168/documents": {
       "post": {
         "tags": [
           "NeoBizDocumentsJSONService"
@@ -5096,11 +5432,17 @@
         "x-external-endpoint-url": "https://api.lecom.com.br/service/ecmcore/api/v1/templates/168/documents",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Documents (v1.0)/Apps/_Integration/NeoBizDocumentsJSONService/1.0/Operations/saveFile.xml",
-        "x-project": "Documents"
+        "x-project": "Documents",
+        "servers": [
+          {
+            "url": "https://api.lecom.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/ArrangementsT24Services/getBlockedFunds": {
-      "post": {
+    "/v2.0.0/holdings/accounts/reservedFunds?$filter": {
+      "get": {
         "tags": [
           "ArrangementsT24Services"
         ],
@@ -5208,11 +5550,17 @@
         "x-external-endpoint-url": "https://_$_T24_TRANSACTIONS_HOST_URL_$_/v2.0.0/holdings/accounts/reservedFunds?$filter",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/ArrangementsT24Services/1.0/Operations/getBlockedFunds.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_t24_transactions_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/ArrangementsT24Services/getPendingTransactions": {
-      "post": {
+    "/v2.0.0/holdings/transactions?listType=PENDING&transactionCode=$transactionType&accountId=$accountID&dateFrom=$searchStartDate&page_size=$limit&page_start=$page_start&dateTo=$searchEndDate&minimumAmount=$searchMinAmount&maximumAmount=$searchMaxAmount": {
+      "get": {
         "tags": [
           "ArrangementsT24Services"
         ],
@@ -5324,11 +5672,17 @@
         "x-external-endpoint-url": "https://_$_T24_TRANSACTIONS_HOST_URL_$_/v2.0.0/holdings/transactions?listType=PENDING&transactionCode=$transactionType&accountId=$accountID&dateFrom=$searchStartDate&page_size=$limit&page_start=$page_start&dateTo=$searchEndDate&minimumAmount=$searchMinAmount&maximumAmount=$searchMaxAmount",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/ArrangementsT24Services/1.0/Operations/getPendingTransactions.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_t24_transactions_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/ArrangementsT24Services/getUserPaymentOrders": {
-      "post": {
+    "/v1.0.0/order/paymentOrders?page_size=$pageSize&currentPaymentState=$currentPaymentState&paymentExecutionDateGT=$searchStartDate&paymentExecutionDateLE=$searchEndDate&debitAccountId=$debitAccountId": {
+      "get": {
         "tags": [
           "ArrangementsT24Services"
         ],
@@ -5419,11 +5773,17 @@
         "x-external-endpoint-url": "https://_$_T24_TRANSACTIONS_HOST_URL_$_/v1.0.0/order/paymentOrders?page_size=$pageSize&currentPaymentState=$currentPaymentState&paymentExecutionDateGT=$searchStartDate&paymentExecutionDateLE=$searchEndDate&debitAccountId=$debitAccountId",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/ArrangementsT24Services/1.0/Operations/getUserPaymentOrders.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_t24_transactions_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/ArrangementsT24Services/getUserStandingOrders": {
-      "post": {
+    "/v1.0.0/order/standingOrders?accountId=$accountId": {
+      "get": {
         "tags": [
           "ArrangementsT24Services"
         ],
@@ -5501,11 +5861,17 @@
         "x-external-endpoint-url": "https://_$_T24_TRANSACTIONS_HOST_URL_$_/v1.0.0/order/standingOrders?accountId=$accountId",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/ArrangementsT24Services/1.0/Operations/getUserStandingOrders.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_t24_transactions_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/HoldingsMicroServicesJSON/getAccountBalances": {
-      "post": {
+    "/api/v3.0.0/holdings/accounts/$accountId/balances?roleId=ADMIN": {
+      "get": {
         "tags": [
           "HoldingsMicroServicesJSON"
         ],
@@ -5601,11 +5967,17 @@
         "x-external-endpoint-url": "https://_$_HOLDINGS_HOST_URL_$_/api/v3.0.0/holdings/accounts/$accountId/balances?roleId=ADMIN",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/HoldingsMicroServicesJSON/1.0/Operations/getAccountBalances.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_holdings_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/HoldingsMicroServicesJSON/getAccountPostedTransactions": {
-      "post": {
+    "/api/v3.0.0/holdings/accounts/$accountId/transactions?roleId=ADMIN&pageSize=$limit": {
+      "get": {
         "tags": [
           "HoldingsMicroServicesJSON"
         ],
@@ -5704,11 +6076,17 @@
         "x-external-endpoint-url": "https://_$_HOLDINGS_HOST_URL_$_/api/v3.0.0/holdings/accounts/$accountId/transactions?roleId=ADMIN&pageSize=$limit",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/HoldingsMicroServicesJSON/1.0/Operations/getAccountPostedTransactions.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_holdings_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/HoldingsMicroServicesJSON/getPortfolioDetails": {
-      "post": {
+    "/api/v3.0.0/holdings/portfolios/$portfolioId/portfolioValues": {
+      "get": {
         "tags": [
           "HoldingsMicroServicesJSON"
         ],
@@ -5804,11 +6182,17 @@
         "x-external-endpoint-url": "https://_$_HOLDINGS_HOST_URL_$_/api/v3.0.0/holdings/portfolios/$portfolioId/portfolioValues",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/HoldingsMicroServicesJSON/1.0/Operations/getPortfolioDetails.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_holdings_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/HoldingsMicroServicesJSON/searchTransactions": {
-      "post": {
+    "/api/v3.0.0/holdings/accounts/$accountId/transactions?transactionType=$transactionType&minAmount=$searchMinAmount&maxAmount=$searchMaxAmount&pageNumber=$offset&pageSize=$limit&fromDate=$searchStartDate&toDate=$searchEndDate&description=$searchDescription&roleId=ADMIN&transactionId=$transactionId": {
+      "get": {
         "tags": [
           "HoldingsMicroServicesJSON"
         ],
@@ -5940,11 +6324,17 @@
         "x-external-endpoint-url": "https://_$_HOLDINGS_HOST_URL_$_/api/v3.0.0/holdings/accounts/$accountId/transactions?transactionType=$transactionType&minAmount=$searchMinAmount&maxAmount=$searchMaxAmount&pageNumber=$offset&pageSize=$limit&fromDate=$searchStartDate&toDate=$searchEndDate&description=$searchDescription&roleId=ADMIN&transactionId=$transactionId",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/HoldingsMicroServicesJSON/1.0/Operations/searchTransactions.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_holdings_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/HoldingsMicroServicesJSON/searchTransactionsTimed": {
-      "post": {
+    "/api/v3.0.0/holdings/accounts/$accountId/transactions?transactionType=$transactionType&minAmount=$searchMinAmount&maxAmount=$searchMaxAmount&pageNumber=$offset&pageSize=$limit&fromDate=$searchStartDate&toDate=$searchEndDate&description=$searchDescription&roleId=ADMIN&transactionId=$transactionId&_fabric=HoldingsMicroServicesJSON_searchTransactionsTimed": {
+      "get": {
         "tags": [
           "HoldingsMicroServicesJSON"
         ],
@@ -6076,11 +6466,17 @@
         "x-external-endpoint-url": "https://_$_HOLDINGS_HOST_URL_$_/api/v3.0.0/holdings/accounts/$accountId/transactions?transactionType=$transactionType&minAmount=$searchMinAmount&maxAmount=$searchMaxAmount&pageNumber=$offset&pageSize=$limit&fromDate=$searchStartDate&toDate=$searchEndDate&description=$searchDescription&roleId=ADMIN&transactionId=$transactionId",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/HoldingsMicroServicesJSON/1.0/Operations/searchTransactionsTimed.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_holdings_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24IrisArrangementServices/SettlementAccountMock": {
-      "post": {
+    "/": {
+      "get": {
         "tags": [
           "T24IrisArrangementServices"
         ],
@@ -6138,11 +6534,17 @@
         "x-external-endpoint-url": "https://_$_T24_ACCOUNTS_HOST_URL_$_",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/T24IrisArrangementServices/1.0/Operations/SettlementAccountMock.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_t24_accounts_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24IrisArrangementServices/SettlementAccountT24": {
-      "post": {
+    "/v9.0.0/holdings/deposits/$depositAccountId/settlements": {
+      "put": {
         "tags": [
           "T24IrisArrangementServices"
         ],
@@ -6232,11 +6634,17 @@
         "x-external-endpoint-url": "https://_$_T24_ACCOUNTS_HOST_URL_$_/v9.0.0/holdings/deposits/$depositAccountId/settlements",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/T24IrisArrangementServices/1.0/Operations/SettlementAccountT24.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_t24_accounts_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24IrisArrangementServices/getAccountsByAccountId": {
-      "post": {
+    "/v1.0.0/holdings?holdingsId=$Account_id": {
+      "get": {
         "tags": [
           "T24IrisArrangementServices"
         ],
@@ -6329,11 +6737,17 @@
         "x-external-endpoint-url": "https://_$_T24_ACCOUNTS_HOST_URL_$_/v1.0.0/holdings?holdingsId=$Account_id",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/T24IrisArrangementServices/1.0/Operations/getAccountsByAccountId.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_t24_accounts_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24IrisArrangementServices/getLatestBalances": {
-      "post": {
+    "/v1.0.0/holdings?holdingsId=$Account_id&_fabric=T24IrisArrangementServices_getLatestBalances": {
+      "get": {
         "tags": [
           "T24IrisArrangementServices"
         ],
@@ -6401,11 +6815,17 @@
         "x-external-endpoint-url": "https://_$_T24_ACCOUNTS_HOST_URL_$_/v1.0.0/holdings?holdingsId=$Account_id",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/T24IrisArrangementServices/1.0/Operations/getLatestBalances.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_t24_accounts_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24IrisArrangementServices/updateAccountNickName": {
-      "post": {
+    "/v1.0.0/holdings/products/$arrangementId": {
+      "put": {
         "tags": [
           "T24IrisArrangementServices"
         ],
@@ -6495,11 +6915,17 @@
         "x-external-endpoint-url": "https://_$_T24_ACCOUNTS_HOST_URL_$_/v1.0.0/holdings/products/$arrangementId",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/T24IrisArrangementServices/1.0/Operations/updateAccountNickName.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_t24_accounts_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24IrisArrangementServices/updateCheckingAccNickName": {
-      "post": {
+    "/v1.0.0/holdings/products/$arrangementId?_fabric=T24IrisArrangementServices_updateCheckingAccNickName": {
+      "put": {
         "tags": [
           "T24IrisArrangementServices"
         ],
@@ -6589,11 +7015,17 @@
         "x-external-endpoint-url": "https://_$_T24_ACCOUNTS_HOST_URL_$_/v1.0.0/holdings/products/$arrangementId",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/T24IrisArrangementServices/1.0/Operations/updateCheckingAccNickName.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_t24_accounts_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24IrisArrangementServices/updateDepositAccNickName": {
-      "post": {
+    "/v1.0.0/holdings/products/$arrangementId?_fabric=T24IrisArrangementServices_updateDepositAccNickName": {
+      "put": {
         "tags": [
           "T24IrisArrangementServices"
         ],
@@ -6683,11 +7115,17 @@
         "x-external-endpoint-url": "https://_$_T24_ACCOUNTS_HOST_URL_$_/v1.0.0/holdings/products/$arrangementId",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/T24IrisArrangementServices/1.0/Operations/updateDepositAccNickName.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_t24_accounts_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24IrisArrangementServices/updateEStatementPreferences": {
-      "post": {
+    "/v1.0.0/holdings/products/$arrangementId?_fabric=T24IrisArrangementServices_updateEStatementPreferences": {
+      "put": {
         "tags": [
           "T24IrisArrangementServices"
         ],
@@ -6817,11 +7255,17 @@
         "x-external-endpoint-url": "https://_$_T24_ACCOUNTS_HOST_URL_$_/v1.0.0/holdings/products/$arrangementId",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/T24IrisArrangementServices/1.0/Operations/updateEStatementPreferences.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_t24_accounts_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24IrisArrangementServices/updateLoanAccNickName": {
-      "post": {
+    "/v1.0.0/holdings/products/$arrangementId?_fabric=T24IrisArrangementServices_updateLoanAccNickName": {
+      "put": {
         "tags": [
           "T24IrisArrangementServices"
         ],
@@ -6911,10 +7355,16 @@
         "x-external-endpoint-url": "https://_$_T24_ACCOUNTS_HOST_URL_$_/v1.0.0/holdings/products/$arrangementId",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/T24IrisArrangementServices/1.0/Operations/updateLoanAccNickName.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_t24_accounts_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24MortgageServices/CreatePayoffSimulation": {
+    "/v6.0.0/holdings/loans/$arrangementId/simulations/payoffs": {
       "post": {
         "tags": [
           "T24MortgageServices"
@@ -6994,11 +7444,17 @@
         "x-external-endpoint-url": "https://_$_T24_ACCOUNTS_HOST_URL_$_/v6.0.0/holdings/loans/$arrangementId/simulations/payoffs",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/T24MortgageServices/1.0/Operations/CreatePayoffSimulation.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_t24_accounts_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24MortgageServices/getAccounts": {
-      "post": {
+    "/v2.0.0/holdings/customers/$coreCustomerIdList/holdings": {
+      "get": {
         "tags": [
           "T24MortgageServices"
         ],
@@ -7054,11 +7510,17 @@
         "x-external-endpoint-url": "https://_$_T24_ACCOUNTS_HOST_URL_$_/v2.0.0/holdings/customers/$coreCustomerIdList/holdings",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/T24MortgageServices/1.0/Operations/getAccounts.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_t24_accounts_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24MortgageServices/getMortgageDrawings": {
-      "post": {
+    "/v3.0.0/holdings/facilities/$arrangementId/drawings": {
+      "get": {
         "tags": [
           "T24MortgageServices"
         ],
@@ -7127,11 +7589,17 @@
         "x-external-endpoint-url": "https://_$_T24_ACCOUNTS_HOST_URL_$_/v3.0.0/holdings/facilities/$arrangementId/drawings",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/T24MortgageServices/1.0/Operations/getMortgageDrawings.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_t24_accounts_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24MortgageServices/getMortgageFacilities": {
-      "post": {
+    "/v3.0.0/holdings/facilities/$arrangementId": {
+      "get": {
         "tags": [
           "T24MortgageServices"
         ],
@@ -7255,11 +7723,17 @@
         "x-external-endpoint-url": "https://_$_T24_ACCOUNTS_HOST_URL_$_/v3.0.0/holdings/facilities/$arrangementId",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/T24MortgageServices/1.0/Operations/getMortgageFacilities.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_t24_accounts_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24MortgageServices/getPayOffSimulationResults": {
-      "post": {
+    "/v6.0.0/holdings/loans/$arrangementId/payoffCalculations": {
+      "get": {
         "tags": [
           "T24MortgageServices"
         ],
@@ -7338,10 +7812,16 @@
         "x-external-endpoint-url": "https://_$_T24_ACCOUNTS_HOST_URL_$_/v6.0.0/holdings/loans/$arrangementId/payoffCalculations",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/T24MortgageServices/1.0/Operations/getPayOffSimulationResults.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_t24_accounts_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/T24MortgageServices/getSimulatedResults": {
+    "/v6.0.0/holdings/loans/$arrangementId/simulations/repayments/schedules": {
       "post": {
         "tags": [
           "T24MortgageServices"
@@ -7449,10 +7929,16 @@
         "x-external-endpoint-url": "https://_$_T24_ACCOUNTS_HOST_URL_$_/v6.0.0/holdings/loans/$arrangementId/simulations/repayments/schedules",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Homepage (v1.0)/Apps/_Integration/T24MortgageServices/1.0/Operations/getSimulatedResults.xml",
-        "x-project": "Homepage"
+        "x-project": "Homepage",
+        "servers": [
+          {
+            "url": "https://_$_t24_accounts_host_url_$_",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/ClaimsService/cancelClaimService": {
+    "/paymentos/jdpi/dict/reivindicacao/$idReivindicacao/cancelar": {
       "post": {
         "tags": [
           "ClaimsService"
@@ -7523,10 +8009,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/dict/reivindicacao/$idReivindicacao/cancelar",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/ClaimsService/1.0/Operations/cancelClaimService.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/ClaimsService/confirmClaimService": {
+    "/paymentos/jdpi/dict/reivindicacao/$idReivindicacao/confirmar": {
       "post": {
         "tags": [
           "ClaimsService"
@@ -7593,10 +8085,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/dict/reivindicacao/$idReivindicacao/confirmar",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/ClaimsService/1.0/Operations/confirmClaimService.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/ClaimsService/createClaimService": {
+    "/paymentos/jdpi/dict/reivindicacao/incluir": {
       "post": {
         "tags": [
           "ClaimsService"
@@ -7686,10 +8184,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/dict/reivindicacao/incluir",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/ClaimsService/1.0/Operations/createClaimService.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/ClaimsService/listClaimsService": {
+    "/paymentos/jdpi/dict/reivindicacao/listar": {
       "post": {
         "tags": [
           "ClaimsService"
@@ -7814,10 +8318,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/dict/reivindicacao/listar",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/ClaimsService/1.0/Operations/listClaimsService.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/OpenidAuthService/getAccessToken": {
+    "/auth/realms/ledgeros/protocol/openid-connect/token": {
       "post": {
         "tags": [
           "OpenidAuthService"
@@ -7902,10 +8412,16 @@
         "x-external-endpoint-url": "https://sit.corebanxapp.com.br/auth/realms/ledgeros/protocol/openid-connect/token",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/OpenidAuthService/1.0/Operations/getAccessToken.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://sit.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/OpenidAuthService/getJdpiToken": {
+    "/paymentos/jdpi/connect/token": {
       "post": {
         "tags": [
           "OpenidAuthService"
@@ -7997,10 +8513,16 @@
         "x-external-endpoint-url": "https://sit.corebanxapp.com.br/paymentos/jdpi/connect/token",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/OpenidAuthService/1.0/Operations/getJdpiToken.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://sit.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixAuthorization/cancel": {
+    "/paymentos/jdpi/pa/autorizacao/$id/cancelar": {
       "post": {
         "tags": [
           "PixAuthorization"
@@ -8081,11 +8603,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/pa/autorizacao/$id/cancelar",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixAuthorization/1.0/Operations/cancel.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixAuthorization/cancelStatus": {
-      "post": {
+    "/paymentos/jdpi/pa/autorizacao/$id/cancelar/$key": {
+      "get": {
         "tags": [
           "PixAuthorization"
         ],
@@ -8147,10 +8675,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/pa/autorizacao/$id/cancelar/$key",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixAuthorization/1.0/Operations/cancelStatus.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixAuthorization/confirm": {
+    "/paymentos/jdpi/pa/autorizacao/$id/confirmar": {
       "post": {
         "tags": [
           "PixAuthorization"
@@ -8267,11 +8801,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/pa/autorizacao/$id/confirmar",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixAuthorization/1.0/Operations/confirm.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixAuthorization/get": {
-      "post": {
+    "/paymentos/jdpi/pa/autorizacao/$id": {
+      "get": {
         "tags": [
           "PixAuthorization"
         ],
@@ -8330,11 +8870,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/pa/autorizacao/$id",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixAuthorization/1.0/Operations/get.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixAuthorization/list": {
-      "post": {
+    "/paymentos/jdpi/pa/autorizacao/lista?fluxo=0&dtHrAtualizacaoRecorrenciaInicio=$dtHrAtualizacaoRecorrenciaInicio&dtHrAtualizacaoRecorrenciaFim=$dtHrAtualizacaoRecorrenciaFim": {
+      "get": {
         "tags": [
           "PixAuthorization"
         ],
@@ -8396,11 +8942,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/pa/autorizacao/lista?fluxo=0&dtHrAtualizacaoRecorrenciaInicio=$dtHrAtualizacaoRecorrenciaInicio&dtHrAtualizacaoRecorrenciaFim=$dtHrAtualizacaoRecorrenciaFim",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixAuthorization/1.0/Operations/list.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixAuthorization/maxValue": {
-      "post": {
+    "/paymentos/jdpi/pa/autorizacao/$id/valor-maximo": {
+      "put": {
         "tags": [
           "PixAuthorization"
         ],
@@ -8484,10 +9036,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/pa/autorizacao/$id/valor-maximo",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixAuthorization/1.0/Operations/maxValue.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixAuthorization/request": {
+    "/paymentos/jdpi/pa/autorizacao": {
       "post": {
         "tags": [
           "PixAuthorization"
@@ -8607,11 +9165,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/pa/autorizacao",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixAuthorization/1.0/Operations/request.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixAuthorization/toRespond": {
-      "post": {
+    "/paymentos/jdpi/pa/autorizacao/$id/responder": {
+      "put": {
         "tags": [
           "PixAuthorization"
         ],
@@ -8700,10 +9264,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/pa/autorizacao/$id/responder",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixAuthorization/1.0/Operations/toRespond.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixAuthorization/validation": {
+    "/paymentos/jdpi/pa/autorizacao/$id/validacao": {
       "post": {
         "tags": [
           "PixAuthorization"
@@ -8784,10 +9354,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/pa/autorizacao/$id/validacao",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixAuthorization/1.0/Operations/validation.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceFraud/cancel": {
+    "/paymentos/jdpi/marcacao-fraude/$id/cancelar": {
       "post": {
         "tags": [
           "PixServiceFraud"
@@ -8869,11 +9445,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/marcacao-fraude/$id/cancelar",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceFraud/1.0/Operations/cancel.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceFraud/get": {
-      "post": {
+    "/paymentos/jdpi/marcacao-fraude/$id": {
+      "get": {
         "tags": [
           "PixServiceFraud"
         ],
@@ -8933,10 +9515,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/marcacao-fraude/$id",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceFraud/1.0/Operations/get.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceFraud/include": {
+    "/paymentos/jdpi/marcacao-fraude/incluir": {
       "post": {
         "tags": [
           "PixServiceFraud"
@@ -9018,11 +9606,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/marcacao-fraude/incluir",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceFraud/1.0/Operations/include.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceFraud/list": {
-      "post": {
+    "/paymentos/jdpi/marcacao-fraude/listar?cpfCnpj=$cpfCnpj": {
+      "get": {
         "tags": [
           "PixServiceFraud"
         ],
@@ -9082,11 +9676,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/marcacao-fraude/listar?cpfCnpj=$cpfCnpj",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceFraud/1.0/Operations/list.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceFraud/listDict": {
-      "post": {
+    "/paymentos/jdpi/marcacao-fraude/listar/dict?cpfCnpj=$cpfCnpj&tpPessoa=0": {
+      "get": {
         "tags": [
           "PixServiceFraud"
         ],
@@ -9146,10 +9746,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/marcacao-fraude/listar/dict?cpfCnpj=$cpfCnpj&tpPessoa=0",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceFraud/1.0/Operations/listDict.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceNarrativeFailure/analyze": {
+    "/paymentos/jdpi/relato-infracao/analisar": {
       "post": {
         "tags": [
           "PixServiceNarrativeFailure"
@@ -9234,10 +9840,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/relato-infracao/analisar",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceNarrativeFailure/1.0/Operations/analyze.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceNarrativeFailure/cancel": {
+    "/paymentos/jdpi/relato-infracao/cancelar": {
       "post": {
         "tags": [
           "PixServiceNarrativeFailure"
@@ -9314,11 +9926,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/relato-infracao/cancelar",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceNarrativeFailure/1.0/Operations/cancel.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceNarrativeFailure/consult": {
-      "post": {
+    "/paymentos/jdpi/relato-infracao/consultar?idRelatoInfracao=$id": {
+      "get": {
         "tags": [
           "PixServiceNarrativeFailure"
         ],
@@ -9377,11 +9995,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/relato-infracao/consultar?idRelatoInfracao=$id",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceNarrativeFailure/1.0/Operations/consult.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceNarrativeFailure/consultDict": {
-      "post": {
+    "/paymentos/jdpi/relato-infracao/consultar/dict?idRelatoInfracao=$id": {
+      "get": {
         "tags": [
           "PixServiceNarrativeFailure"
         ],
@@ -9440,11 +10064,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/relato-infracao/consultar/dict?idRelatoInfracao=$id",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceNarrativeFailure/1.0/Operations/consultDict.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceNarrativeFailure/earrings": {
-      "post": {
+    "/paymentos/jdpi/relato-infracao/listar/pendentes": {
+      "get": {
         "tags": [
           "PixServiceNarrativeFailure"
         ],
@@ -9488,10 +10118,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/relato-infracao/listar/pendentes",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceNarrativeFailure/1.0/Operations/earrings.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceNarrativeFailure/include": {
+    "/paymentos/jdpi/relato-infracao/incluir": {
       "post": {
         "tags": [
           "PixServiceNarrativeFailure"
@@ -9581,11 +10217,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/relato-infracao/incluir",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceNarrativeFailure/1.0/Operations/include.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceNarrativeFailure/list": {
-      "post": {
+    "/paymentos/jdpi/relato-infracao/listar": {
+      "get": {
         "tags": [
           "PixServiceNarrativeFailure"
         ],
@@ -9629,11 +10271,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/relato-infracao/listar",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceNarrativeFailure/1.0/Operations/list.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceNarrativeFailure/update": {
-      "post": {
+    "/paymentos/jdpi/relato-infracao/$id": {
+      "put": {
         "tags": [
           "PixServiceNarrativeFailure"
         ],
@@ -9711,10 +10359,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/relato-infracao/$id",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceNarrativeFailure/1.0/Operations/update.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServicePix/scheduled": {
+    "/paymentos/jdpi/pix/agendado": {
       "post": {
         "tags": [
           "PixServicePix"
@@ -9834,10 +10488,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/pix/agendado",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServicePix/1.0/Operations/scheduled.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceQRCode/create": {
+    "/paymentos/jdpi/qrcode/composto/gerar": {
       "post": {
         "tags": [
           "PixServiceQRCode"
@@ -9966,10 +10626,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/qrcode/composto/gerar",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceQRCode/1.0/Operations/create.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceQRCode/decode": {
+    "/paymentos/jdpi/qrcode/composto/decodificar/url": {
       "post": {
         "tags": [
           "PixServiceQRCode"
@@ -10041,10 +10707,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/qrcode/composto/decodificar/url",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceQRCode/1.0/Operations/decode.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceQRCode/dynamicBillingCreate": {
+    "/paymentos/jdpi/qrcode/composto/dinamico/cobv/gerar": {
       "post": {
         "tags": [
           "PixServiceQRCode"
@@ -10208,11 +10880,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/qrcode/composto/dinamico/cobv/gerar",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceQRCode/1.0/Operations/dynamicBillingCreate.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceQRCode/dynamicBillingUpdate": {
-      "post": {
+    "/paymentos/jdpi/qrcode/composto/dinamico/cobv/$id": {
+      "put": {
         "tags": [
           "PixServiceQRCode"
         ],
@@ -10355,10 +11033,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/qrcode/composto/dinamico/cobv/$id",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceQRCode/1.0/Operations/dynamicBillingUpdate.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceQRCode/dynamicCreate": {
+    "/paymentos/jdpi/qrcode/composto/dinamico/gerar": {
       "post": {
         "tags": [
           "PixServiceQRCode"
@@ -10484,11 +11168,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/qrcode/composto/dinamico/gerar",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceQRCode/1.0/Operations/dynamicCreate.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceQRCode/dynamicUpdate": {
-      "post": {
+    "/paymentos/jdpi/qrcode/composto/dinamico/$id": {
+      "put": {
         "tags": [
           "PixServiceQRCode"
         ],
@@ -10607,10 +11297,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/qrcode/composto/dinamico/$id",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceQRCode/1.0/Operations/dynamicUpdate.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceQRCode/staticCreate": {
+    "/paymentos/jdpi/qrcode/composto/estatico/gerar": {
       "post": {
         "tags": [
           "PixServiceQRCode"
@@ -10748,11 +11444,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/qrcode/composto/estatico/gerar",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceQRCode/1.0/Operations/staticCreate.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceQRCode/update": {
-      "post": {
+    "/paymentos/jdpi/qrcode/composto/$id": {
+      "put": {
         "tags": [
           "PixServiceQRCode"
         ],
@@ -10835,10 +11537,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/qrcode/composto/$id",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceQRCode/1.0/Operations/update.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceRecoveryValues/block": {
+    "/paymentos/jdpi/recuperacao-valores/$id/bloquear": {
       "post": {
         "tags": [
           "PixServiceRecoveryValues"
@@ -10911,10 +11619,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/recuperacao-valores/$id/bloquear",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceRecoveryValues/1.0/Operations/block.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceRecoveryValues/cancel": {
+    "/paymentos/jdpi/recuperacao-valores/$id/cancelar": {
       "post": {
         "tags": [
           "PixServiceRecoveryValues"
@@ -10990,11 +11704,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/recuperacao-valores/$id/cancelar",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceRecoveryValues/1.0/Operations/cancel.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceRecoveryValues/consult": {
-      "post": {
+    "/paymentos/jdpi/recuperacao-valores/consultar?idRecValores=$idRecValores": {
+      "get": {
         "tags": [
           "PixServiceRecoveryValues"
         ],
@@ -11054,11 +11774,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/recuperacao-valores/consultar?idRecValores=$idRecValores",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceRecoveryValues/1.0/Operations/consult.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceRecoveryValues/consultGraph": {
-      "post": {
+    "/paymentos/jdpi/recuperacao-valores/grafo/consultar?idRecValores=$idRecValores": {
+      "get": {
         "tags": [
           "PixServiceRecoveryValues"
         ],
@@ -11118,10 +11844,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/recuperacao-valores/grafo/consultar?idRecValores=$idRecValores",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceRecoveryValues/1.0/Operations/consultGraph.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceRecoveryValues/include": {
+    "/paymentos/jdpi/recuperacao-valores/incluir": {
       "post": {
         "tags": [
           "PixServiceRecoveryValues"
@@ -11210,10 +11942,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/recuperacao-valores/incluir",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceRecoveryValues/1.0/Operations/include.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceRecoveryValues/includeGraph": {
+    "/paymentos/jdpi/recuperacao-valores/$id/grafo/incluir": {
       "post": {
         "tags": [
           "PixServiceRecoveryValues"
@@ -11286,10 +12024,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/recuperacao-valores/$id/grafo/incluir",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceRecoveryValues/1.0/Operations/includeGraph.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceRecoveryValues/return": {
+    "/paymentos/jdpi/recuperacao-valores/$id/devolver": {
       "post": {
         "tags": [
           "PixServiceRecoveryValues"
@@ -11365,11 +12109,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/recuperacao-valores/$id/devolver",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceRecoveryValues/1.0/Operations/return.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceRecoveryValues/update": {
-      "post": {
+    "/paymentos/jdpi/recuperacao-valores/$id": {
+      "put": {
         "tags": [
           "PixServiceRecoveryValues"
         ],
@@ -11450,10 +12200,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/recuperacao-valores/$id",
         "x-external-endpoint-method": "PUT",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceRecoveryValues/1.0/Operations/update.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceReturn/analyze": {
+    "/paymentos/jdpi/devolucao/analisar": {
       "post": {
         "tags": [
           "PixServiceReturn"
@@ -11546,10 +12302,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/devolucao/analisar",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceReturn/1.0/Operations/analyze.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceReturn/cancel": {
+    "/paymentos/jdpi/devolucao/cancelar": {
       "post": {
         "tags": [
           "PixServiceReturn"
@@ -11626,11 +12388,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/devolucao/cancelar",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceReturn/1.0/Operations/cancel.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceReturn/consult": {
-      "post": {
+    "/paymentos/jdpi/devolucao/consultar?idSolDevolucao=$idSolDevolucao": {
+      "get": {
         "tags": [
           "PixServiceReturn"
         ],
@@ -11690,11 +12458,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/devolucao/consultar?idSolDevolucao=$idSolDevolucao",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceReturn/1.0/Operations/consult.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceReturn/consultDict": {
-      "post": {
+    "/paymentos/jdpi/devolucao/consultar/dict?idSolDevolucao=$idSolDevolucao": {
+      "get": {
         "tags": [
           "PixServiceReturn"
         ],
@@ -11754,11 +12528,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/devolucao/consultar/dict?idSolDevolucao=$idSolDevolucao",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceReturn/1.0/Operations/consultDict.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceReturn/earrings": {
-      "post": {
+    "/paymentos/jdpi/devolucao/listar/pendentes": {
+      "get": {
         "tags": [
           "PixServiceReturn"
         ],
@@ -11802,10 +12582,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/devolucao/listar/pendentes",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceReturn/1.0/Operations/earrings.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceReturn/include": {
+    "/paymentos/jdpi/devolucao/incluir": {
       "post": {
         "tags": [
           "PixServiceReturn"
@@ -11894,11 +12680,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/devolucao/incluir",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceReturn/1.0/Operations/include.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceReturn/list": {
-      "post": {
+    "/paymentos/jdpi/devolucao/listar?tpPsp=0": {
+      "get": {
         "tags": [
           "PixServiceReturn"
         ],
@@ -11942,10 +12734,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/devolucao/listar?tpPsp=0",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceReturn/1.0/Operations/list.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceSPI/create": {
+    "/paymentos/jdpi/spi/od": {
       "post": {
         "tags": [
           "PixServiceSPI"
@@ -12026,11 +12824,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/spi/od",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceSPI/1.0/Operations/create.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceSPI/get": {
-      "post": {
+    "/paymentos/jdpi/spi/od/$id": {
+      "get": {
         "tags": [
           "PixServiceSPI"
         ],
@@ -12089,11 +12893,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/spi/od/$id",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceSPI/1.0/Operations/get.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceSPI/reasons": {
-      "post": {
+    "/paymentos/jdpi/spi/od/motivos": {
+      "get": {
         "tags": [
           "PixServiceSPI"
         ],
@@ -12137,10 +12947,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/spi/od/motivos",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceSPI/1.0/Operations/reasons.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceScheduling/cancel": {
+    "/paymentos/jdpi/pa/agendamento/$id/cancelar": {
       "post": {
         "tags": [
           "PixServiceScheduling"
@@ -12236,11 +13052,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/pa/agendamento/$id/cancelar",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceScheduling/1.0/Operations/cancel.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceScheduling/cancelStatus": {
-      "post": {
+    "/paymentos/jdpi/pa/agendamento/$id/cancelar/$key": {
+      "get": {
         "tags": [
           "PixServiceScheduling"
         ],
@@ -12302,11 +13124,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/pa/agendamento/$id/cancelar/$key",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceScheduling/1.0/Operations/cancelStatus.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceScheduling/get": {
-      "post": {
+    "/paymentos/jdpi/pa/agendamento/$id": {
+      "get": {
         "tags": [
           "PixServiceScheduling"
         ],
@@ -12365,11 +13193,17 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/pa/agendamento/$id",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceScheduling/1.0/Operations/get.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceScheduling/list": {
-      "post": {
+    "/paymentos/jdpi/pa/agendamento/listar?fluxo=0&dtVencimentoInicio=$dtVencimentoInicio&dtVencimentoFim=$dtVencimentoFim": {
+      "get": {
         "tags": [
           "PixServiceScheduling"
         ],
@@ -12431,10 +13265,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/pa/agendamento/listar?fluxo=0&dtVencimentoInicio=$dtVencimentoInicio&dtVencimentoFim=$dtVencimentoFim",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceScheduling/1.0/Operations/list.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServiceScheduling/request": {
+    "/paymentos/jdpi/pa/agendamento": {
       "post": {
         "tags": [
           "PixServiceScheduling"
@@ -12551,10 +13391,16 @@
         "x-external-endpoint-url": "https://uat.corebanxapp.com.br/paymentos/jdpi/pa/agendamento",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServiceScheduling/1.0/Operations/request.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://uat.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServices/CreateInternalPaymentOrder": {
+    "/paymentos/jdpi/spi/op/interna": {
       "post": {
         "tags": [
           "PixServices"
@@ -12734,10 +13580,16 @@
         "x-external-endpoint-url": "https://sit.corebanxapp.com.br/paymentos/jdpi/spi/op/interna",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServices/1.0/Operations/CreateInternalPaymentOrder.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://sit.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServices/CreatePaymentOrder": {
+    "/paymentos/jdpi/spi/op/pixout": {
       "post": {
         "tags": [
           "PixServices"
@@ -12919,11 +13771,17 @@
         "x-external-endpoint-url": "https://sit.corebanxapp.com.br/paymentos/jdpi/spi/op/pixout",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServices/1.0/Operations/CreatePaymentOrder.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://sit.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServices/cancelRecurringPixAuthorization": {
-      "post": {
+    "/paymentos/v1/pix/recurring/$auth_id": {
+      "delete": {
         "tags": [
           "PixServices"
         ],
@@ -13016,10 +13874,16 @@
         "x-external-endpoint-url": "https://sit.corebanxapp.com.brBASA_URL__/paymentos/v1/pix/recurring/$auth_id",
         "x-external-endpoint-method": "DELETE",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServices/1.0/Operations/cancelRecurringPixAuthorization.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://sit.corebanxapp.com.brbasa_url__",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServices/changePixService": {
+    "/paymentos/jdpi/pix/troco": {
       "post": {
         "tags": [
           "PixServices"
@@ -13191,10 +14055,16 @@
         "x-external-endpoint-url": "https://sit.corebanxapp.com.br/paymentos/jdpi/pix/troco",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServices/1.0/Operations/changePixService.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://sit.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServices/createPixKeyService": {
+    "/paymentos/jdpi/dict/incluir": {
       "post": {
         "tags": [
           "PixServices"
@@ -13310,10 +14180,16 @@
         "x-external-endpoint-url": "https://sit.corebanxapp.com.br/paymentos/jdpi/dict/incluir",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServices/1.0/Operations/createPixKeyService.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://sit.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServices/createRecurringPixAuthorization": {
+    "/paymentos/v1/pix/recurring": {
       "post": {
         "tags": [
           "PixServices"
@@ -13454,10 +14330,16 @@
         "x-external-endpoint-url": "https://sit.corebanxapp.com.br/paymentos/v1/pix/recurring",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServices/1.0/Operations/createRecurringPixAuthorization.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://sit.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServices/deletePixKeyService": {
+    "/paymentos/jdpi/dict/$chave/excluir": {
       "post": {
         "tags": [
           "PixServices"
@@ -13526,11 +14408,17 @@
         "x-external-endpoint-url": "https://sit.corebanxapp.com.br/paymentos/jdpi/dict/$chave/excluir",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServices/1.0/Operations/deletePixKeyService.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://sit.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServices/getPixKeyService": {
-      "post": {
+    "/paymentos/jdpi/dict/$chave": {
+      "get": {
         "tags": [
           "PixServices"
         ],
@@ -13642,10 +14530,16 @@
         "x-external-endpoint-url": "https://sit.corebanxapp.com.br/paymentos/jdpi/dict/$chave",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServices/1.0/Operations/getPixKeyService.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://sit.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServices/getPixListService": {
+    "/paymentos/jdpi/dict/listar/chave": {
       "post": {
         "tags": [
           "PixServices"
@@ -13736,10 +14630,16 @@
         "x-external-endpoint-url": "https://sit.corebanxapp.com.br/paymentos/jdpi/dict/listar/chave",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServices/1.0/Operations/getPixListService.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://sit.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServices/sendPixTransferService": {
+    "/paymentos/v1/pix": {
       "post": {
         "tags": [
           "PixServices"
@@ -13888,10 +14788,16 @@
         "x-external-endpoint-url": "https://sit.corebanxapp.com.br/paymentos/v1/pix",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServices/1.0/Operations/sendPixTransferService.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://sit.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServices/tedPaymentService": {
+    "/paymentos/v1/ted": {
       "post": {
         "tags": [
           "PixServices"
@@ -14049,10 +14955,16 @@
         "x-external-endpoint-url": "https://sit.corebanxapp.com.br/paymentos/v1/ted",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServices/1.0/Operations/tedPaymentService.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://sit.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServices/verifyPixKeyService": {
+    "/paymentos/jdpi/dict/verificar": {
       "post": {
         "tags": [
           "PixServices"
@@ -14175,10 +15087,16 @@
         "x-external-endpoint-url": "https://sit.corebanxapp.com.br/paymentos/jdpi/dict/verificar",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServices/1.0/Operations/verifyPixKeyService.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://sit.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/PixServices/withdrawPix": {
+    "/paymentos/jdpi/pix/saque": {
       "post": {
         "tags": [
           "PixServices"
@@ -14342,10 +15260,16 @@
         "x-external-endpoint-url": "https://sit.corebanxapp.com.br/paymentos/jdpi/pix/saque",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/PixServices/1.0/Operations/withdrawPix.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://sit.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/QrcodeService/decodeQRCode": {
+    "/paymentos/jdpi/qrcode/decodificar": {
       "post": {
         "tags": [
           "QrcodeService"
@@ -14530,10 +15454,16 @@
         "x-external-endpoint-url": "https://sit.corebanxapp.com.br/paymentos/jdpi/qrcode/decodificar",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/QrcodeService/1.0/Operations/decodeQRCode.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://sit.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/QrcodeService/decodeQRCodeByUrl": {
+    "/jdpi/qrcode/decodificar/url": {
       "post": {
         "tags": [
           "QrcodeService"
@@ -14632,11 +15562,17 @@
         "x-external-endpoint-url": "https://sit.corebanxapp.com.brpaymentos/jdpi/qrcode/decodificar/url",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/QrcodeService/1.0/Operations/decodeQRCodeByUrl.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://sit.corebanxapp.com.brpaymentos",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/QrcodeService/downloadCertificateService": {
-      "post": {
+    "/jdpi/qrcode/certificates/download": {
+      "get": {
         "tags": [
           "QrcodeService"
         ],
@@ -14680,10 +15616,16 @@
         "x-external-endpoint-url": "https://sit.corebanxapp.com.br/jdpi/qrcode/certificates/download",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/QrcodeService/1.0/Operations/downloadCertificateService.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://sit.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/QrcodeService/generateDynamicQrCodeService": {
+    "/jdpi/qrcode/dinamico/gerar": {
       "post": {
         "tags": [
           "QrcodeService"
@@ -14728,10 +15670,16 @@
         "x-external-endpoint-url": "https://sit.corebanxapp.com.br/jdpi/qrcode/dinamico/gerar",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/QrcodeService/1.0/Operations/generateDynamicQrCodeService.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://sit.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/QrcodeService/generateStaticQrCodeService": {
+    "/paymentos/jdpi/qrcode/estatico/gerar": {
       "post": {
         "tags": [
           "QrcodeService"
@@ -14836,11 +15784,17 @@
         "x-external-endpoint-url": "https://sit.corebanxapp.com.br/paymentos/jdpi/qrcode/estatico/gerar",
         "x-external-endpoint-method": "POST",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/QrcodeService/1.0/Operations/generateStaticQrCodeService.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://sit.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     },
-    "/QrcodeService/getListQrCodesServices": {
-      "post": {
+    "/jdpi/qrcode/listar": {
+      "get": {
         "tags": [
           "QrcodeService"
         ],
@@ -14884,7 +15838,13 @@
         "x-external-endpoint-url": "https://sit.corebanxapp.com.br/jdpi/qrcode/listar",
         "x-external-endpoint-method": "GET",
         "x-source-file": "Pix (v1.0)/Apps/_Integration/QrcodeService/1.0/Operations/getListQrCodesServices.xml",
-        "x-project": "Pix"
+        "x-project": "Pix",
+        "servers": [
+          {
+            "url": "https://sit.corebanxapp.com.br",
+            "description": "Servidor Externo"
+          }
+        ]
       }
     }
   }
