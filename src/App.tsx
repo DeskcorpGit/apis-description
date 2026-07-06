@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react"
 import { ApiDocumentationCard } from "@/components/api-documentation"
-import { basaApiSections } from "@/data/basa-drop1-apis"
+import { allApiSections } from "@/data"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Search, Moon, Sun } from "lucide-react"
@@ -31,9 +31,9 @@ function App() {
 
   const filteredSections = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
-    if (!query) return basaApiSections;
+    if (!query) return allApiSections;
 
-    return basaApiSections.reduce<typeof basaApiSections>((acc, section) => {
+    return allApiSections.reduce<typeof allApiSections>((acc, section) => {
       const matchesTitle = section.title.toLowerCase().includes(query);
 
       const filteredEndpoints = section.endpoints.filter(
@@ -79,8 +79,8 @@ function App() {
               </Button>
             </div>
             <p className="text-sm text-muted-foreground">
-              Documentação de {basaApiSections.reduce((acc, s) => acc + s.endpoints.length, 0)} endpoints
-              extraídos de {basaApiSections.length} seções
+              Documentação de {allApiSections.reduce((acc, s) => acc + s.endpoints.length, 0)} endpoints
+              extraídos de {allApiSections.length} seções
             </p>
           </div>
 
