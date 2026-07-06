@@ -1,13 +1,13 @@
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Search, Moon, Sun } from "lucide-react"
-import { allApiSections } from "@/data"
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Search, Moon, Sun } from "lucide-react";
+import { allApiSections } from "@/data";
 
 export interface HeaderProps {
-  isDarkMode: boolean
-  setIsDarkMode: (value: boolean) => void
-  searchQuery: string
-  setSearchQuery: (value: string) => void
+  isDarkMode: boolean;
+  setIsDarkMode: (value: boolean) => void;
+  searchQuery: string;
+  setSearchQuery: (value: string) => void;
 }
 
 export function Header({
@@ -24,29 +24,46 @@ export function Header({
           size="icon"
           className="absolute right-0 top-0 hidden sm:flex"
           onClick={() => setIsDarkMode(!isDarkMode)}
-          title={isDarkMode ? "Mudar para modo claro" : "Mudar para modo escuro"}
+          title={
+            isDarkMode ? "Mudar para modo claro" : "Mudar para modo escuro"
+          }
         >
-          {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          {isDarkMode ? (
+            <Sun className="h-4 w-4" />
+          ) : (
+            <Moon className="h-4 w-4" />
+          )}
         </Button>
-        
+
         <div className="space-y-2">
           <div className="flex items-center justify-center gap-4">
             <h1 className="text-2xl font-bold tracking-tight text-white">
               Endpoints BASA
             </h1>
-            <Button
-              variant="outline"
-              size="icon"
-              className="sm:hidden"
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              title={isDarkMode ? "Mudar para modo claro" : "Mudar para modo escuro"}
-            >
-              {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            </Button>
+            <div>
+              <Button
+                variant="outline"
+                size="icon"
+                className="sm:hidden"
+                onClick={() => setIsDarkMode(!isDarkMode)}
+                title={
+                  isDarkMode
+                    ? "Mudar para modo claro"
+                    : "Mudar para modo escuro"
+                }
+              >
+                {isDarkMode ? (
+                  <Sun className="h-4 w-4 cursor-pointer" />
+                ) : (
+                  <Moon className="h-4 w-4 cursor-pointer" />
+                )}
+              </Button>
+            </div>
           </div>
           <p className="text-sm text-muted-foreground">
-            Documentação de {allApiSections.reduce((acc, s) => acc + s.endpoints.length, 0)} endpoints
-            extraídos de {allApiSections.length} seções
+            Documentação de{" "}
+            {allApiSections.reduce((acc, s) => acc + s.endpoints.length, 0)}{" "}
+            endpoints extraídos de {allApiSections.length} seções
           </p>
         </div>
 
@@ -62,5 +79,5 @@ export function Header({
         </div>
       </header>
     </div>
-  )
+  );
 }
