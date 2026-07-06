@@ -31,6 +31,7 @@ export function Header({
             title={
               showSwagger ? "Ver Documentação Interna" : "Ver Swagger Open API"
             }
+            disabled
           >
             <BookOpen className="h-4 w-4" />
           </Button>
