@@ -8,7 +8,7 @@ import type { ApiData } from "@/types/api"
 export const basaApiSections: ApiData[] = [
   // ─── Seção 4 ───
   {
-    title: "4. Obter Modelo de Documentação",
+    title: "Obter Modelo de Documentação",
     description:
       "Endpoint responsável por retornar os modelos de documentação disponibilizados pela Neobiz de acordo com o valor especificado no parâmetro assuntoId. Os valores do parâmetro assuntoId referentes aos documentos disponibilizados são 20, 21 e 22.",
     baseUrl: "https://plataforma.neobiz.com.br",
@@ -33,7 +33,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 5 ───
   {
-    title: "5. Consulta do CEP",
+    title: "Consulta do CEP",
     description: "Endpoint referente a verificação do CEP informado no fluxo de onboarding.",
     baseUrl: "https://plataforma.neobiz.com.br",
     endpoints: [
@@ -55,7 +55,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 6 ───
   {
-    title: "6. Obter Lista de Empregos",
+    title: "Obter Lista de Empregos",
     description: "Endpoint referente ao retorno da lista de empregos disponibilizados no processo de onboarding da aplicação.",
     baseUrl: "https://transact-api-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
     endpoints: [
@@ -77,7 +77,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 7 ───
   {
-    title: "7. Token Authcube (Esqueci a Senha)",
+    title: "Token Authcube (Esqueci a Senha)",
     description: "Endpoint responsável por gerar o token de recuperação de senha. Este token deve ser enviado no cabeçalho de autorização (Bearer Token) para validar as requisições nas próximas etapas do fluxo.",
     baseUrl: "https://oauthcube-devqa.basa.com.br",
     endpoints: [
@@ -99,7 +99,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 8 ───
   {
-    title: "8. Esqueci a Senha",
+    title: "Esqueci a Senha",
     description: "Endpoint responsável pelo processo de recuperação de senha durante a retomada do fluxo. Faz-se necessário o token da seção 7 para o disparo desse endpoint.",
     baseUrl: "https://oauthcube-devqa.basa.com.br",
     endpoints: [
@@ -119,7 +119,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 9 ───
   {
-    title: "9. Criação de Entidade",
+    title: "Criação de Entidade",
     description: "Processo referente a criação de entidade no fluxo de onboarding do Digital. O processo de criação de entidade ocorre primeiramente com a criação no Fabric, onde pode ser obtido o OTP no smartphone inserindo as credenciais corretas.",
     baseUrl: "https://uat-onboarding.corebanxapp.com.br",
     endpoints: [
@@ -140,7 +140,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 10 ───
   {
-    title: "10. Login de Entidade",
+    title: "Login de Entidade",
     description: "Endpoint referente a obtenção de token que contém as credenciais do usuário informadas durante o fluxo de onboarding. Esse endpoint deverá retornar um token que será utilizado nos endpoints referentes a Corebanx.",
     baseUrl: "https://oauthcube-devqa.basa.com.br",
     endpoints: [
@@ -162,7 +162,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 11 ───
   {
-    title: "11. Aceitação de Termos",
+    title: "Aceitação de Termos",
     description: "Endpoint da Corebanx referente a aceitação de termos para divulgação de produtos promocionais da plataforma. Faz-se necessária a utilização do token gerado pelo endpoint de login de entidade.",
     baseUrl: "https://uat-onboarding.corebanxapp.com.br",
     endpoints: [
@@ -182,7 +182,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 12 ───
   {
-    title: "12. Checagem de CPF",
+    title: "Checagem de CPF",
     description: "Endpoint da Corebanx referente a checagem de CPF da entidade criada no Transact. Verifica CPFs cadastrados, não cadastrados e com reset.",
     baseUrl: "https://uat-onboarding.corebanxapp.com.br",
     endpoints: [
@@ -202,7 +202,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 13 ───
   {
-    title: "13. Atualização de Dados da Entidade",
+    title: "Atualização de Dados da Entidade",
     description: "Endpoint da Corebanx referente a atualização dos dados preenchidos da entidade durante o fluxo de onboarding. Necessita do token obtido pelo endpoint de login de entidade.",
     baseUrl: "https://uat-onboarding.corebanxapp.com.br",
     endpoints: [
@@ -222,7 +222,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 14 ───
   {
-    title: "14. Submissão de Entidade",
+    title: "Submissão de Entidade",
     description: "Endpoint da Corebanx referente a submissão dos dados preenchidos durante o fluxo de onboarding. Necessita do token obtido pelo endpoint de login de entidade.",
     baseUrl: "https://uat-onboarding.corebanxapp.com.br",
     endpoints: [
@@ -242,7 +242,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 15 ───
   {
-    title: "15. Deleção de Entidade",
+    title: "Deleção de Entidade",
     description: "Endpoint da Corebanx referente ao reset dos dados da entidade preenchida no onboarding antes do estado de submissão dos dados. Necessita do token obtido pelo endpoint de login de entidade.",
     baseUrl: "https://uat-onboarding.corebanxapp.com.br",
     endpoints: [
@@ -262,7 +262,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 16 ───
   {
-    title: "16. Obtenção de Token do IDVerse",
+    title: "Obtenção de Token do IDVerse",
     description: "Endpoint referente a obtenção de Token do IDVerse para disparo posterior dos endpoints que iniciariam o processo de escaneamento de documento.",
     baseUrl: "https://staging.bancobasa.idkit.co",
     endpoints: [
@@ -282,7 +282,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 17 ───
   {
-    title: "17. Disparo do StoreTransaction",
+    title: "Disparo do StoreTransaction",
     description: "Endpoint referente a inicialização do processo de escaneamento de documento e escaneamento facial do IDVerse. Retorna um link referente ao QR Code para inicialização do processo.",
     baseUrl: "https://staging.bancobasa.idkit.co",
     endpoints: [
@@ -302,7 +302,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 18 ───
   {
-    title: "18. Obtenção dos Dados do IDVerse (Transaction Data)",
+    title: "Obtenção dos Dados do IDVerse (Transaction Data)",
     description: "Endpoint referente aos dados obtidos do processo de escaneamento facial e de documentação. Verifica documentos submetidos, status do processo e informações referentes ao escaneamento.",
     baseUrl: "https://staging.bancobasa.idkit.co",
     endpoints: [
@@ -322,7 +322,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 19 ───
   {
-    title: "19. Notificação de Decisão",
+    title: "Notificação de Decisão",
     description: "Endpoint referente ao disparo da criação de usuário no Digital. Após a finalização do onboarding e submissão, ocorre o disparo do notifyDecision quando o status do onboarding for APPROVED.",
     baseUrl: "https://fabric-infinity-uat.basa.com.br",
     endpoints: [
@@ -342,7 +342,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 20 ───
   {
-    title: "20. Criação do Customer",
+    title: "Criação do Customer",
     description: "Endpoint introduzido nas etapas finais de criação do usuário no Transact. Responsável pela criação do usuário permitindo a inserção dos dados cadastrais.",
     baseUrl: "https://iris-transact-sit.apps.ocp-core-stage.bancoamazonia.sa",
     endpoints: [
@@ -362,7 +362,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 21 ───
   {
-    title: "21. Captura dos Dados do Customer Transact",
+    title: "Captura dos Dados do Customer Transact",
     description: "Endpoint responsável por retornar os dados referentes ao usuário criado no Transact, a partir do mnemônico do usuário.",
     baseUrl: "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
     endpoints: [
@@ -384,7 +384,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 22 ───
   {
-    title: "22. Atualização de Renda e Patrimônio",
+    title: "Atualização de Renda e Patrimônio",
     description: "Endpoint responsável pela atualização de renda e patrimônio do usuário no Transact. Utiliza o coreCustomerId obtido no createCustomer.",
     baseUrl: "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
     endpoints: [
@@ -404,7 +404,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 23 ───
   {
-    title: "23. Criação de Conta no Transact",
+    title: "Criação de Conta no Transact",
     description: "Endpoint responsável pela criação definitiva do registro no Transact, após a criação de customer e atualização de renda e patrimônio.",
     baseUrl: "https://transact-api-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
     endpoints: [
@@ -424,7 +424,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 24 ───
   {
-    title: "24. Obtenção de Informação dos Dados de Onboarding",
+    title: "Obtenção de Informação dos Dados de Onboarding",
     description: "Endpoint responsável pela obtenção dos dados referentes ao que foi preenchido no fluxo de onboarding do Digital, exibindo status do onboarding, status do IDVerse e os demais dados informados.",
     baseUrl: "https://uat-onboarding.corebanxapp.com.br",
     endpoints: [
@@ -444,7 +444,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 25 ───
   {
-    title: "25. Carregamento de taxas BASIC.INTEREST",
+    title: "Carregamento de taxas BASIC.INTEREST",
     description: "Cadastro base corporativo — API referente a criação das taxas utilizadas em cima de um empréstimo de um determinado usuário.",
     baseUrl: "https://transact-api-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
     endpoints: [
@@ -465,7 +465,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 26 ───
   {
-    title: "26. Carregamento de taxas PERIODIC.INTEREST",
+    title: "Carregamento de taxas PERIODIC.INTEREST",
     description: "Cadastro base corporativo — API referente a criação das taxas periódicas utilizadas em cima de um empréstimo de um determinado usuário.",
     baseUrl: "https://transact-api-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
     endpoints: [
@@ -484,7 +484,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 27 ───
   {
-    title: "27. Rendimentos de Patrimônio",
+    title: "Rendimentos de Patrimônio",
     description: "Cadastro base corporativo — API referente a criação dos rendimentos de patrimônio para um determinado usuário.",
     baseUrl: "https://iris-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
     endpoints: [
@@ -503,7 +503,7 @@ export const basaApiSections: ApiData[] = [
 
   // ─── Seção 28 ───
   {
-    title: "28. Criação de Feriados",
+    title: "Criação de Feriados",
     description: "Cadastro base corporativo — API referente a criação de feriados no cadastro base corporativo.",
     baseUrl: "https://transact-api-transact-uat.apps.ocp-core-stage.bancoamazonia.sa",
     endpoints: [
