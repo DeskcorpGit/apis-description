@@ -118,7 +118,7 @@ export const basaApiSectionsDrop2: ApiData[] = [
             example: `{\n  "header": { "status": "success", "total_size": 1 },\n  "body": [{ "customerMnemonic": "C74086898004", "customerId": "1000000820", "customerName": "Eduardo Borges" }]\n}` 
           },
           { 
-            statusCode: "200", 
+            statusCode: "400", 
             description: "Obtido quando o customerNo informado é inexistente (retorna body vazio).", 
             example: `{\n  "header": { "total_size": 0, "status": "success" },\n  "body": []\n}` 
           },
@@ -321,6 +321,16 @@ export const basaApiSectionsDrop2: ApiData[] = [
             statusCode: "200", 
             description: "Retorna a lista de aceites.", 
             example: `{\n  "sucesso": true,\n  "dados": [\n    {\n      "Data Aceite": "12/05/2026 21:04:34",\n      "Modelo Documento": "ASSINATURA ELETRÔNICA",\n      "Documento": "74326114088",\n      "Conta": "1000005475"\n    }\n  ]\n}` 
+          },
+          { 
+            statusCode: "401", 
+            description: "API Key inválida.", 
+            example: `{\n  "sucesso": false,\n  "erro": "API Key inválida ou não fornecida."\n}` 
+          },
+          { 
+            statusCode: "500", 
+            description: "Erro interno.", 
+            example: `{\n  "sucesso": false,\n  "erro": "Mensagem de erro detalhada"\n}` 
           },
         ],
       },
