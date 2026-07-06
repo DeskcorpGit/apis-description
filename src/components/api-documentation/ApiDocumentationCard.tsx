@@ -50,11 +50,13 @@ export function ApiDocumentationCard({
         </div>
 
         {apiData.baseUrl && (
-          <div className="mt-3 flex items-center gap-2 rounded-md bg-muted/50 px-3 py-1.5 border border-border">
+          <div className="mt-3 flex items-center gap-2 rounded-md bg-muted/50 px-3 py-1.5 border border-border w-full overflow-hidden">
             <Globe className="size-3.5 text-brand-green shrink-0" />
-            <code className="text-xs font-mono text-muted-foreground truncate">
-              {apiData.baseUrl}
-            </code>
+            <div className="flex-1 overflow-x-auto overflow-y-hidden pb-1 -mb-1 custom-scrollbar">
+              <code className="text-xs font-mono text-muted-foreground whitespace-nowrap">
+                {apiData.baseUrl}
+              </code>
+            </div>
           </div>
         )}
       </CardHeader>

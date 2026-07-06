@@ -24,16 +24,20 @@ export function EndpointRoute({ method, path, baseUrl }: EndpointRouteProps) {
   }, [fullPath])
 
   return (
-    <div className="flex items-center gap-3 group/route">
-      <MethodBadge method={method} />
-      <code className="flex-1 text-sm font-mono text-foreground/90 break-all">
-        {path}
-      </code>
+    <div className="flex items-center gap-3 group/route overflow-hidden w-full">
+      <div className="shrink-0">
+        <MethodBadge method={method} />
+      </div>
+      <div className="flex-1 overflow-x-auto overflow-y-hidden pb-1 -mb-1 custom-scrollbar">
+        <code className="text-sm font-mono text-foreground/90 whitespace-nowrap">
+          {path}
+        </code>
+      </div>
       <Button
         variant="ghost"
         size="icon-xs"
         onClick={handleCopy}
-        className="opacity-0 group-hover/route:opacity-100 transition-opacity"
+        className="opacity-0 group-hover/route:opacity-100 transition-opacity shrink-0"
         aria-label="Copiar rota"
       >
         {copied ? (
