@@ -15,10 +15,11 @@ export function StatusCodeIndicator({ code }: { code: string }) {
     case 4:
       colorClass = "bg-orange-500"
       break
+    case 5:
+      colorClass = "bg-red-500"
+      break
     default:
-      if (statusGroup >= 5) {
-        colorClass = "bg-red-500"
-      }
+      colorClass = "bg-muted-foreground"
       break
   }
 

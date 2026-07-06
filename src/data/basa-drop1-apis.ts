@@ -294,7 +294,7 @@ export const basaApiSections: ApiData[] = [
         parameters: [],
         responses: [
           { statusCode: "200", description: "transactionId válido e demais campos corretos", example: '{ "status": "success", "url": "https://staging.bancobasa.idkit.co/b/fxuw0o" }' },
-          { statusCode: "200", description: "transactionId inválido (já acionado ou formato incorreto) — retorna status error no body", example: '{ "status": "error", "message": "Error in storing data: v3.5" }' },
+          { statusCode: "400", description: "transactionId inválido (já acionado ou formato incorreto) — retorna status error no body", example: '{ "status": "error", "message": "Error in storing data: v3.5" }' },
         ],
       },
     ],
@@ -334,7 +334,7 @@ export const basaApiSections: ApiData[] = [
         parameters: [],
         responses: [
           { statusCode: "200", description: "Payload informado corretamente e onboarding status é APPROVED", example: '{\n  "coreCustomerId": "1000000706",\n  "message": "Customer approved successfully!",\n  "accountNumber": "1000073756",\n  "status": "success"\n}' },
-          { statusCode: "200", description: "Onboarding status diferente de APPROVED — retorna erro no body", example: '{ "errcode": 100052, "errmsg": "Missing or invalid review_reason", "opstatus": -1, "httpStatusCode": 400 }' },
+          { statusCode: "400", description: "Onboarding status diferente de APPROVED — retorna erro no body", example: '{ "errcode": 100052, "errmsg": "Missing or invalid review_reason", "opstatus": -1, "httpStatusCode": 400 }' },
         ],
       },
     ],
@@ -376,7 +376,7 @@ export const basaApiSections: ApiData[] = [
         ],
         responses: [
           { statusCode: "200", description: "Mnemônico informado corretamente", example: '{\n  "header": { "total_size": 1, "status": "success" },\n  "body": [{ "customerMnemonic": "R87523602029", "customerId": "1000000698" }]\n}' },
-          { statusCode: "200", description: "Mnemônico não existe no Transact (retorna body vazio)", example: '{ "header": { "total_size": 0, "status": "success" }, "body": [] }' },
+          { statusCode: "404", description: "Mnemônico não existe no Transact (retorna body vazio)", example: '{ "header": { "total_size": 0, "status": "success" }, "body": [] }' },
         ],
       },
     ],
@@ -458,6 +458,7 @@ export const basaApiSections: ApiData[] = [
         ],
         responses: [
           { statusCode: "200", description: "Submissão final dos dados coletados (200 ou 201)", example: '{\n  "header": { "id": "10BRL20100826", "status": "success" },\n  "body": { "interestRate": "0.32" }\n}' },
+          { statusCode: "400", description: "Erro na criação de taxas BASIC.INTEREST", example: '{\n  "header": {\n    "transactionStatus": "Error",\n    "status": "failed"\n  },\n  "error": {\n    "type": "BUSINESS"\n  }\n}' },
         ],
       },
     ],
@@ -477,6 +478,7 @@ export const basaApiSections: ApiData[] = [
         parameters: [],
         responses: [
           { statusCode: "200", description: "Submissão final dos dados coletados (200 ou 201)", example: '{\n  "header": { "id": "01BRL20090101", "status": "success" },\n  "body": { "interestCondition": [{ "period": "01D", "rates": [{ "bidRate": "1.82574" }] }] }\n}' },
+          { statusCode: "400", description: "Erro na criação de taxas PERIODIC.INTEREST", example: '{\n  "header": {\n    "transactionStatus": "Error",\n    "status": "failed"\n  },\n  "error": {\n    "type": "BUSINESS"\n  }\n}' },
         ],
       },
     ],
@@ -496,6 +498,7 @@ export const basaApiSections: ApiData[] = [
         parameters: [],
         responses: [
           { statusCode: "200", description: "Submissão final dos dados coletados (200 ou 201)", example: '{\n  "header": { "id": "1000000021", "status": "success" },\n  "body": { "declaredIncome": "10000", "declaredAssets": "13000" }\n}' },
+          { statusCode: "400", description: "Erro na criação de rendimentos de patrimônio", example: '{\n  "header": {\n    "transactionStatus": "Error",\n    "status": "failed"\n  },\n  "error": {\n    "type": "BUSINESS"\n  }\n}' },
         ],
       },
     ],
@@ -515,6 +518,7 @@ export const basaApiSections: ApiData[] = [
         parameters: [],
         responses: [
           { statusCode: "200", description: "Submissão final dos dados coletados (200 ou 201)", example: '{\n  "header": { "id": "BR002037", "status": "success" },\n  "body": { "publicHolidays": [{ "month01Holidays": "01" }] }\n}' },
+          { statusCode: "400", description: "Erro na criação de feriados", example: '{\n  "header": {\n    "transactionStatus": "Error",\n    "status": "failed"\n  },\n  "error": {\n    "type": "BUSINESS"\n  }\n}' },
         ],
       },
     ],
