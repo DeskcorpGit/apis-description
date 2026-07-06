@@ -1,9 +1,12 @@
 import { useState, useMemo, useEffect } from "react"
+import SwaggerUI from "swagger-ui-react"
+import "swagger-ui-react/swagger-ui.css"
 import { ApiDocumentationCard } from "@/components/api-documentation"
 import { allApiSections } from "@/data"
 import { Header } from "@/components/layout/Header"
 
 function App() {
+  const [showSwagger, setShowSwagger] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== "undefined") {
@@ -55,14 +58,20 @@ function App() {
         setIsDarkMode={setIsDarkMode}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
+        showSwagger={showSwagger}
+        setShowSwagger={setShowSwagger}
       />
 
-      {filteredSections.length === 0 ? (
+      {showSwagger ? (
+        <div className="w-full max-w-6xl mx-auto md:px-4 px-8 xl:px-16 bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm p-4 mb-8">
+          <SwaggerUI url="/all-external-endpoints.openapi.json" />
+        </div>
+      ) : filteredSections.length === 0 ? (
         <div className="text-center text-muted-foreground mt-8">
           Nenhum endpoint encontrado para "{searchQuery}".
         </div>
       ) : (
-        <div className="w-full flex flex-col items-center gap-8 md:px-4 px-8 xl:px-16">
+        <div className="w-full flex flex-col items-center gap-8 md:px-4 px-8 xl:px-16 pb-8">
           {filteredSections.map((section) => (
             <ApiDocumentationCard
               key={section.title}
