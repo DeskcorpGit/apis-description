@@ -138,7 +138,7 @@ function ParametersTable({ parameters }: { parameters: ApiParameter[] }) {
                     <span className="text-xs text-muted-foreground">Não</span>
                   )}
                 </TableCell>
-                <TableCell className="text-xs text-muted-foreground max-w-[200px] truncate">
+                <TableCell className="text-xs text-muted-foreground whitespace-normal break-words">
                   {param.description ?? "—"}
                 </TableCell>
               </TableRow>
@@ -302,7 +302,7 @@ export function ApiDocumentationCard({
   return (
     <Card
       className={cn(
-        "w-full max-w-3xl border-border dark:bg-zinc-950 bg-white",
+        "w-full max-w-6xl border-border dark:bg-zinc-950 bg-white",
         className
       )}
     >
