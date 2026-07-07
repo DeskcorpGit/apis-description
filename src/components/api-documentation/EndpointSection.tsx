@@ -24,7 +24,7 @@ export function EndpointSection({
 
   return (
     <section
-      className="mb-16 pb-16 border-b border-border border-dashed scroll-mt-6"
+      className="mb-16 pb-16 border-b border-zinc-300 dark:border-border scroll-mt-6"
       id={anchorId}
     >
       <EndpointHeader sectionTitle={sectionTitle} endpoint={endpoint} />
