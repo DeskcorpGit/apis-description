@@ -1,34 +1,35 @@
-import { useState, useMemo, useEffect } from "react"
-import SwaggerUI from "swagger-ui-react"
-import "swagger-ui-react/swagger-ui.css"
-import { ApiDocumentationCard } from "@/components/api-documentation"
-import { allApiSections } from "@/data"
-import { Header } from "@/components/layout/Header"
+import { useState, useMemo, useEffect } from "react";
+import SwaggerUI from "swagger-ui-react";
+import "swagger-ui-react/swagger-ui.css";
+import { allApiSections } from "@/data";
+import { Header } from "@/components/layout/Header";
+import { Sidebar } from "@/components/layout/Sidebar";
+import { EndpointSection } from "@/components/api-documentation/EndpointSection";
 
 function App() {
-  const [showSwagger, setShowSwagger] = useState(false)
-  const [searchQuery, setSearchQuery] = useState("")
+  const [showSwagger, setShowSwagger] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== "undefined") {
-      const savedTheme = localStorage.getItem("theme")
+      const savedTheme = localStorage.getItem("theme");
       if (savedTheme) {
-        return savedTheme === "dark"
+        return savedTheme === "dark";
       }
-      return document.documentElement.classList.contains("dark")
+      return document.documentElement.classList.contains("dark");
     }
-    return true
-  })
+    return true;
+  });
 
   useEffect(() => {
-    const root = window.document.documentElement
+    const root = window.document.documentElement;
     if (isDarkMode) {
-      root.classList.add("dark")
-      localStorage.setItem("theme", "dark")
+      root.classList.add("dark");
+      localStorage.setItem("theme", "dark");
     } else {
-      root.classList.remove("dark")
-      localStorage.setItem("theme", "light")
+      root.classList.remove("dark");
+      localStorage.setItem("theme", "light");
     }
-  }, [isDarkMode])
+  }, [isDarkMode]);
 
   const filteredSections = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
@@ -38,9 +39,12 @@ function App() {
       const matchesTitle = section.title.toLowerCase().includes(query);
 
       const filteredEndpoints = section.endpoints.filter(
-        (ep) => matchesTitle ||
+        (ep) =>
+          matchesTitle ||
           ep.path.toLowerCase().includes(query) ||
-          ep.method.toLowerCase().includes(query)
+          ep.method.toLowerCase().includes(query) ||
+          (ep.summary && ep.summary.toLowerCase().includes(query)) ||
+          (ep.description && ep.description.toLowerCase().includes(query)),
       );
 
       if (filteredEndpoints.length > 0) {
@@ -52,36 +56,55 @@ function App() {
   }, [searchQuery]);
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center gap-8 transition-colors duration-300">
-      <Header
-        isDarkMode={isDarkMode}
-        setIsDarkMode={setIsDarkMode}
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+      <Sidebar
+        sections={filteredSections}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-        showSwagger={showSwagger}
-        setShowSwagger={setShowSwagger}
       />
 
-      {showSwagger ? (
-        <div className="w-full max-w-6xl mx-auto md:px-4 px-8 xl:px-16 bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm p-4 mb-8">
-          <SwaggerUI url="/all-external-endpoints.openapi.json" />
+      <main className="lg:ml-72 min-h-screen">
+        <div className="bg-brand-green p-8 border-b border-black dark:border-white">
+          <Header
+            isDarkMode={isDarkMode}
+            setIsDarkMode={setIsDarkMode}
+            showSwagger={showSwagger}
+            setShowSwagger={setShowSwagger}
+          />
         </div>
-      ) : filteredSections.length === 0 ? (
-        <div className="text-center text-muted-foreground mt-8">
-          Nenhum endpoint encontrado para "{searchQuery}".
+
+        <div className="p-6 lg:p-10 lg:pr-12">
+          {showSwagger ? (
+            <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm p-4 mb-8">
+              <SwaggerUI url="/all-external-endpoints.openapi.json" />
+            </div>
+          ) : filteredSections.length === 0 ? (
+            <div className="text-center text-muted-foreground mt-16">
+              Nenhum endpoint encontrado para "{searchQuery}".
+            </div>
+          ) : (
+            filteredSections.map((section) =>
+              section.endpoints.map((endpoint, idx) => {
+                const anchorId =
+                  `${section.title}-${endpoint.method}-${endpoint.path}-${idx}`
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, "-");
+                return (
+                  <EndpointSection
+                    key={anchorId}
+                    sectionTitle={section.title}
+                    endpoint={endpoint}
+                    baseUrl={section.baseUrl}
+                    anchorId={anchorId}
+                  />
+                );
+              }),
+            )
+          )}
         </div>
-      ) : (
-        <div className="w-full flex flex-col items-center gap-8 md:px-4 px-8 xl:px-16 pb-8">
-          {filteredSections.map((section) => (
-            <ApiDocumentationCard
-              key={section.title}
-              apiData={section}
-            />
-          ))}
-        </div>
-      )}
+      </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
