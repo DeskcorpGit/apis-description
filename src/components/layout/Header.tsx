@@ -21,18 +21,18 @@ export function Header({
   );
 
   return (
-    <div className="flex justify-between items-end">
-      <div>
-        <h1 className="text-3xl font-light text-white mb-2">
+    <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-6 md:gap-0">
+      <div className="text-center md:text-left pl-12 md:pl-0 w-full max-w-full">
+        <h1 className="text-3xl font-light text-white mb-2 wrap-break-word">
           Endpoints BASA — API Reference
         </h1>
-        <p className="text-white text-sm">
+        <p className="text-white text-sm wrap-break-word">
           Documentação de {totalEndpoints} endpoints extraídos de{" "}
           {allApiSections.length} seções. Navegue pela sidebar ou use a busca
           para encontrar o endpoint desejado.
         </p>
       </div>
-      <div className="flex items-center gap-2 shrink-0">
+      <div className="flex items-center justify-center gap-2 shrink-0">
         <Button
           variant="outline"
           size="icon"

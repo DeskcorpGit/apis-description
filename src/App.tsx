@@ -64,7 +64,7 @@ function App() {
       />
 
       <main className="lg:ml-72 min-h-screen">
-        <div className="bg-brand-green p-8 border-b border-black dark:border-white">
+        <div className="bg-brand-green p-8 pl-16 lg:p-8 border-b border-black dark:border-white">
           <Header
             isDarkMode={isDarkMode}
             setIsDarkMode={setIsDarkMode}

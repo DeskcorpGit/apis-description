@@ -26,8 +26,8 @@ export function Sidebar({
 
   const sidebarContent = (
     <>
-      <div className="p-4 border-b border-border sticky top-0 bg-[#f8f9fa] dark:bg-zinc-900 z-10">
-        <div className="relative">
+      <div className="p-4 border-b border-border sticky top-0 bg-[#f8f9fa] dark:bg-zinc-900 z-10 flex items-center gap-2">
+        <div className="relative flex-1">
           <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
           <input
             className="w-full px-3 py-1.5 pl-8 text-xs font-mono border border-border rounded
@@ -47,6 +47,13 @@ export function Sidebar({
             </button>
           )}
         </div>
+        <button
+          className="lg:hidden p-2 -mr-2 text-muted-foreground hover:text-foreground"
+          onClick={() => setMobileOpen(false)}
+          aria-label="Fechar menu"
+        >
+          <X className="h-5 w-5" />
+        </button>
       </div>
 
       <div className="flex-1 py-2 overflow-y-auto">
@@ -96,14 +103,15 @@ export function Sidebar({
 
   return (
     <>
-      <button
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-md bg-white dark:bg-zinc-900
-          border border-border shadow-md"
-        onClick={() => setMobileOpen(!mobileOpen)}
-        aria-label="Abrir menu"
-      >
-        {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-      </button>
+      {!mobileOpen && (
+        <button
+          className="lg:hidden fixed top-6 left-4 z-50 p-2 rounded-md text-white bg-brand-green/50 backdrop-blur-sm border border-white/20 shadow-sm hover:bg-brand-green/80 transition-colors"
+          onClick={() => setMobileOpen(true)}
+          aria-label="Abrir menu"
+        >
+          <Menu className="h-5 w-5" />
+        </button>
+      )}
 
       {mobileOpen && (
         <div
