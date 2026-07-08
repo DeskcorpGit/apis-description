@@ -3,10 +3,10 @@ import type { ApiData } from "@/types/api";
 import { cn } from "@/lib/utils";
 
 const methodColor: Record<string, string> = {
-  GET: "text-brand-green dark:text-emerald-400 font-bold",
-  POST: "text-green-700 dark:text-green-400 font-bold",
-  PUT: "text-orange-600 dark:text-orange-400 font-bold",
-  PATCH: "text-amber-600 dark:text-amber-400 font-bold",
+  GET: "text-emerald-600 dark:text-emerald-400 font-bold",
+  POST: "text-blue-600 dark:text-blue-400 font-bold",
+  PUT: "text-amber-600 dark:text-amber-400 font-bold",
+  PATCH: "text-orange-600 dark:text-orange-400 font-bold",
   DELETE: "text-red-600 dark:text-red-400 font-bold",
 };
 
