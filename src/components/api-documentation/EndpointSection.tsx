@@ -33,6 +33,7 @@ export function EndpointSection({
         method={endpoint.method}
         baseUrl={baseUrl}
         path={endpoint.path}
+        krakendUrl={endpoint.krakendUrl}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">

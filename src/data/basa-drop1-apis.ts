@@ -16,6 +16,7 @@ export const basaApiSections: ApiData[] = [
       {
         method: "GET",
         path: "/bpm/app/public/obtemModeloDocumento",
+        krakendUrl: "https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/api/v1/onboarding/neobiz/obtemModeloDocumento",
         summary: "Obter modelo de documentação por assuntoId",
         tags: ["Neobiz", "Documentação"],
         parameters: [
@@ -40,6 +41,7 @@ export const basaApiSections: ApiData[] = [
       {
         method: "POST",
         path: "/bpm/app/public/consultar/endereco",
+        krakendUrl: "https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/api/v1/onboarding/neobiz/consultaCEP",
         summary: "Consultar endereço por CEP",
         tags: ["Neobiz", "Endereço"],
         parameters: [
@@ -126,6 +128,7 @@ export const basaApiSections: ApiData[] = [
       {
         method: "POST",
         path: "/v1/onboarding/entities",
+        krakendUrl: "https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/api/v1/onboarding/corebanx/createEntity",
         summary: "Criar entidade de pessoa física",
         tags: ["Corebanx", "Onboarding"],
         parameters: [],
@@ -147,6 +150,7 @@ export const basaApiSections: ApiData[] = [
       {
         method: "POST",
         path: "/BasaSIT/connect/token",
+        krakendUrl: "https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/api/v1/onboarding/authcube/login",
         summary: "Obter token de login da entidade",
         tags: ["AuthCube", "Autenticação"],
         parameters: [],
@@ -169,6 +173,7 @@ export const basaApiSections: ApiData[] = [
       {
         method: "POST",
         path: "/v1/onboarding/accept-terms",
+        krakendUrl: "https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/api/v1/onboarding/corebanx/acceptedTerms",
         summary: "Aceitar termos de uso",
         tags: ["Corebanx", "Onboarding"],
         parameters: [],
@@ -189,6 +194,7 @@ export const basaApiSections: ApiData[] = [
       {
         method: "POST",
         path: "/v1/onboarding/check-cpf",
+        krakendUrl: "https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/api/v1/onboarding/corebanx-new/checkCPF",
         summary: "Verificar existência do CPF no sistema",
         tags: ["Corebanx", "Onboarding"],
         parameters: [],
@@ -209,6 +215,7 @@ export const basaApiSections: ApiData[] = [
       {
         method: "PUT",
         path: "/v1/onboarding/demographics",
+        krakendUrl: "https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/api/v1/onboarding/corebanx/updatePerson",
         summary: "Atualizar dados demográficos da entidade",
         tags: ["Corebanx", "Onboarding"],
         parameters: [],
@@ -229,6 +236,7 @@ export const basaApiSections: ApiData[] = [
       {
         method: "POST",
         path: "/v1/onboarding/submit",
+        krakendUrl: "https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/api/v1/onboarding/corebanx/submitEntity",
         summary: "Submeter dados de onboarding para revisão",
         tags: ["Corebanx", "Onboarding"],
         parameters: [],
@@ -249,6 +257,7 @@ export const basaApiSections: ApiData[] = [
       {
         method: "POST",
         path: "/v1/onboarding/reset/entity",
+        krakendUrl: "https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/api/v1/onboarding/corebanx/deleteEntity",
         summary: "Resetar dados da entidade",
         tags: ["Corebanx", "Onboarding"],
         parameters: [],
@@ -269,6 +278,7 @@ export const basaApiSections: ApiData[] = [
       {
         method: "POST",
         path: "/api/3.5/oauthToken",
+        krakendUrl: "https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/api/v1/onboarding/idverse/oauthToken",
         summary: "Obter token OAuth do IDVerse",
         tags: ["IDVerse", "Autenticação"],
         parameters: [],
@@ -289,6 +299,7 @@ export const basaApiSections: ApiData[] = [
       {
         method: "POST",
         path: "/api/3.5/storeTransaction",
+        krakendUrl: "https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/api/v1/onboarding/idverse/storeTransaction",
         summary: "Iniciar processo de escaneamento facial e documentação",
         tags: ["IDVerse", "Verificação"],
         parameters: [],
@@ -349,6 +360,7 @@ export const basaApiSections: ApiData[] = [
       {
         method: "POST",
         path: "/irf-extension-api/api/v1.0.0/party/customers/createCustomer",
+        krakendUrl: "https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/api/v1/onboarding/temenos-iris/createCustomer",
         summary: "Criar customer no Transact",
         tags: ["Transact", "Customer"],
         parameters: [],
@@ -369,6 +381,7 @@ export const basaApiSections: ApiData[] = [
       {
         method: "GET",
         path: "/irf-extension-api/api/v1.0.0/party/customers/getCustomerData",
+        krakendUrl: "https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/api/v1/onboarding/temenos-iris/getCustomerData",
         summary: "Obter dados do customer por mnemônico",
         tags: ["Transact", "Customer"],
         parameters: [
@@ -391,6 +404,7 @@ export const basaApiSections: ApiData[] = [
       {
         method: "PUT",
         path: "/irf-extension-api/api/v1.0.0/party/customers/updateIncomeAssets/{coreCustomerId}",
+        krakendUrl: "https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/api/v1/onboarding/temenos-iris/updateIncomeAssets/{coreCustomerId}",
         summary: "Atualizar renda e patrimônio do customer",
         tags: ["Transact", "Customer"],
         parameters: [],
@@ -431,6 +445,7 @@ export const basaApiSections: ApiData[] = [
       {
         method: "GET",
         path: "/v1/onboarding/info",
+        krakendUrl: "https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/api/v1/onboarding/corebanx/loginEntity",
         summary: "Obter informações completas do onboarding",
         tags: ["Corebanx", "Onboarding"],
         parameters: [],

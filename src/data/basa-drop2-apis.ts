@@ -45,6 +45,7 @@ export const basaApiSectionsDrop2: ApiData[] = [
       {
         method: "GET",
         path: "/v1/onboarding/threat-metrix",
+        krakendUrl: "https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/api/v1/onboarding/corebanx/updateSessionId",
         summary: "Envio do SessionId para IDVerse",
         tags: ["Corebanx", "Onboarding", "Segurança"],
         parameters: [
@@ -106,6 +107,7 @@ export const basaApiSectionsDrop2: ApiData[] = [
       {
         method: "GET",
         path: "/irf-extension-api/api/v1.0.0/party/customers/getCustomerData",
+        krakendUrl: "https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/api/v1/onboarding/temenos-iris/getCustomerData",
         summary: "Obter dados cadastrais do cliente",
         tags: ["Transact", "Customer"],
         parameters: [
@@ -136,6 +138,7 @@ export const basaApiSectionsDrop2: ApiData[] = [
       {
         method: "PUT",
         path: "/irf-extension-api/api/v1.0.0/party/customers/getCustomerData",
+        krakendUrl: "https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/api/v1/onboarding/temenos-iris/getCustomerData",
         summary: "Atualizar dados do cliente",
         tags: ["Transact", "Customer"],
         parameters: [
@@ -256,6 +259,7 @@ export const basaApiSectionsDrop2: ApiData[] = [
       {
         method: "GET",
         path: "/bpm/app/public/obtemModeloDocumento",
+        krakendUrl: "https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/api/v1/onboarding/neobiz/obtemModeloDocumento",
         summary: "Obter modelo de documento Neobiz",
         tags: ["Neobiz", "Documentos"],
         parameters: [
@@ -286,6 +290,7 @@ export const basaApiSectionsDrop2: ApiData[] = [
       {
         method: "POST",
         path: "/bpm/app/public/insereAceiteTermosCondicoes",
+        krakendUrl: "https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/api/v1/onboarding/neobiz/inserirAceiteDeTermosPostLogin",
         summary: "Registrar aceite de termo",
         tags: ["Neobiz", "Documentos", "Compliance"],
         parameters: [
@@ -310,6 +315,7 @@ export const basaApiSectionsDrop2: ApiData[] = [
       {
         method: "POST",
         path: "/bpm/app/public/pesquisaAceiteTermosCondicoes",
+        krakendUrl: "https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/api/v1/onboarding/neobiz/pesquisaAceiteTermosCondicoes",
         summary: "Pesquisar aceites de termos",
         tags: ["Neobiz", "Documentos"],
         parameters: [

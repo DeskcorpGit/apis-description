@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Guia de Configuração Fabric → KrakenD · BASA 2.0</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--terra:#C2724F;--terra-dk:#AB5C3D;--navy:#24334A;--slate:#47535F;--muted:#8A93A0;--sand:#D9D4CE;--cream:#F5F5F5;--white:#fff;--font:'IBM Plex Sans',sans-serif;--mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--cream);color:var(--navy);font-size:14px;line-height:1.65}
+.cover{background:var(--navy);padding:48px 64px 40px;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;right:-40px;top:-40px;width:260px;height:260px;border-radius:50%;background:var(--terra);opacity:.1}
+.cover::after{content:'';position:absolute;right:80px;bottom:-60px;width:150px;height:150px;border-radius:50%;background:var(--terra-dk);opacity:.15}
+.cover-brand{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin-bottom:20px}
+.cover h1{font-size:30px;font-weight:300;color:#fff;line-height:1.2;margin-bottom:8px}
+.cover h1 strong{font-weight:600;color:var(--terra)}
+.cover-sub{font-size:13px;color:var(--sand);font-weight:300;margin-bottom:32px;max-width:520px}
+.cover-meta{display:flex;gap:32px;flex-wrap:wrap}
+.cover-meta-item label{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.cover-meta-item span{font-size:12px;font-weight:500;color:var(--sand)}
+.doc-id{position:absolute;top:48px;right:64px;text-align:right;z-index:1}
+.doc-id .num{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.doc-id .ver{font-size:18px;font-weight:500;color:var(--terra)}
+.alert-bar{background:#FAECE7;border-bottom:2px solid var(--terra);padding:14px 64px;display:flex;gap:12px;align-items:center}
+.alert-icon{font-size:16px}
+.alert-text{font-size:12px;color:var(--terra-dk);font-weight:500}
+.container{max-width:900px;margin:0 auto;padding:40px 64px}
+.section{margin-bottom:40px}
+.sec-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--terra);margin-bottom:8px}
+.sec-title{font-size:17px;font-weight:500;color:var(--navy);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--sand)}
+h3{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--terra-dk);margin:20px 0 10px}
+p{color:var(--slate);margin-bottom:12px;font-size:13px}
+.flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:#fff;border:1px solid var(--sand);border-radius:8px;padding:16px 20px;margin-bottom:16px}
+.flow-box{background:var(--cream);border:1px solid var(--sand);border-radius:6px;padding:8px 14px;font-size:12px;font-weight:500;color:var(--navy);text-align:center}
+.flow-box.active{background:#FAECE7;border-color:#F5C4B3;color:#993C1D}
+.flow-box.new{background:#E8F5E9;border-color:#C8E6C9;color:#2E7D32}
+.flow-box sub{display:block;font-size:9px;font-weight:400;color:var(--muted);margin-top:2px}
+.flow-arrow{color:var(--muted);font-size:18px}
+.change-card{background:#fff;border:1px solid var(--sand);border-radius:8px;overflow:hidden;margin-bottom:14px}
+.change-header{padding:12px 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--cream)}
+.change-header.corebanx{background:#EDE7F6}
+.change-header.authcube{background:#E8F5E9}
+.change-header.idverse{background:#E3F2FD}
+.change-header.neobiz{background:#FFF8E1}
+.change-header.temenos{background:#FBE9E7}
+.change-header .ch-name{font-size:13px;font-weight:600;color:var(--navy)}
+.change-header .ch-count{font-size:11px;color:var(--muted)}
+.change-body{padding:14px 18px}
+.change-row{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--cream)}
+.change-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.change-row .cr-op{font-size:11px;font-weight:600;color:var(--navy);margin-bottom:6px}
+.change-row .cr-from{background:#FFEBEE;border-radius:4px;padding:6px 10px;font-family:var(--mono);font-size:10px;color:#C62828;margin-bottom:4px;word-break:break-all}
+.change-row .cr-to{background:#E8F5E9;border-radius:4px;padding:6px 10px;font-family:var(--mono);font-size:10px;color:#2E7D32;word-break:break-all}
+.cr-label{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+.cr-label.from{color:#C62828}
+.cr-label.to{color:#2E7D32}
+.url-block{background:var(--navy);border-radius:8px;padding:16px 18px;margin-bottom:14px}
+.url-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--terra);margin-bottom:8px}
+.url-value{font-family:var(--mono);font-size:12px;color:#6EE7B7;word-break:break-all}
+.table-wrap{overflow-x:auto;margin-bottom:16px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+thead tr{background:var(--navy)}
+thead th{padding:8px 12px;text-align:left;font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#fff}
+tbody tr{background:#fff;border-bottom:1px solid var(--cream)}
+tbody tr:nth-child(even){background:#FAFAF9}
+tbody td{padding:8px 12px;color:var(--slate);vertical-align:top}
+tbody td:first-child{font-weight:500;color:var(--navy)}
+code{font-family:var(--mono);font-size:10px;background:var(--cream);padding:2px 5px;border-radius:3px;color:var(--terra-dk)}
+.badge{display:inline-block;font-size:10px;font-weight:500;padding:2px 8px;border-radius:4px}
+.badge-ok{background:#E8F5E9;color:#2E7D32}
+.badge-warn{background:#FFF8E1;color:#F57F17}
+.callout{border-left:3px solid var(--terra);background:#fff;padding:14px 18px;border-radius:0 6px 6px 0;margin-bottom:14px;font-size:12px;color:var(--slate)}
+.callout strong{color:var(--terra-dk)}
+.step-list{list-style:none;margin-bottom:16px}
+.step-list li{display:flex;gap:12px;margin-bottom:10px;font-size:13px;color:var(--slate)}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--terra);color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.stamp{background:var(--navy);border-radius:8px;padding:20px 24px;display:flex;gap:20px;align-items:flex-start;margin-top:8px}
+.stamp-icon{width:36px;height:36px;border-radius:6px;background:var(--terra);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;color:#fff}
+.stamp-content h4{font-size:13px;font-weight:600;color:#fff;margin-bottom:6px}
+.stamp-content p{font-size:11px;color:var(--sand);margin:0;line-height:1.6}
+.footer{background:var(--navy);padding:20px 64px;display:flex;justify-content:space-between;align-items:center}
+.footer-brand{font-size:11px;font-weight:600;color:var(--terra);letter-spacing:.1em;text-transform:uppercase}
+.footer-meta{font-size:10px;color:var(--muted);text-align:right;line-height:1.8}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="doc-id">
+    <div class="num">Guia Técnico · Fabric</div>
+    <div class="ver">v1.0</div>
+  </div>
+  <div class="cover-brand">Deskcorp · Banco Amazônia · BASA 2.0</div>
+  <h1>Configuração do <strong>Fabric</strong><br>para usar o KrakenD</h1>
+  <p class="cover-sub">Guia de mudanças de configuração no Fabric para rotear o fluxo de onboarding através do KrakenD API Gateway — ambiente SIT</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><label>Data</label><span>30 de junho de 2026</span></div>
+    <div class="cover-meta-item"><label>Ambiente</label><span>SIT · transact-sit</span></div>
+    <div class="cover-meta-item"><label>Destinatário</label><span>Wesley · Time Fabric</span></div>
+    <div class="cover-meta-item"><label>Contato</label><span>Fabio Cotta · dkc-fcotta@basa.com.br</span></div>
+  </div>
+</div>
+
+<div class="alert-bar">
+  <span class="alert-icon">⚠</span>
+  <span class="alert-text">Apenas o ambiente SIT está configurado no KrakenD neste momento. Não alterar UAT até nova comunicação.</span>
+</div>
+
+<div class="container">
+
+  <!-- 01 · CONTEXTO -->
+  <div class="section">
+    <div class="sec-label">01</div>
+    <div class="sec-title">Contexto — O que muda</div>
+
+    <p>Hoje o Fabric chama os parceiros externos diretamente. Com o KrakenD, o Fabric passa a chamar o gateway, que encaminha para os parceiros. O app continua funcionando normalmente — a mudança é apenas nas URLs de backend configuradas no Fabric.</p>
+
+    <h3>Fluxo atual</h3>
+    <div class="flow">
+      <div class="flow-box">App<sub>usuário</sub></div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box active">Fabric<sub>backend do app</sub></div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box">Corebanx / IDVerse<br>NeoBiz / AuthCube<sub>direto no parceiro</sub></div>
+    </div>
+
+    <h3>Fluxo com KrakenD</h3>
+    <div class="flow">
+      <div class="flow-box">App<sub>usuário</sub></div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box active">Fabric<sub>backend do app</sub></div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box new">KrakenD EE 2.13.2<sub>API Gateway · SIT</sub></div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box">Corebanx / IDVerse<br>NeoBiz / AuthCube<sub>via gateway</sub></div>
+    </div>
+  </div>
+
+  <!-- 02 · URL DO KRAKEND -->
+  <div class="section">
+    <div class="sec-label">02</div>
+    <div class="sec-title">URL do KrakenD SIT</div>
+    <p>Esta é a URL base que substitui todas as URLs de parceiros no Fabric:</p>
+    <div class="url-block">
+      <div class="url-label">KrakenD SIT — Base URL</div>
+      <div class="url-value">https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa</div>
+    </div>
+    <div class="callout"><strong>Health check:</strong> <code>GET https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/health</code> deve retornar <code>{"status":"ok"}</code></div>
+  </div>
+
+  <!-- 03 · MUDANÇAS POR SERVIÇO -->
+  <div class="section">
+    <div class="sec-label">03</div>
+    <div class="sec-title">Mudanças por Serviço no Fabric</div>
+    <p>Para cada serviço listado abaixo, alterar o arquivo <code>Endpoints/default.xml</code> e os paths de cada operação em <code>Operations/*.xml</code>:</p>
+
+    <!-- Corebanx MilestoneServices -->
+    <div class="change-card">
+      <div class="change-header corebanx">
+        <span class="ch-name">MilestoneServices (Corebanx — API atual)</span>
+        <span class="ch-count">11 operações</span>
+      </div>
+      <div class="change-body">
+        <h3>Endpoints/default.xml — URL base</h3>
+        <div class="change-row">
+          <div class="cr-label from">DE</div>
+          <div class="cr-from">url="https://sit-onboarding.corebanxapp.com.br"</div>
+          <div class="cr-label to">PARA</div>
+          <div class="cr-to">url="https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa"</div>
+        </div>
+        <h3>Operations — paths das operações</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Operação</th><th>Path atual</th><th>Novo path (KrakenD)</th></tr></thead>
+            <tbody>
+              <tr><td>checkCPF</td><td><code>/v1/onboarding/check-cpf</code></td><td><code>/api/v1/onboarding/corebanx/checkCPF</code></td></tr>
+              <tr><td>createEntity</td><td><code>/v1/onboarding/entities</code></td><td><code>/api/v1/onboarding/corebanx/createEntity</code></td></tr>
+              <tr><td>loginEntity</td><td><code>/v1/onboarding/info</code></td><td><code>/api/v1/onboarding/corebanx/loginEntity</code></td></tr>
+              <tr><td>acceptedTerms</td><td><code>/v1/onboarding/accept-terms</code></td><td><code>/api/v1/onboarding/corebanx/acceptedTerms</code></td></tr>
+              <tr><td>updatePerson</td><td><code>/v1/onboarding/demographics</code></td><td><code>/api/v1/onboarding/corebanx/updatePerson</code></td></tr>
+              <tr><td>submitEntity</td><td><code>/v1/onboarding/submit</code></td><td><code>/api/v1/onboarding/corebanx/submitEntity</code></td></tr>
+              <tr><td>deleteEntity</td><td><code>/v1/onboarding/reset/entity</code></td><td><code>/api/v1/onboarding/corebanx/deleteEntity</code></td></tr>
+              <tr><td>updateBusiness</td><td><code>/v1/entities/update</code></td><td><code>/api/v1/onboarding/corebanx/updateBusiness</code></td></tr>
+              <tr><td>updateCNPJ</td><td><code>/v1/entities/person/cnpj/$cnpj</code></td><td><code>/api/v1/onboarding/corebanx/updateCNPJ/$cnpj</code></td></tr>
+              <tr><td>uploadSocialContract</td><td><code>/v1/upload/files/business/social_contract</code></td><td><code>/api/v1/onboarding/corebanx/uploadSocialContract</code></td></tr>
+              <tr><td>updateSessionId</td><td><code>/v1/onboarding/threat-metrix</code></td><td><code>/api/v1/onboarding/corebanx/updateSessionId</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Corebanx MilestoneNewServices -->
+    <div class="change-card">
+      <div class="change-header corebanx">
+        <span class="ch-name">MilestoneNewServices (Corebanx — nova API)</span>
+        <span class="ch-count">10 operações</span>
+      </div>
+      <div class="change-body">
+        <h3>Endpoints/default.xml — URL base</h3>
+        <div class="change-row">
+          <div class="cr-label from">DE</div>
+          <div class="cr-from">url="https://sit-onboarding.corebanxapp.com.br"</div>
+          <div class="cr-label to">PARA</div>
+          <div class="cr-to">url="https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa"</div>
+        </div>
+        <h3>Operations — paths das operações</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Operação</th><th>Path atual</th><th>Novo path (KrakenD)</th></tr></thead>
+            <tbody>
+              <tr><td>checkCPF</td><td><code>/v1/onboarding/check-cpf</code></td><td><code>/api/v1/onboarding/corebanx-new/checkCPF</code></td></tr>
+              <tr><td>createEntity</td><td><code>/v1/entities/person</code></td><td><code>/api/v1/onboarding/corebanx-new/createEntity</code></td></tr>
+              <tr><td>loginEntity</td><td><code>/v1/entities/info</code></td><td><code>/api/v1/onboarding/corebanx-new/loginEntity</code></td></tr>
+              <tr><td>acceptedTerms</td><td><code>/v1/entities/person/accepted_terms</code></td><td><code>/api/v1/onboarding/corebanx-new/acceptedTerms</code></td></tr>
+              <tr><td>updatePerson</td><td><code>/v1/entities/update/person</code></td><td><code>/api/v1/onboarding/corebanx-new/updatePerson</code></td></tr>
+              <tr><td>submitEntity</td><td><code>/v1/entities/approve/account</code></td><td><code>/api/v1/onboarding/corebanx-new/submitEntity</code></td></tr>
+              <tr><td>deleteEntity</td><td><code>/v1/entities/reset</code></td><td><code>/api/v1/onboarding/corebanx-new/deleteEntity</code></td></tr>
+              <tr><td>updateBusiness</td><td><code>/v1/entities/update</code></td><td><code>/api/v1/onboarding/corebanx-new/updateBusiness</code></td></tr>
+              <tr><td>updateCNPJ</td><td><code>/v1/entities/person/cnpj/$cnpj</code></td><td><code>/api/v1/onboarding/corebanx-new/updateCNPJ/$cnpj</code></td></tr>
+              <tr><td>uploadSocialContract</td><td><code>/v1/upload/files/business/social_contract</code></td><td><code>/api/v1/onboarding/corebanx-new/uploadSocialContract</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- AuthCube -->
+    <div class="change-card">
+      <div class="change-header authcube">
+        <span class="ch-name">authCube</span>
+        <span class="ch-count">6 operações</span>
+      </div>
+      <div class="change-body">
+        <h3>Endpoints/default.xml — URL base</h3>
+        <div class="change-row">
+          <div class="cr-label from">DE</div>
+          <div class="cr-from">url="https://oauthcube-devqa.basa.com.br/"</div>
+          <div class="cr-label to">PARA</div>
+          <div class="cr-to">url="https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa"</div>
+        </div>
+        <h3>Operations — paths das operações</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Operação</th><th>Path atual</th><th>Novo path (KrakenD)</th></tr></thead>
+            <tbody>
+              <tr><td>login</td><td><code>/BasaSIT/connect/token</code></td><td><code>/api/v1/onboarding/authcube/login</code></td></tr>
+              <tr><td>validatePassword</td><td><code>/api/BasaSIT/login</code></td><td><code>/api/v1/onboarding/authcube/validatePassword</code></td></tr>
+              <tr><td>postUserCredentials</td><td><code>/api/BasaSIT/login</code></td><td><code>/api/v1/onboarding/authcube/postUserCredentials</code></td></tr>
+              <tr><td>getLoginCookies</td><td><code>/api/BasaSIT/login</code></td><td><code>/api/v1/onboarding/authcube/getLoginCookies</code></td></tr>
+              <tr><td>updateTransactionId</td><td><code>/api/applications/BasaSIT/users/$username</code></td><td><code>/api/v1/onboarding/authcube/updateTransactionId/$username</code></td></tr>
+              <tr><td>forgotPassword</td><td><code>/api/applications/BasaSIT/users/$username</code></td><td><code>/api/v1/onboarding/authcube/forgotPassword/$username</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- IDVerse -->
+    <div class="change-card">
+      <div class="change-header idverse">
+        <span class="ch-name">IDVerseJSONServices</span>
+        <span class="ch-count">2 operações</span>
+      </div>
+      <div class="change-body">
+        <h3>Endpoints/default.xml — URL base</h3>
+        <div class="change-row">
+          <div class="cr-label from">DE</div>
+          <div class="cr-from">url="https://staging.bancobasa.idkit.co"</div>
+          <div class="cr-label to">PARA</div>
+          <div class="cr-to">url="https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa"</div>
+        </div>
+        <h3>Operations — paths das operações</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Operação</th><th>Path atual</th><th>Novo path (KrakenD)</th></tr></thead>
+            <tbody>
+              <tr><td>oauthToken</td><td><code>/api/3.5/oauthToken</code></td><td><code>/api/v1/onboarding/idverse/oauthToken</code></td></tr>
+              <tr><td>storeTransaction</td><td><code>/api/3.5/storeTransaction</code></td><td><code>/api/v1/onboarding/idverse/storeTransaction</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- NeoBiz -->
+    <div class="change-card">
+      <div class="change-header neobiz">
+        <span class="ch-name">NeoBizTermsJSONServices</span>
+        <span class="ch-count">5 operações</span>
+      </div>
+      <div class="change-body">
+        <h3>Endpoints/default.xml — URL base</h3>
+        <div class="change-row">
+          <div class="cr-label from">DE</div>
+          <div class="cr-from">url="https://plataforma.neobiz.com.br/bpm/app/public/"</div>
+          <div class="cr-label to">PARA</div>
+          <div class="cr-to">url="https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa"</div>
+        </div>
+        <h3>Operations — paths das operações</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Operação</th><th>Path atual</th><th>Novo path (KrakenD)</th></tr></thead>
+            <tbody>
+              <tr><td>consultaCEP</td><td><code>/bpm/app/public/consultar/endereco</code></td><td><code>/api/v1/onboarding/neobiz/consultaCEP</code></td></tr>
+              <tr><td>inserirAceiteDeTermos</td><td><code>/bpm/app/public/insereAceiteTermosCondicoes</code></td><td><code>/api/v1/onboarding/neobiz/inserirAceiteDeTermos</code></td></tr>
+              <tr><td>inserirAceiteDeTermosPostLogin</td><td><code>/bpm/app/public/insereAceiteTermosCondicoes</code></td><td><code>/api/v1/onboarding/neobiz/inserirAceiteDeTermosPostLogin</code></td></tr>
+              <tr><td>pesquisaAceiteTermosCondicoes</td><td><code>/bpm/app/public/pesquisaAceiteTermosCondicoes</code></td><td><code>/api/v1/onboarding/neobiz/pesquisaAceiteTermosCondicoes</code></td></tr>
+              <tr><td>obtemModeloDocumento</td><td><code>/bpm/app/public/obtemModeloDocumento</code></td><td><code>/api/v1/onboarding/neobiz/obtemModeloDocumento</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Temenos IRIS -->
+    <div class="change-card">
+      <div class="change-header temenos">
+        <span class="ch-name">OnboardingIRISServices</span>
+        <span class="ch-count">3 operações</span>
+      </div>
+      <div class="change-body">
+        <h3>Endpoints/default.xml — URL base</h3>
+        <div class="change-row">
+          <div class="cr-label from">DE</div>
+          <div class="cr-from">url="https://iris-transact-sit.apps.ocp-core-stage.bancoamazonia.sa/irf-extension-api/api/"</div>
+          <div class="cr-label to">PARA</div>
+          <div class="cr-to">url="https://krakend-transact-sit.apps.ocp-core-stage.bancoamazonia.sa"</div>
+        </div>
+        <h3>Operations — paths das operações</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Operação</th><th>Path atual</th><th>Novo path (KrakenD)</th></tr></thead>
+            <tbody>
+              <tr><td>createCustomer</td><td><code>/irf-extension-api/api/v1.0.0/party/customers/createCustomer</code></td><td><code>/api/v1/onboarding/temenos-iris/createCustomer</code></td></tr>
+              <tr><td>getCustomerData</td><td><code>/irf-extension-api/api/v1.0.0/party/customers/getCustomerData</code></td><td><code>/api/v1/onboarding/temenos-iris/getCustomerData</code></td></tr>
+              <tr><td>updateIncomeAssets</td><td><code>/irf-extension-api/api/v1.0.0/party/customers/updateIncomeAssets/$coreCustomerId</code></td><td><code>/api/v1/onboarding/temenos-iris/updateIncomeAssets/$coreCustomerId</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 04 · SERVIÇOS QUE NÃO MUDAM -->
+  <div class="section">
+    <div class="sec-label">04</div>
+    <div class="sec-title">Serviços que NÃO mudam</div>
+    <p>Os serviços abaixo são internos do Fabric e <strong>não passam pelo KrakenD</strong> — não alterar:</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Serviço</th><th>Motivo</th></tr></thead>
+        <tbody>
+          <tr><td>onboardingServicesDb</td><td>Banco de dados interno MySQL (dbxdb) — chamada direta</td></tr>
+          <tr><td>AuthCubeJavaServices</td><td>Serviço Java interno do Fabric</td></tr>
+          <tr><td>IDVerseJavaServices</td><td>Serviço Java interno do Fabric</td></tr>
+          <tr><td>MilestoneJavaServices</td><td>Serviço Java interno do Fabric</td></tr>
+          <tr><td>OnboardingCompletion</td><td>Serviço Java interno do Fabric</td></tr>
+          <tr><td>OnboardingDocuments</td><td>Serviço Java interno do Fabric</td></tr>
+          <tr><td>OnboardingUtils</td><td>Serviço Java interno do Fabric</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 05 · PASSOS PARA O TESTE -->
+  <div class="section">
+    <div class="sec-label">05</div>
+    <div class="sec-title">Passos para o Teste</div>
+    <ul class="step-list">
+      <li><span class="step-num">1</span>Alterar as URLs nos arquivos <code>Endpoints/default.xml</code> de cada serviço conforme a seção 03</li>
+      <li><span class="step-num">2</span>Alterar os paths nas operações <code>Operations/*.xml</code> conforme as tabelas</li>
+      <li><span class="step-num">3</span>Publicar/republicar os serviços alterados no Fabric</li>
+      <li><span class="step-num">4</span>Confirmar health check do KrakenD: <code>GET .../health</code> → <code>{"status":"ok"}</code></li>
+      <li><span class="step-num">5</span>Abrir o app e executar o fluxo de onboarding normalmente</li>
+      <li><span class="step-num">6</span>Acompanhar os logs do KrakenD com o time de Arquitetura em paralelo</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Contato durante o teste:</strong> Fabio Cotta — <code>dkc-fcotta@basa.com.br</code> — estará disponível para acompanhar os logs do KrakenD em tempo real e suporte durante a execução.
+    </div>
+
+    <div class="stamp">
+      <div class="stamp-icon">✓</div>
+      <div class="stamp-content">
+        <h4>KrakenD SIT pronto para receber o tráfego do Fabric</h4>
+        <p>74 endpoints configurados · 5 parceiros com conectividade validada · Grafana monitorando em tempo real · 30/06/2026</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-brand">Deskcorp</div>
+  <div class="footer-meta">Banco Amazônia S.A. · BASA 2.0 · Confidencial<br>Guia de Configuração Fabric → KrakenD · v1.0 · 30/06/2026</div>
+</div>
+
+</body>
+</html>
