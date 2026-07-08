@@ -1,0 +1,5700 @@
+openapi: 3.0.3
+info:
+  title: Pix Integration Services API
+  description: 'Coleção OpenAPI (Swagger) gerada a partir das definições de integração
+    (Operations XML) do pacote Pix v1.0, cobrindo os serviços: BeneficiaryServices,
+    ClaimsService, OpenidAuthService, PixAuthorization, PixJavaServices, PixServiceFraud,
+    PixServiceNarrativeFailure, PixServicePix, PixServiceQRCode, PixServiceRecoveryValues,
+    PixServiceReturn, PixServiceSPI, PixServiceScheduling, PixServices, QrcodeService.'
+  version: 1.0.0
+servers:
+- url: https://sit.corebanxapp.com.br
+- url: https://uat.corebanxapp.com.br
+tags:
+- name: BeneficiaryServices
+  description: Operações do serviço de integração BeneficiaryServices
+- name: ClaimsService
+  description: Operações do serviço de integração ClaimsService
+- name: OpenidAuthService
+  description: Operações do serviço de integração OpenidAuthService
+- name: PixAuthorization
+  description: Operações do serviço de integração PixAuthorization
+- name: PixJavaServices
+  description: Operações do serviço de integração PixJavaServices
+- name: PixServiceFraud
+  description: Operações do serviço de integração PixServiceFraud
+- name: PixServiceNarrativeFailure
+  description: Operações do serviço de integração PixServiceNarrativeFailure
+- name: PixServicePix
+  description: Operações do serviço de integração PixServicePix
+- name: PixServiceQRCode
+  description: Operações do serviço de integração PixServiceQRCode
+- name: PixServiceRecoveryValues
+  description: Operações do serviço de integração PixServiceRecoveryValues
+- name: PixServiceReturn
+  description: Operações do serviço de integração PixServiceReturn
+- name: PixServiceSPI
+  description: Operações do serviço de integração PixServiceSPI
+- name: PixServiceScheduling
+  description: Operações do serviço de integração PixServiceScheduling
+- name: PixServices
+  description: Operações do serviço de integração PixServices
+- name: QrcodeService
+  description: Operações do serviço de integração QrcodeService
+paths:
+  /internal/BeneficiaryServices/addBeneficiary:
+    post:
+      tags:
+      - BeneficiaryServices
+      summary: addBeneficiary
+      description: 'Serviço de integração `BeneficiaryServices` / operação `addBeneficiary`.
+
+
+        Tipo de conector: `javaConnector`.
+
+
+        Implementação interna: `com.basa.integration.service.beneficiary.BasaAddBeneficiaryService.addBeneficiary`.
+
+
+        Serviço Java interno (sem chamada HTTP externa direta na definição original);
+        representado aqui como endpoint sintético.'
+      operationId: BeneficiaryServices_addBeneficiary
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                benId:
+                  type: string
+                  example: '11'
+                name:
+                  type: string
+                  example: test
+                cpf:
+                  type: string
+                  example: test
+                favorite:
+                  type: string
+                  example: 'false'
+                ownerAccount:
+                  type: string
+                  example: '111111'
+                accounts:
+                  type: array
+                profileImg:
+                  type: string
+              required:
+              - benId
+              - name
+              - cpf
+              - favorite
+              - ownerAccount
+              - accounts
+              - profileImg
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /internal/BeneficiaryServices/addBeneficiaryAccount:
+    post:
+      tags:
+      - BeneficiaryServices
+      summary: addBeneficiaryAccount
+      description: 'Serviço de integração `BeneficiaryServices` / operação `addBeneficiaryAccount`.
+
+
+        Tipo de conector: `javaConnector`.
+
+
+        Implementação interna: `com.basa.integration.service.beneficiary.BasaAddBeneficiaryAccountService.addBeneficiaryAccount`.
+
+
+        Serviço Java interno (sem chamada HTTP externa direta na definição original);
+        representado aqui como endpoint sintético.'
+      operationId: BeneficiaryServices_addBeneficiaryAccount
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                benId:
+                  type: string
+                accountName:
+                  type: string
+                accountNumber:
+                  type: string
+                accountAgency:
+                  type: string
+                benAccountId:
+                  type: string
+                pixKey:
+                  type: string
+                ownerAccount:
+                  type: string
+              required:
+              - benId
+              - accountName
+              - accountNumber
+              - accountAgency
+              - benAccountId
+              - pixKey
+              - ownerAccount
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /internal/BeneficiaryServices/addBeneficiaryTransact:
+    post:
+      tags:
+      - BeneficiaryServices
+      summary: addBeneficiaryTransact
+      description: 'Serviço de integração `BeneficiaryServices` / operação `addBeneficiaryTransact`.
+
+
+        Tipo de conector: `javaConnector`.
+
+
+        Implementação interna: `com.basa.integration.service.beneficiary.BasaAddBeneficiaryTransactService.addBeneficiaryTransact`.
+
+
+        Serviço Java interno (sem chamada HTTP externa direta na definição original);
+        representado aqui como endpoint sintético.'
+      operationId: BeneficiaryServices_addBeneficiaryTransact
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                benCustomer:
+                  type: string
+                beneficiaryIdType:
+                  type: string
+                owningAccount:
+                  type: string
+                pixKeyType:
+                  type: string
+                pixKey:
+                  type: string
+                accountType:
+                  type: string
+                accountDigit:
+                  type: string
+                branch:
+                  type: string
+                bank:
+                  type: string
+                cpfCnpj:
+                  type: string
+                beneficiaryBankCode:
+                  type: string
+                beneficiaryName:
+                  type: string
+                personType:
+                  type: string
+                owningCustomer:
+                  type: string
+                ISPB:
+                  type: string
+                account:
+                  type: string
+                beneficiaryId:
+                  type: string
+              required:
+              - benCustomer
+              - beneficiaryIdType
+              - owningAccount
+              - pixKeyType
+              - pixKey
+              - accountType
+              - accountDigit
+              - branch
+              - bank
+              - cpfCnpj
+              - beneficiaryBankCode
+              - beneficiaryName
+              - personType
+              - owningCustomer
+              - ISPB
+              - account
+              - beneficiaryId
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /internal/BeneficiaryServices/deleteBeneficiary:
+    post:
+      tags:
+      - BeneficiaryServices
+      summary: deleteBeneficiary
+      description: 'Serviço de integração `BeneficiaryServices` / operação `deleteBeneficiary`.
+
+
+        Tipo de conector: `javaConnector`.
+
+
+        Implementação interna: `com.basa.integration.service.beneficiary.BasaDeleteBeneficiaryService.deleteBeneficiary`.
+
+
+        Serviço Java interno (sem chamada HTTP externa direta na definição original);
+        representado aqui como endpoint sintético.'
+      operationId: BeneficiaryServices_deleteBeneficiary
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                benId:
+                  type: string
+              required:
+              - benId
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /internal/BeneficiaryServices/deleteBeneficiaryAccount:
+    post:
+      tags:
+      - BeneficiaryServices
+      summary: deleteBeneficiaryAccount
+      description: 'Serviço de integração `BeneficiaryServices` / operação `deleteBeneficiaryAccount`.
+
+
+        Tipo de conector: `javaConnector`.
+
+
+        Implementação interna: `com.basa.integration.service.beneficiary.BasaDeleteBeneficiaryAccountService.deleteBeneficiaryAccount`.
+
+
+        Serviço Java interno (sem chamada HTTP externa direta na definição original);
+        representado aqui como endpoint sintético.'
+      operationId: BeneficiaryServices_deleteBeneficiaryAccount
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                benAccountId:
+                  type: string
+              required:
+              - benAccountId
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /internal/BeneficiaryServices/getBeneWithAccounts:
+    post:
+      tags:
+      - BeneficiaryServices
+      summary: getBeneWithAccounts
+      description: 'Serviço de integração `BeneficiaryServices` / operação `getBeneWithAccounts`.
+
+
+        Tipo de conector: `javaConnector`.
+
+
+        Implementação interna: `com.basa.integration.service.beneficiary.BasaGetBeneAndAccountsService.getBeneWithAccounts`.
+
+
+        Serviço Java interno (sem chamada HTTP externa direta na definição original);
+        representado aqui como endpoint sintético.'
+      operationId: BeneficiaryServices_getBeneWithAccounts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                p_ownerAccount:
+                  type: string
+                p_search:
+                  type: string
+              required:
+              - p_ownerAccount
+              - p_search
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /internal/BeneficiaryServices/getBeneficiaries:
+    post:
+      tags:
+      - BeneficiaryServices
+      summary: getBeneficiaries
+      description: 'Serviço de integração `BeneficiaryServices` / operação `getBeneficiaries`.
+
+
+        Tipo de conector: `javaConnector`.
+
+
+        Implementação interna: `com.basa.integration.service.beneficiary.BasaGetBeneficiariesService.getBeneficiaries`.
+
+
+        Serviço Java interno (sem chamada HTTP externa direta na definição original);
+        representado aqui como endpoint sintético.'
+      operationId: BeneficiaryServices_getBeneficiaries
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                benId:
+                  type: string
+                name:
+                  type: string
+                cpf:
+                  type: string
+                favorite:
+                  type: string
+                profileImg:
+                  type: string
+              required:
+              - benId
+              - name
+              - cpf
+              - favorite
+              - profileImg
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /internal/BeneficiaryServices/getBeneficiaryAccounts:
+    post:
+      tags:
+      - BeneficiaryServices
+      summary: getBeneficiaryAccounts
+      description: 'Serviço de integração `BeneficiaryServices` / operação `getBeneficiaryAccounts`.
+
+
+        Tipo de conector: `javaConnector`.
+
+
+        Implementação interna: `com.basa.integration.service.beneficiary.BasaGetBeneficiaryAccountsService.getBeneficiaryAccounts`.
+
+
+        Serviço Java interno (sem chamada HTTP externa direta na definição original);
+        representado aqui como endpoint sintético.'
+      operationId: BeneficiaryServices_getBeneficiaryAccounts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                benId:
+                  type: string
+                accountNumber:
+                  type: string
+                pixKey:
+                  type: string
+                ownerAccount:
+                  type: string
+              required:
+              - benId
+              - accountNumber
+              - pixKey
+              - ownerAccount
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /internal/BeneficiaryServices/getBeneficiaryTransact:
+    post:
+      tags:
+      - BeneficiaryServices
+      summary: getBeneficiaryTransact
+      description: 'Serviço de integração `BeneficiaryServices` / operação `getBeneficiaryTransact`.
+
+
+        Tipo de conector: `javaConnector`.
+
+
+        Implementação interna: `com.basa.integration.service.beneficiary.BasaGetBeneficiaryTransactService.getBeneficiaryTransact`.
+
+
+        Serviço Java interno (sem chamada HTTP externa direta na definição original);
+        representado aqui como endpoint sintético.'
+      operationId: BeneficiaryServices_getBeneficiaryTransact
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                beneficiaryId:
+                  type: string
+              required:
+              - beneficiaryId
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /internal/BeneficiaryServices/getDbxBeneficiaries:
+    post:
+      tags:
+      - BeneficiaryServices
+      summary: getDbxBeneficiaries
+      description: 'Serviço de integração `BeneficiaryServices` / operação `getDbxBeneficiaries`.
+
+
+        Tipo de conector: `javaConnector`.
+
+
+        Implementação interna: `com.basa.integration.service.beneficiary.BasaGetDbxBeneficiaries.getDbxBeneficiaries`.
+
+
+        Serviço Java interno (sem chamada HTTP externa direta na definição original);
+        representado aqui como endpoint sintético.'
+      operationId: BeneficiaryServices_getDbxBeneficiaries
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ownerAccount:
+                  type: string
+              required:
+              - ownerAccount
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /internal/BeneficiaryServices/searchDbxBeneficiaries:
+    post:
+      tags:
+      - BeneficiaryServices
+      summary: searchDbxBeneficiaries
+      description: 'Serviço de integração `BeneficiaryServices` / operação `searchDbxBeneficiaries`.
+
+
+        Tipo de conector: `javaConnector`.
+
+
+        Implementação interna: `com.basa.integration.service.beneficiary.BasaSearchDbxBeneficiaries.searchDbxBeneficiaries`.
+
+
+        Serviço Java interno (sem chamada HTTP externa direta na definição original);
+        representado aqui como endpoint sintético.'
+      operationId: BeneficiaryServices_searchDbxBeneficiaries
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ownerAccount:
+                  type: string
+                search:
+                  type: string
+              required:
+              - ownerAccount
+              - search
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /internal/BeneficiaryServices/updateBeneficiary:
+    post:
+      tags:
+      - BeneficiaryServices
+      summary: updateBeneficiary
+      description: 'Serviço de integração `BeneficiaryServices` / operação `updateBeneficiary`.
+
+
+        Tipo de conector: `javaConnector`.
+
+
+        Implementação interna: `com.basa.integration.service.beneficiary.BasaUpdateBeneficiaryService.updateBeneficiary`.
+
+
+        Serviço Java interno (sem chamada HTTP externa direta na definição original);
+        representado aqui como endpoint sintético.'
+      operationId: BeneficiaryServices_updateBeneficiary
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                benId:
+                  type: string
+                name:
+                  type: string
+                cpf:
+                  type: string
+                favorite:
+                  type: string
+                ownerAccount:
+                  type: string
+                profileImg:
+                  type: string
+                isImageUpdate:
+                  type: string
+              required:
+              - benId
+              - name
+              - cpf
+              - favorite
+              - ownerAccount
+              - profileImg
+              - isImageUpdate
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/dict/reivindicacao/{idReivindicacao}/cancelar:
+    post:
+      tags:
+      - ClaimsService
+      summary: cancelClaimService
+      description: 'Serviço de integração `ClaimsService` / operação `cancelClaimService`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: ClaimsService_cancelClaimService
+      parameters:
+      - name: idReivindicacao
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ehReivindicador:
+                  type: boolean
+                ispb:
+                  type: string
+                motivo:
+                  type: string
+              required:
+              - ehReivindicador
+              - ispb
+              - motivo
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /paymentos/jdpi/dict/reivindicacao/{idReivindicacao}/confirmar:
+    post:
+      tags:
+      - ClaimsService
+      summary: confirmClaimService
+      description: 'Serviço de integração `ClaimsService` / operação `confirmClaimService`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: ClaimsService_confirmClaimService
+      parameters:
+      - name: idReivindicacao
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ispb:
+                  type: string
+                motivo:
+                  type: string
+              required:
+              - ispb
+              - motivo
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /paymentos/jdpi/dict/reivindicacao/incluir:
+    post:
+      tags:
+      - ClaimsService
+      summary: createClaimService
+      description: 'Serviço de integração `ClaimsService` / operação `createClaimService`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: ClaimsService_createClaimService
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tpReivindicacao:
+                  type: number
+                chave:
+                  type: string
+                ispb:
+                  type: string
+                nrAgencia:
+                  type: string
+                tpConta:
+                  type: number
+                nrConta:
+                  type: string
+                dtHrAberturaConta:
+                  type: string
+                tpPessoa:
+                  type: number
+                tpChave:
+                  type: number
+                cpfCnpj:
+                  type: string
+                nome:
+                  type: string
+              required:
+              - tpReivindicacao
+              - chave
+              - ispb
+              - nrAgencia
+              - tpConta
+              - nrConta
+              - dtHrAberturaConta
+              - tpPessoa
+              - tpChave
+              - cpfCnpj
+              - nome
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /paymentos/jdpi/dict/reivindicacao/listar:
+    post:
+      tags:
+      - ClaimsService
+      summary: listClaimsService
+      description: 'Serviço de integração `ClaimsService` / operação `listClaimsService`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: ClaimsService_listClaimsService
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cpfCnpj:
+                  type: string
+                  example: '82437485000140'
+                cpfCnpjLogado:
+                  type: string
+                  example: '82437485000140'
+                ehDoador:
+                  type: string
+                ehReivindicador:
+                  type: string
+                ispb:
+                  type: string
+                  example: 04358798
+                nrAgencia:
+                  type: string
+                  example: '1'
+                nrAgenciaLogada:
+                  type: string
+                  example: '1'
+                nrConta:
+                  type: string
+                  example: '0000001'
+                nrContaLogada:
+                  type: string
+                  example: '0000001'
+                pagina:
+                  type: string
+                stReivindicacao:
+                  type: string
+                tamanhoPagina:
+                  type: string
+                tpConta:
+                  type: string
+                tpContaLogada:
+                  type: string
+                tpPessoa:
+                  type: string
+                tpPessoaLogada:
+                  type: string
+                tpReivindicacao:
+                  type: string
+              required:
+              - cpfCnpj
+              - cpfCnpjLogado
+              - ehDoador
+              - ehReivindicador
+              - ispb
+              - nrAgencia
+              - nrAgenciaLogada
+              - nrConta
+              - nrContaLogada
+              - pagina
+              - stReivindicacao
+              - tamanhoPagina
+              - tpConta
+              - tpContaLogada
+              - tpPessoa
+              - tpPessoaLogada
+              - tpReivindicacao
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /auth/realms/ledgeros/protocol/openid-connect/token:
+    post:
+      tags:
+      - OpenidAuthService
+      summary: getAccessToken
+      description: 'Serviço de integração `OpenidAuthService` / operação `getAccessToken`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: OpenidAuthService_getAccessToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                client_id:
+                  type: string
+                client_secret:
+                  type: string
+                grant_type:
+                  type: string
+              required:
+              - client_id
+              - client_secret
+              - grant_type
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  expires_in:
+                    type: string
+                  refresh_expires_in:
+                    type: string
+                  token_type:
+                    type: string
+                  not-before-policy:
+                    type: string
+                  scope:
+                    type: string
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /paymentos/jdpi/connect/token:
+    post:
+      tags:
+      - OpenidAuthService
+      summary: getJdpiToken
+      description: 'Serviço de integração `OpenidAuthService` / operação `getJdpiToken`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: OpenidAuthService_getJdpiToken
+      parameters:
+      - name: accept
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                scope:
+                  type: string
+                  example: dict_api
+              required:
+              - scope
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  expires_in:
+                    type: string
+                  token_type:
+                    type: string
+                  scope:
+                    type: string
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /paymentos/jdpi/pa/autorizacao/{id}/cancelar:
+    post:
+      tags:
+      - PixAuthorization
+      summary: cancel
+      description: 'Serviço de integração `PixAuthorization` / operação `cancel`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixAuthorization_cancel
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cpfCnpjSolCancelamento:
+                  type: string
+                dtHrCancelamento:
+                  type: string
+                idRecorrencia:
+                  type: string
+                ispbSolicitante:
+                  type: string
+              required:
+              - cpfCnpjSolCancelamento
+              - dtHrCancelamento
+              - idRecorrencia
+              - ispbSolicitante
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/pa/autorizacao/{id}/cancelar/{key}:
+    get:
+      tags:
+      - PixAuthorization
+      summary: cancelStatus
+      description: 'Serviço de integração `PixAuthorization` / operação `cancelStatus`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixAuthorization_cancelStatus
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/pa/autorizacao/{id}/confirmar:
+    post:
+      tags:
+      - PixAuthorization
+      summary: confirm
+      description: 'Serviço de integração `PixAuthorization` / operação `confirm`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixAuthorization_confirm
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dtFinalRecorrencia:
+                  type: string
+                dtHrAutorizacaoRecorrencia:
+                  type: string
+                dtHrCriacaoRecorrencia:
+                  type: string
+                dtInicialRecorrencia:
+                  type: string
+                idRecorrencia:
+                  type: string
+                jornada:
+                  type: string
+                nrContrato:
+                  type: string
+                cnpj:
+                  type: string
+                codMunIbge:
+                  type: string
+                cpfCnpj:
+                  type: string
+                ispb:
+                  type: string
+                nome:
+                  type: string
+                nrAgencia:
+                  type: string
+                nrConta:
+                  type: string
+                valor:
+                  type: string
+              required:
+              - dtFinalRecorrencia
+              - dtHrAutorizacaoRecorrencia
+              - dtHrCriacaoRecorrencia
+              - dtInicialRecorrencia
+              - idRecorrencia
+              - jornada
+              - nrContrato
+              - cnpj
+              - codMunIbge
+              - cpfCnpj
+              - ispb
+              - nome
+              - nrAgencia
+              - nrConta
+              - valor
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/pa/autorizacao/{id}:
+    get:
+      tags:
+      - PixAuthorization
+      summary: get
+      description: 'Serviço de integração `PixAuthorization` / operação `get`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixAuthorization_get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/pa/autorizacao/lista:
+    get:
+      tags:
+      - PixAuthorization
+      summary: list
+      description: 'Serviço de integração `PixAuthorization` / operação `list`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixAuthorization_list
+      parameters:
+      - name: dtHrAtualizacaoRecorrenciaInicio
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: dtHrAtualizacaoRecorrenciaFim
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/pa/autorizacao/{id}/valor-maximo:
+    put:
+      tags:
+      - PixAuthorization
+      summary: maxValue
+      description: 'Serviço de integração `PixAuthorization` / operação `maxValue`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixAuthorization_maxValue
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: RR0490297920260520ABCDEF12345
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dtHrAlteracao:
+                  type: string
+                  example: '2026-05-20T15:40:00Z'
+                idRecorrencia:
+                  type: string
+                  example: RR0490297920260520ABCDEF12345
+                valorMaximo:
+                  type: string
+                  example: '750.0'
+              required:
+              - dtHrAlteracao
+              - idRecorrencia
+              - valorMaximo
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/pa/autorizacao:
+    post:
+      tags:
+      - PixAuthorization
+      summary: request
+      description: 'Serviço de integração `PixAuthorization` / operação `request`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixAuthorization_request
+      parameters:
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dtFinalRecorrencia:
+                  type: string
+                dtHrCriacaoRecorrencia:
+                  type: string
+                dtHrCriacaoSolicitacao:
+                  type: string
+                dtHrExpiracaoSolicitacao:
+                  type: string
+                dtInicialRecorrencia:
+                  type: string
+                idConciliacaoRecebedor:
+                  type: string
+                idRecorrencia:
+                  type: string
+                nrContrato:
+                  type: string
+                cnpj:
+                  type: string
+                codMunIbge:
+                  type: string
+                cpfCnpj:
+                  type: string
+                ispb:
+                  type: string
+                nome:
+                  type: string
+                nrAgencia:
+                  type: string
+                nrConta:
+                  type: string
+                valor:
+                  type: string
+                valorMaximo:
+                  type: string
+              required:
+              - dtFinalRecorrencia
+              - dtHrCriacaoRecorrencia
+              - dtHrCriacaoSolicitacao
+              - dtHrExpiracaoSolicitacao
+              - dtInicialRecorrencia
+              - idConciliacaoRecebedor
+              - idRecorrencia
+              - nrContrato
+              - cnpj
+              - codMunIbge
+              - cpfCnpj
+              - ispb
+              - nome
+              - nrAgencia
+              - nrConta
+              - valor
+              - valorMaximo
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/pa/autorizacao/{id}/responder:
+    put:
+      tags:
+      - PixAuthorization
+      summary: toRespond
+      description: 'Serviço de integração `PixAuthorization` / operação `toRespond`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixAuthorization_toRespond
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                codMunIbge:
+                  type: string
+                dtHrAutorizacaoRecorrencia:
+                  type: string
+                idRecorrencia:
+                  type: string
+                motivoRejeicao:
+                  type: string
+                nomePagador:
+                  type: string
+                resultadoAutorizacao:
+                  type: string
+              required:
+              - codMunIbge
+              - dtHrAutorizacaoRecorrencia
+              - idRecorrencia
+              - motivoRejeicao
+              - nomePagador
+              - resultadoAutorizacao
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/pa/autorizacao/{id}/validacao:
+    post:
+      tags:
+      - PixAuthorization
+      summary: validation
+      description: 'Serviço de integração `PixAuthorization` / operação `validation`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixAuthorization_validation
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dtHrValidacao:
+                  type: string
+                idRecorrencia:
+                  type: string
+                motivoRejeicao:
+                  type: string
+              required:
+              - dtHrValidacao
+              - idRecorrencia
+              - motivoRejeicao
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /internal/PixJavaServices/cancelPixClaimService:
+    post:
+      tags:
+      - PixJavaServices
+      summary: cancelPixClaimService
+      description: 'Serviço de integração `PixJavaServices` / operação `cancelPixClaimService`.
+
+
+        Tipo de conector: `javaConnector`.
+
+
+        Implementação interna: `com.basa.integration.service.pix.BasaCancelPixClaimService.cancelPixClaimService`.
+
+
+        Serviço Java interno (sem chamada HTTP externa direta na definição original);
+        representado aqui como endpoint sintético.'
+      operationId: PixJavaServices_cancelPixClaimService
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idReivindicacao:
+                  type: string
+                ehReivindicador:
+                  type: string
+              required:
+              - idReivindicacao
+              - ehReivindicador
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /internal/PixJavaServices/confirmPixClaimService:
+    post:
+      tags:
+      - PixJavaServices
+      summary: confirmPixClaimService
+      description: 'Serviço de integração `PixJavaServices` / operação `confirmPixClaimService`.
+
+
+        Tipo de conector: `javaConnector`.
+
+
+        Implementação interna: `com.basa.integration.service.pix.BasaConfirmPixClaimService.confirmPixClaimService`.
+
+
+        Serviço Java interno (sem chamada HTTP externa direta na definição original);
+        representado aqui como endpoint sintético.'
+      operationId: PixJavaServices_confirmPixClaimService
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idReivindicacao:
+                  type: string
+              required:
+              - idReivindicacao
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /internal/PixJavaServices/createPixClaimService:
+    post:
+      tags:
+      - PixJavaServices
+      summary: createPixClaimService
+      description: 'Serviço de integração `PixJavaServices` / operação `createPixClaimService`.
+
+
+        Tipo de conector: `javaConnector`.
+
+
+        Implementação interna: `com.basa.integration.service.pix.BasaCreatePixClaimService.createPixClaimService`.
+
+
+        Serviço Java interno (sem chamada HTTP externa direta na definição original);
+        representado aqui como endpoint sintético.'
+      operationId: PixJavaServices_createPixClaimService
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                chave:
+                  type: string
+                nrConta:
+                  type: string
+                tpReivindicacao:
+                  type: string
+                tpChave:
+                  type: string
+              required:
+              - chave
+              - nrConta
+              - tpReivindicacao
+              - tpChave
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /internal/PixJavaServices/createPixKeyService:
+    post:
+      tags:
+      - PixJavaServices
+      summary: createPixKeyService
+      description: 'Serviço de integração `PixJavaServices` / operação `createPixKeyService`.
+
+
+        Tipo de conector: `javaConnector`.
+
+
+        Implementação interna: `com.basa.integration.service.pix.BasaCreatePixKeyService.createPixKeyService`.
+
+
+        Serviço Java interno (sem chamada HTTP externa direta na definição original);
+        representado aqui como endpoint sintético.'
+      operationId: PixJavaServices_createPixKeyService
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nrConta:
+                  type: string
+                tpChave:
+                  type: string
+                chave:
+                  type: string
+              required:
+              - nrConta
+              - tpChave
+              - chave
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /internal/PixJavaServices/createPixPayment:
+    post:
+      tags:
+      - PixJavaServices
+      summary: createPixPayment
+      description: 'Serviço de integração `PixJavaServices` / operação `createPixPayment`.
+
+
+        Tipo de conector: `javaConnector`.
+
+
+        Implementação interna: `com.basa.integration.service.pix.BasaPaymentService.createPixPayment`.
+
+
+        Serviço Java interno (sem chamada HTTP externa direta na definição original);
+        representado aqui como endpoint sintético.'
+      operationId: PixJavaServices_createPixPayment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pagadornrConta:
+                  type: string
+                recebedorcpfCnpj:
+                  type: string
+                recebedorispb:
+                  type: string
+                recebedornome:
+                  type: string
+                recebedornrConta:
+                  type: string
+                recebedortpConta:
+                  type: string
+                recebedortpPessoa:
+                  type: string
+                valor:
+                  type: string
+                finalidade:
+                  type: string
+                recebedornrAgencia:
+                  type: string
+                infEntreClientes:
+                  type: string
+                recebedorChave:
+                  type: string
+                metodoPagamento:
+                  type: string
+              required:
+              - pagadornrConta
+              - recebedorcpfCnpj
+              - recebedorispb
+              - recebedornome
+              - recebedornrConta
+              - recebedortpConta
+              - recebedortpPessoa
+              - valor
+              - finalidade
+              - recebedornrAgencia
+              - infEntreClientes
+              - recebedorChave
+              - metodoPagamento
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  endToEndId:
+                    type: string
+                  TransactionID:
+                    type: string
+                  OrderID:
+                    type: string
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /internal/PixJavaServices/deletePixKeyService:
+    post:
+      tags:
+      - PixJavaServices
+      summary: deletePixKeyService
+      description: 'Serviço de integração `PixJavaServices` / operação `deletePixKeyService`.
+
+
+        Tipo de conector: `javaConnector`.
+
+
+        Implementação interna: `com.basa.integration.service.pix.BasaDeletePixKeyService.deletePixKeyService`.
+
+
+        Serviço Java interno (sem chamada HTTP externa direta na definição original);
+        representado aqui como endpoint sintético.'
+      operationId: PixJavaServices_deletePixKeyService
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                chave:
+                  type: string
+              required:
+              - chave
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /internal/PixJavaServices/getListPixKeyService:
+    post:
+      tags:
+      - PixJavaServices
+      summary: getListPixKeyService
+      description: 'Serviço de integração `PixJavaServices` / operação `getListPixKeyService`.
+
+
+        Tipo de conector: `javaConnector`.
+
+
+        Implementação interna: `com.basa.integration.service.pix.BasaListPixKeyService.getListPixKeyService`.
+
+
+        Serviço Java interno (sem chamada HTTP externa direta na definição original);
+        representado aqui como endpoint sintético.'
+      operationId: PixJavaServices_getListPixKeyService
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /paymentos/jdpi/marcacao-fraude/{id}/cancelar:
+    post:
+      tags:
+      - PixServiceFraud
+      summary: cancel
+      description: 'Serviço de integração `PixServiceFraud` / operação `cancel`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceFraud_cancel
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: 76241cc0-bd67-4cfa-9f17-414e5e2228c7
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idMarcacaoFraude:
+                  type: string
+                  example: 76241cc0-bd67-4cfa-9f17-414e5e2228c7
+                ispb:
+                  type: string
+                  example: 04902979
+              required:
+              - idMarcacaoFraude
+              - ispb
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/marcacao-fraude/{id}:
+    get:
+      tags:
+      - PixServiceFraud
+      summary: get
+      description: 'Serviço de integração `PixServiceFraud` / operação `get`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceFraud_get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: 76241cc0-bd67-4cfa-9f17-414e5e2228c7
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/marcacao-fraude/incluir:
+    post:
+      tags:
+      - PixServiceFraud
+      summary: include
+      description: 'Serviço de integração `PixServiceFraud` / operação `include`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceFraud_include
+      parameters:
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                chave:
+                  type: string
+                  example: '+5521973937780'
+                cpfCnpj:
+                  type: string
+                  example: '79048471249'
+                ispb:
+                  type: string
+                  example: 04902979
+              required:
+              - chave
+              - cpfCnpj
+              - ispb
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/marcacao-fraude/listar:
+    get:
+      tags:
+      - PixServiceFraud
+      summary: list
+      description: 'Serviço de integração `PixServiceFraud` / operação `list`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceFraud_list
+      parameters:
+      - name: cpfCnpj
+        in: query
+        required: false
+        schema:
+          type: string
+        example: '79048471249'
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/marcacao-fraude/listar/dict:
+    get:
+      tags:
+      - PixServiceFraud
+      summary: listDict
+      description: 'Serviço de integração `PixServiceFraud` / operação `listDict`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceFraud_listDict
+      parameters:
+      - name: cpfCnpj
+        in: query
+        required: false
+        schema:
+          type: string
+        example: '79048471249'
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/relato-infracao/analisar:
+    post:
+      tags:
+      - PixServiceNarrativeFailure
+      summary: analyze
+      description: 'Serviço de integração `PixServiceNarrativeFailure` / operação
+        `analyze`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceNarrativeFailure_analyze
+      parameters:
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idRelatoInfracao:
+                  type: string
+                  example: dce67bb0-2d38-47ad-bab2-25c6a4cd8e2e
+                ispb:
+                  type: string
+                  example: 04902979
+              required:
+              - idRelatoInfracao
+              - ispb
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/relato-infracao/cancelar:
+    post:
+      tags:
+      - PixServiceNarrativeFailure
+      summary: cancel
+      description: 'Serviço de integração `PixServiceNarrativeFailure` / operação
+        `cancel`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceNarrativeFailure_cancel
+      parameters:
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+        example: '11111111'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idRelatoInfracao:
+                  type: string
+                  example: dce67bb0-2d38-47ad-bab2-25c6a4cd8e2e
+                ispb:
+                  type: string
+                  example: 04902979
+              required:
+              - idRelatoInfracao
+              - ispb
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/relato-infracao/consultar:
+    get:
+      tags:
+      - PixServiceNarrativeFailure
+      summary: consult
+      description: 'Serviço de integração `PixServiceNarrativeFailure` / operação
+        `consult`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceNarrativeFailure_consult
+      parameters:
+      - name: idRelatoInfracao
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/relato-infracao/consultar/dict:
+    get:
+      tags:
+      - PixServiceNarrativeFailure
+      summary: consultDict
+      description: 'Serviço de integração `PixServiceNarrativeFailure` / operação
+        `consultDict`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceNarrativeFailure_consultDict
+      parameters:
+      - name: idRelatoInfracao
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/relato-infracao/listar/pendentes:
+    get:
+      tags:
+      - PixServiceNarrativeFailure
+      summary: earrings
+      description: 'Serviço de integração `PixServiceNarrativeFailure` / operação
+        `earrings`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceNarrativeFailure_earrings
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/relato-infracao/incluir:
+    post:
+      tags:
+      - PixServiceNarrativeFailure
+      summary: include
+      description: 'Serviço de integração `PixServiceNarrativeFailure` / operação
+        `include`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceNarrativeFailure_include
+      parameters:
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                telefone:
+                  type: string
+                detalhes:
+                  type: string
+                endToEndId:
+                  type: string
+                ispb:
+                  type: string
+              required:
+              - email
+              - telefone
+              - detalhes
+              - endToEndId
+              - ispb
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/relato-infracao/listar:
+    get:
+      tags:
+      - PixServiceNarrativeFailure
+      summary: list
+      description: 'Serviço de integração `PixServiceNarrativeFailure` / operação
+        `list`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceNarrativeFailure_list
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/relato-infracao/{id}:
+    put:
+      tags:
+      - PixServiceNarrativeFailure
+      summary: update
+      description: 'Serviço de integração `PixServiceNarrativeFailure` / operação
+        `update`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceNarrativeFailure_update
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: dce67bb0-2d38-47ad-bab2-25c6a4cd8e2e
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                telefone:
+                  type: string
+              required:
+              - email
+              - telefone
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/pix/agendado:
+    post:
+      tags:
+      - PixServicePix
+      summary: scheduled
+      description: 'Serviço de integração `PixServicePix` / operação `scheduled`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServicePix_scheduled
+      parameters:
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                chave:
+                  type: string
+                dtHrRequisicaoPsp:
+                  type: string
+                endToEndId:
+                  type: string
+                idConciliacaoRecebedor:
+                  type: string
+                idReqSistemaCliente:
+                  type: string
+                infEntreClientes:
+                  type: string
+                cpfCnpjPagador:
+                  type: string
+                ispbPagador:
+                  type: string
+                nomePagador:
+                  type: string
+                nrAgenciaPagador:
+                  type: string
+                nrContaPagador:
+                  type: string
+                cpfCnpjRecebedor:
+                  type: string
+                ispbRecebedor:
+                  type: string
+                nomeRecebedor:
+                  type: string
+                nrAgenciaRecebedor:
+                  type: string
+                nrContaRecebedor:
+                  type: string
+                valor:
+                  type: string
+              required:
+              - chave
+              - dtHrRequisicaoPsp
+              - endToEndId
+              - idConciliacaoRecebedor
+              - idReqSistemaCliente
+              - infEntreClientes
+              - cpfCnpjPagador
+              - ispbPagador
+              - nomePagador
+              - nrAgenciaPagador
+              - nrContaPagador
+              - cpfCnpjRecebedor
+              - ispbRecebedor
+              - nomeRecebedor
+              - nrAgenciaRecebedor
+              - nrContaRecebedor
+              - valor
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/qrcode/composto/gerar:
+    post:
+      tags:
+      - PixServiceQRCode
+      summary: create
+      description: 'Serviço de integração `PixServiceQRCode` / operação `create`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceQRCode_create
+      parameters:
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cidade:
+                  type: string
+                descContrato:
+                  type: string
+                cnpj:
+                  type: string
+                codMunIbge:
+                  type: string
+                cpfCnpj:
+                  type: string
+                ispb:
+                  type: string
+                nome:
+                  type: string
+                nrAgencia:
+                  type: string
+                nrConta:
+                  type: string
+                dtFinalRecorrencia:
+                  type: string
+                dtInicialRecorrencia:
+                  type: string
+                formato:
+                  type: string
+                idConciliacaoRecebedor:
+                  type: string
+                idRecorrencia:
+                  type: string
+                ispbCertificadoJws:
+                  type: string
+                nrContrato:
+                  type: string
+                pisoValorMaximo:
+                  type: string
+                tpFrequencia:
+                  type: string
+                urlJwk:
+                  type: string
+                urlPayloadJsonRec:
+                  type: string
+              required:
+              - cidade
+              - descContrato
+              - cnpj
+              - codMunIbge
+              - cpfCnpj
+              - ispb
+              - nome
+              - nrAgencia
+              - nrConta
+              - dtFinalRecorrencia
+              - dtInicialRecorrencia
+              - formato
+              - idConciliacaoRecebedor
+              - idRecorrencia
+              - ispbCertificadoJws
+              - nrContrato
+              - pisoValorMaximo
+              - tpFrequencia
+              - urlJwk
+              - urlPayloadJsonRec
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/qrcode/composto/decodificar/url:
+    post:
+      tags:
+      - PixServiceQRCode
+      summary: decode
+      description: 'Serviço de integração `PixServiceQRCode` / operação `decode`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceQRCode_decode
+      parameters:
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                urlPayloadJsonRec:
+                  type: string
+              required:
+              - urlPayloadJsonRec
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/qrcode/composto/dinamico/cobv/gerar:
+    post:
+      tags:
+      - PixServiceQRCode
+      summary: dynamicBillingCreate
+      description: 'Serviço de integração `PixServiceQRCode` / operação `dynamicBillingCreate`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceQRCode_dynamicBillingCreate
+      parameters:
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                abatimento:
+                  type: string
+                cep:
+                  type: string
+                  example: 01227-200
+                chave:
+                  type: string
+                  example: '+5521973937780'
+                cidade:
+                  type: string
+                  example: Sao Paulo
+                cnpjPagador:
+                  type: string
+                  example: 04902979000144
+                codigoCategoria:
+                  type: string
+                  example: '0000'
+                cpfRecebedor:
+                  type: string
+                  example: '79048471249'
+                nome:
+                  type: string
+                  example: Detalhes do Pagamento
+                valor:
+                  type: string
+                  example: Informacao Adicional do PSP do Recebedor
+                desconto:
+                  type: string
+                  example: ' 0.04'
+                diasAposVenc:
+                  type: string
+                  example: '365'
+                dtVenc:
+                  type: string
+                  example: '2021-06-17'
+                formato:
+                  type: string
+                  example: '1'
+                idConciliacaoRecebedor:
+                  type: string
+                  example: JDPI2020010300000000000000000000001
+                idDocumento:
+                  type: string
+                  example: 52c43361-caa1-4ddb-9152-708426a25db4
+                juros:
+                  type: string
+                  example: '10.15'
+                logradouroRecebedor:
+                  type: string
+                  example: Rua Pix, 123
+                multa:
+                  type: string
+                  example: '200.22'
+                nomePagador:
+                  type: string
+                  example: Alison Ricardo
+                nomeRecebedor:
+                  type: string
+                  example: R C TRINDADE
+                solicitacaoPagador:
+                  type: string
+                  example: Pesquisa de satisfacao
+                uf:
+                  type: string
+                  example: SP
+                valorFinal:
+                  type: string
+                  example: '1000.01'
+                valorOriginal:
+                  type: string
+                  example: '1001.16'
+              required:
+              - abatimento
+              - cep
+              - chave
+              - cidade
+              - cnpjPagador
+              - codigoCategoria
+              - cpfRecebedor
+              - nome
+              - valor
+              - desconto
+              - diasAposVenc
+              - dtVenc
+              - formato
+              - idConciliacaoRecebedor
+              - idDocumento
+              - juros
+              - logradouroRecebedor
+              - multa
+              - nomePagador
+              - nomeRecebedor
+              - solicitacaoPagador
+              - uf
+              - valorFinal
+              - valorOriginal
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/qrcode/composto/dinamico/cobv/{id}:
+    put:
+      tags:
+      - PixServiceQRCode
+      summary: dynamicBillingUpdate
+      description: 'Serviço de integração `PixServiceQRCode` / operação `dynamicBillingUpdate`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceQRCode_dynamicBillingUpdate
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                abatimento:
+                  type: string
+                cep:
+                  type: string
+                chave:
+                  type: string
+                cidade:
+                  type: string
+                cnpjPagador:
+                  type: string
+                codigoCategoria:
+                  type: string
+                cpfRecebedor:
+                  type: string
+                nome:
+                  type: string
+                valor:
+                  type: string
+                desconto:
+                  type: string
+                diasAposVenc:
+                  type: string
+                dtVenc:
+                  type: string
+                formato:
+                  type: string
+                idConciliacaoRecebedor:
+                  type: string
+                idDocumento:
+                  type: string
+                juros:
+                  type: string
+                logradouroRecebedor:
+                  type: string
+                multa:
+                  type: string
+                nomePagador:
+                  type: string
+                nomeRecebedor:
+                  type: string
+                solicitacaoPagador:
+                  type: string
+                uf:
+                  type: string
+                valorFinal:
+                  type: string
+                valorOriginal:
+                  type: string
+              required:
+              - abatimento
+              - cep
+              - chave
+              - cidade
+              - cnpjPagador
+              - codigoCategoria
+              - cpfRecebedor
+              - nome
+              - valor
+              - desconto
+              - diasAposVenc
+              - dtVenc
+              - formato
+              - idConciliacaoRecebedor
+              - idDocumento
+              - juros
+              - logradouroRecebedor
+              - multa
+              - nomePagador
+              - nomeRecebedor
+              - solicitacaoPagador
+              - uf
+              - valorFinal
+              - valorOriginal
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/qrcode/composto/dinamico/gerar:
+    post:
+      tags:
+      - PixServiceQRCode
+      summary: dynamicCreate
+      description: 'Serviço de integração `PixServiceQRCode` / operação `dynamicCreate`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceQRCode_dynamicCreate
+      parameters:
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cep:
+                  type: string
+                chave:
+                  type: string
+                cidade:
+                  type: string
+                cnpjPagador:
+                  type: string
+                codigoCategoria:
+                  type: string
+                nome:
+                  type: string
+                valor:
+                  type: string
+                expiracaoQR:
+                  type: string
+                formato:
+                  type: string
+                idConciliacaoRecebedor:
+                  type: string
+                idDocumento:
+                  type: string
+                ispbCertificadoJws:
+                  type: string
+                nomePagador:
+                  type: string
+                nomeRecebedor:
+                  type: string
+                solicitacaoPagador:
+                  type: string
+                urlJwk:
+                  type: string
+                urlPayloadJson:
+                  type: string
+                urlPayloadJsonRec:
+                  type: string
+                valorOriginal:
+                  type: string
+              required:
+              - cep
+              - chave
+              - cidade
+              - cnpjPagador
+              - codigoCategoria
+              - nome
+              - valor
+              - expiracaoQR
+              - formato
+              - idConciliacaoRecebedor
+              - idDocumento
+              - ispbCertificadoJws
+              - nomePagador
+              - nomeRecebedor
+              - solicitacaoPagador
+              - urlJwk
+              - urlPayloadJson
+              - urlPayloadJsonRec
+              - valorOriginal
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/qrcode/composto/dinamico/{id}:
+    put:
+      tags:
+      - PixServiceQRCode
+      summary: dynamicUpdate
+      description: 'Serviço de integração `PixServiceQRCode` / operação `dynamicUpdate`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceQRCode_dynamicUpdate
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cep:
+                  type: string
+                chave:
+                  type: string
+                cidade:
+                  type: string
+                cnpjPagador:
+                  type: string
+                codigoCategoria:
+                  type: string
+                nome:
+                  type: string
+                valor:
+                  type: string
+                expiracaoQR:
+                  type: string
+                formato:
+                  type: string
+                idConciliacaoRecebedor:
+                  type: string
+                idDocumento:
+                  type: string
+                ispbCertificadoJws:
+                  type: string
+                nomePagador:
+                  type: string
+                nomeRecebedor:
+                  type: string
+                solicitacaoPagador:
+                  type: string
+                valorOriginal:
+                  type: string
+              required:
+              - cep
+              - chave
+              - cidade
+              - cnpjPagador
+              - codigoCategoria
+              - nome
+              - valor
+              - expiracaoQR
+              - formato
+              - idConciliacaoRecebedor
+              - idDocumento
+              - ispbCertificadoJws
+              - nomePagador
+              - nomeRecebedor
+              - solicitacaoPagador
+              - valorOriginal
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/qrcode/composto/estatico/gerar:
+    post:
+      tags:
+      - PixServiceQRCode
+      summary: staticCreate
+      description: 'Serviço de integração `PixServiceQRCode` / operação `staticCreate`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceQRCode_staticCreate
+      parameters:
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cep:
+                  type: string
+                chave:
+                  type: string
+                cidade:
+                  type: string
+                codigoCategoria:
+                  type: string
+                dtFinalRecorrencia:
+                  type: string
+                dtInicialRecorrencia:
+                  type: string
+                idRecorrencia:
+                  type: string
+                nrContrato:
+                  type: string
+                pisoValorMaximo:
+                  type: string
+                cnpj:
+                  type: string
+                codMunIbge:
+                  type: string
+                cpfCnpj:
+                  type: string
+                ispb:
+                  type: string
+                nome:
+                  type: string
+                nrAgencia:
+                  type: string
+                nrConta:
+                  type: string
+                tpFrequencia:
+                  type: string
+                formato:
+                  type: string
+                idConciliacaoRecebedor:
+                  type: string
+                nomeRecebedor:
+                  type: string
+                urlJwk:
+                  type: string
+                urlPayloadJsonRec:
+                  type: string
+                valor:
+                  type: string
+              required:
+              - cep
+              - chave
+              - cidade
+              - codigoCategoria
+              - dtFinalRecorrencia
+              - dtInicialRecorrencia
+              - idRecorrencia
+              - nrContrato
+              - pisoValorMaximo
+              - cnpj
+              - codMunIbge
+              - cpfCnpj
+              - ispb
+              - nome
+              - nrAgencia
+              - nrConta
+              - tpFrequencia
+              - formato
+              - idConciliacaoRecebedor
+              - nomeRecebedor
+              - urlJwk
+              - urlPayloadJsonRec
+              - valor
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/qrcode/composto/{id}:
+    put:
+      tags:
+      - PixServiceQRCode
+      summary: update
+      description: 'Serviço de integração `PixServiceQRCode` / operação `update`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceQRCode_update
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dtInicialRecorrencia:
+                  type: string
+                formato:
+                  type: string
+                idDocumento:
+                  type: string
+                ispbCertificadoJws:
+                  type: string
+              required:
+              - dtInicialRecorrencia
+              - formato
+              - idDocumento
+              - ispbCertificadoJws
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/recuperacao-valores/{id}/bloquear:
+    post:
+      tags:
+      - PixServiceRecoveryValues
+      summary: block
+      description: 'Serviço de integração `PixServiceRecoveryValues` / operação `block`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceRecoveryValues_block
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: 457937f0-d904-4fc3-94d2-9a7414b53875
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/recuperacao-valores/{id}/cancelar:
+    post:
+      tags:
+      - PixServiceRecoveryValues
+      summary: cancel
+      description: 'Serviço de integração `PixServiceRecoveryValues` / operação `cancel`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceRecoveryValues_cancel
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: 457937f0-d904-4fc3-94d2-9a7414b53875
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ispb:
+                  type: string
+              required:
+              - ispb
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/recuperacao-valores/consultar:
+    get:
+      tags:
+      - PixServiceRecoveryValues
+      summary: consult
+      description: 'Serviço de integração `PixServiceRecoveryValues` / operação `consult`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceRecoveryValues_consult
+      parameters:
+      - name: idRecValores
+        in: query
+        required: false
+        schema:
+          type: string
+        example: 457937f0-d904-4fc3-94d2-9a7414b53875
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/recuperacao-valores/grafo/consultar:
+    get:
+      tags:
+      - PixServiceRecoveryValues
+      summary: consultGraph
+      description: 'Serviço de integração `PixServiceRecoveryValues` / operação `consultGraph`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceRecoveryValues_consultGraph
+      parameters:
+      - name: idRecValores
+        in: query
+        required: false
+        schema:
+          type: string
+        example: 457937f0-d904-4fc3-94d2-9a7414b53875
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/recuperacao-valores/incluir:
+    post:
+      tags:
+      - PixServiceRecoveryValues
+      summary: include
+      description: 'Serviço de integração `PixServiceRecoveryValues` / operação `include`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceRecoveryValues_include
+      parameters:
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: antifraude@revenu.com.br
+                telefone:
+                  type: string
+                  example: '+5511999990000'
+                detalhes:
+                  type: string
+                  example: Recuperação de valores por golpe
+                idTransacaoRaiz:
+                  type: string
+                  example: E04902979202605221200abcdef12345
+                ispb:
+                  type: string
+                  example: 04902979
+              required:
+              - email
+              - telefone
+              - detalhes
+              - idTransacaoRaiz
+              - ispb
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/recuperacao-valores/{id}/grafo/incluir:
+    post:
+      tags:
+      - PixServiceRecoveryValues
+      summary: includeGraph
+      description: 'Serviço de integração `PixServiceRecoveryValues` / operação `includeGraph`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceRecoveryValues_includeGraph
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: 457937f0-d904-4fc3-94d2-9a7414b53875
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uuidgen:
+                  type: string
+              required:
+              - uuidgen
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/recuperacao-valores/{id}/devolver:
+    post:
+      tags:
+      - PixServiceRecoveryValues
+      summary: return
+      description: 'Serviço de integração `PixServiceRecoveryValues` / operação `return`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceRecoveryValues_return
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: 457937f0-d904-4fc3-94d2-9a7414b53875457937f0-d904-4fc3-94d2-9a7414b53875
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ispb:
+                  type: string
+              required:
+              - ispb
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/recuperacao-valores/{id}:
+    put:
+      tags:
+      - PixServiceRecoveryValues
+      summary: update
+      description: 'Serviço de integração `PixServiceRecoveryValues` / operação `update`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceRecoveryValues_update
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: 457937f0-d904-4fc3-94d2-9a7414b53875
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: antifraude@revenu.com.br
+                telefone:
+                  type: string
+                  example: '+5511999990000'
+              required:
+              - email
+              - telefone
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/devolucao/analisar:
+    post:
+      tags:
+      - PixServiceReturn
+      summary: analyze
+      description: 'Serviço de integração `PixServiceReturn` / operação `analyze`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceReturn_analyze
+      parameters:
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+        example: '11111'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                endToEndIdDevolucao:
+                  type: string
+                  example: D04902979202605221200abcdef12345
+                idSolDevolucao:
+                  type: string
+                  example: 8eaa0f92-10c7-4391-aec0-b5ccadeab895
+                ispb:
+                  type: string
+                  example: 04902979
+                resultadoAnalise:
+                  type: string
+                  example: '1'
+                motivoRejeicao:
+                  type: string
+                  example: '3'
+                valorDevolvido:
+                  type: string
+                  example: '0'
+              required:
+              - endToEndIdDevolucao
+              - idSolDevolucao
+              - ispb
+              - resultadoAnalise
+              - motivoRejeicao
+              - valorDevolvido
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/devolucao/cancelar:
+    post:
+      tags:
+      - PixServiceReturn
+      summary: cancel
+      description: 'Serviço de integração `PixServiceReturn` / operação `cancel`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceReturn_cancel
+      parameters:
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+        example: '111111'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idSolDevolucao:
+                  type: string
+                  example: D04902979202605221200abcdef12345
+                ispb:
+                  type: string
+                  example: 04902979
+              required:
+              - idSolDevolucao
+              - ispb
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/devolucao/consultar:
+    get:
+      tags:
+      - PixServiceReturn
+      summary: consult
+      description: 'Serviço de integração `PixServiceReturn` / operação `consult`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceReturn_consult
+      parameters:
+      - name: idSolDevolucao
+        in: query
+        required: false
+        schema:
+          type: string
+        example: 8eaa0f92-10c7-4391-aec0-b5ccadeab895
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/devolucao/consultar/dict:
+    get:
+      tags:
+      - PixServiceReturn
+      summary: consultDict
+      description: 'Serviço de integração `PixServiceReturn` / operação `consultDict`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceReturn_consultDict
+      parameters:
+      - name: idSolDevolucao
+        in: query
+        required: false
+        schema:
+          type: string
+        example: 8eaa0f92-10c7-4391-aec0-b5ccadeab895
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/devolucao/listar/pendentes:
+    get:
+      tags:
+      - PixServiceReturn
+      summary: earrings
+      description: 'Serviço de integração `PixServiceReturn` / operação `earrings`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceReturn_earrings
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/devolucao/incluir:
+    post:
+      tags:
+      - PixServiceReturn
+      summary: include
+      description: 'Serviço de integração `PixServiceReturn` / operação `include`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceReturn_include
+      parameters:
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+        example: '1111'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                detalhes:
+                  type: string
+                  example: Devolução por suspeita de fraude
+                endToEndId:
+                  type: string
+                  example: E04902979202605221200abcdef12345
+                ispb:
+                  type: string
+                  example: 04902979
+                motivo:
+                  type: string
+                  example: '1'
+                valorDevolucao:
+                  type: string
+                  example: '100.5'
+              required:
+              - detalhes
+              - endToEndId
+              - ispb
+              - motivo
+              - valorDevolucao
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/devolucao/listar:
+    get:
+      tags:
+      - PixServiceReturn
+      summary: list
+      description: 'Serviço de integração `PixServiceReturn` / operação `list`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceReturn_list
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/spi/od:
+    post:
+      tags:
+      - PixServiceSPI
+      summary: create
+      description: 'Serviço de integração `PixServiceSPI` / operação `create`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceSPI_create
+      parameters:
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                codigoDevolucao:
+                  type: string
+                endToEndIdOriginal:
+                  type: string
+                uuidgen:
+                  type: string
+                motivoDevolucao:
+                  type: string
+                valorDevolucao:
+                  type: string
+              required:
+              - codigoDevolucao
+              - endToEndIdOriginal
+              - uuidgen
+              - motivoDevolucao
+              - valorDevolucao
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/spi/od/{id}:
+    get:
+      tags:
+      - PixServiceSPI
+      summary: get
+      description: 'Serviço de integração `PixServiceSPI` / operação `get`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceSPI_get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/spi/od/motivos:
+    get:
+      tags:
+      - PixServiceSPI
+      summary: reasons
+      description: 'Serviço de integração `PixServiceSPI` / operação `reasons`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceSPI_reasons
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/pa/agendamento/{id}/cancelar:
+    post:
+      tags:
+      - PixServiceScheduling
+      summary: cancel
+      description: 'Serviço de integração `PixServiceScheduling` / operação `cancel`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceScheduling_cancel
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cpfCnpjSolCancelamento:
+                  type: string
+                endToEndId:
+                  type: string
+                idConciliacaoRecebedor:
+                  type: string
+                ispbDestinatario:
+                  type: string
+                ispbSolicitante:
+                  type: string
+              required:
+              - cpfCnpjSolCancelamento
+              - endToEndId
+              - idConciliacaoRecebedor
+              - ispbDestinatario
+              - ispbSolicitante
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/pa/agendamento/{id}/cancelar/{key}:
+    get:
+      tags:
+      - PixServiceScheduling
+      summary: cancelStatus
+      description: 'Serviço de integração `PixServiceScheduling` / operação `cancelStatus`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceScheduling_cancelStatus
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/pa/agendamento/{id}:
+    get:
+      tags:
+      - PixServiceScheduling
+      summary: get
+      description: 'Serviço de integração `PixServiceScheduling` / operação `get`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceScheduling_get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/pa/agendamento/listar:
+    get:
+      tags:
+      - PixServiceScheduling
+      summary: list
+      description: 'Serviço de integração `PixServiceScheduling` / operação `list`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceScheduling_list
+      parameters:
+      - name: dtVencimentoInicio
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: dtVencimentoFim
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/pa/agendamento:
+    post:
+      tags:
+      - PixServiceScheduling
+      summary: request
+      description: 'Serviço de integração `PixServiceScheduling` / operação `request`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServiceScheduling_request
+      parameters:
+      - name: Chave-Idempotencia
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dtHrRecepcaoPspRecebedor:
+                  type: string
+                dtVencimento:
+                  type: string
+                endToEndId:
+                  type: string
+                finalidadeAgendamento:
+                  type: string
+                idConciliacaoRecebedor:
+                  type: string
+                idRecorrencia:
+                  type: string
+                cnpj:
+                  type: string
+                codMunIbge:
+                  type: string
+                cpfCnpj:
+                  type: string
+                ispb:
+                  type: string
+                nome:
+                  type: string
+                nrAgencia:
+                  type: string
+                nrConta:
+                  type: string
+                tpConta:
+                  type: string
+                tpPessoa:
+                  type: string
+                valor:
+                  type: string
+              required:
+              - dtHrRecepcaoPspRecebedor
+              - dtVencimento
+              - endToEndId
+              - finalidadeAgendamento
+              - idConciliacaoRecebedor
+              - idRecorrencia
+              - cnpj
+              - codMunIbge
+              - cpfCnpj
+              - ispb
+              - nome
+              - nrAgencia
+              - nrConta
+              - tpConta
+              - tpPessoa
+              - valor
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+  /paymentos/jdpi/spi/op/interna:
+    post:
+      tags:
+      - PixServices
+      summary: CreateInternalPaymentOrder
+      description: 'Serviço de integração `PixServices` / operação `CreateInternalPaymentOrder`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServices_CreateInternalPaymentOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dtHrRequisicaoPsp:
+                  type: string
+                  example: '2020-01-23T22:10:03.023Z'
+                endToEndId:
+                  type: string
+                  example: E00038166201907261559y6j6mt9l022
+                idReqSistemaCliente:
+                  type: string
+                  example: 69F963C6-7487-4363-9406-A1DE2A9636D4
+                pagadorcpfCnpj:
+                  type: string
+                  example: '11835568963'
+                pagadorispb:
+                  type: string
+                  example: 04902979
+                pagadornome:
+                  type: string
+                  example: Recebedor de Teste
+                pagadornrAgencia:
+                  type: string
+                  example: '1'
+                pagadornrConta:
+                  type: string
+                  example: '1000006307'
+                pagadortpConta:
+                  type: string
+                  example: CACC
+                pagadortpPessoa:
+                  type: string
+                  example: NATURAL_PERSON
+                prioridadePagamento:
+                  type: string
+                  example: LIQUIDACAO_PRIORITARIA
+                recebedorcpfCnpj:
+                  type: string
+                  example: '82437485000140'
+                recebedorispb:
+                  type: string
+                  example: 04902990
+                recebedornome:
+                  type: string
+                  example: Recebedor de Teste
+                recebedornrAgencia:
+                  type: string
+                  example: '1'
+                recebedornrConta:
+                  type: string
+                  example: '1000073877'
+                recebedortpConta:
+                  type: string
+                  example: CACC
+                recebedortpPessoa:
+                  type: string
+                  example: LEGAL_PERSON
+                tpIniciacao:
+                  type: string
+                  example: MANUAL
+                tpPrioridadePagamento:
+                  type: string
+                  example: PAGAMENTO_PRIORITARIO
+                valor:
+                  type: number
+                  example: '150.85'
+              required:
+              - dtHrRequisicaoPsp
+              - endToEndId
+              - idReqSistemaCliente
+              - pagadorcpfCnpj
+              - pagadorispb
+              - pagadornome
+              - pagadornrAgencia
+              - pagadornrConta
+              - pagadortpConta
+              - pagadortpPessoa
+              - prioridadePagamento
+              - recebedorcpfCnpj
+              - recebedorispb
+              - recebedornome
+              - recebedornrAgencia
+              - recebedornrConta
+              - recebedortpConta
+              - recebedortpPessoa
+              - tpIniciacao
+              - tpPrioridadePagamento
+              - valor
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  codigo:
+                    type: string
+                  mensagem:
+                    type: string
+                  dtHrReqJdPi:
+                    type: string
+                  endToEndId:
+                    type: string
+                  idReqJdPi:
+                    type: string
+                  idReqSistemaCliente:
+                    type: string
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /paymentos/jdpi/spi/op/pixout:
+    post:
+      tags:
+      - PixServices
+      summary: CreatePaymentOrder
+      description: 'Serviço de integração `PixServices` / operação `CreatePaymentOrder`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServices_CreatePaymentOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dtHrRequisicaoPsp:
+                  type: string
+                  example: '2020-01-23T22:10:03.023Z'
+                finalidade:
+                  type: string
+                  example: COMPRA_TRANSFERENCIA
+                idReqSistemaCliente:
+                  type: string
+                  example: 69F963C6-7487-4363-9406-A1DE2A9636D4
+                pagadorcpfCnpj:
+                  type: string
+                  example: '11835568963'
+                pagadorispb:
+                  type: string
+                  example: 04902979
+                pagadornome:
+                  type: string
+                  example: Recebedor de Teste
+                pagadornrAgencia:
+                  type: string
+                  example: '1'
+                pagadornrConta:
+                  type: string
+                  example: '1000006307'
+                pagadortpConta:
+                  type: string
+                  example: CACC
+                pagadortpPessoa:
+                  type: string
+                  example: NATURAL_PERSON
+                prioridadePagamento:
+                  type: string
+                  example: LIQUIDACAO_PRIORITARIA
+                recebedorcpfCnpj:
+                  type: string
+                  example: '82437485000140'
+                recebedorispb:
+                  type: string
+                  example: 04902990
+                recebedornome:
+                  type: string
+                  example: Recebedor de Teste
+                recebedornrAgencia:
+                  type: string
+                  example: '1'
+                recebedornrConta:
+                  type: string
+                  example: '1000073877'
+                recebedortpConta:
+                  type: string
+                  example: CACC
+                recebedortpPessoa:
+                  type: string
+                  example: LEGAL_PERSON
+                tpIniciacao:
+                  type: string
+                  example: MANUAL
+                tpPrioridadePagamento:
+                  type: string
+                  example: PAGAMENTO_PRIORITARIO
+                orderingCustomerId:
+                  type: string
+                beneficiaryAccountId:
+                  type: string
+                valor:
+                  type: number
+                  example: '150.85'
+              required:
+              - dtHrRequisicaoPsp
+              - finalidade
+              - idReqSistemaCliente
+              - pagadorcpfCnpj
+              - pagadorispb
+              - pagadornome
+              - pagadornrAgencia
+              - pagadornrConta
+              - pagadortpConta
+              - pagadortpPessoa
+              - prioridadePagamento
+              - recebedorcpfCnpj
+              - recebedorispb
+              - recebedornome
+              - recebedornrAgencia
+              - recebedornrConta
+              - recebedortpConta
+              - recebedortpPessoa
+              - tpIniciacao
+              - tpPrioridadePagamento
+              - orderingCustomerId
+              - beneficiaryAccountId
+              - valor
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  codigo:
+                    type: string
+                  mensagem:
+                    type: string
+                  dtHrReqJdPi:
+                    type: string
+                  endToEndId:
+                    type: string
+                  idReqJdPi:
+                    type: string
+                  idReqSistemaCliente:
+                    type: string
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /paymentos/v1/pix/recurring/{auth_id}:
+    delete:
+      tags:
+      - PixServices
+      summary: cancelRecurringPixAuthorization
+      description: 'Serviço de integração `PixServices` / operação `cancelRecurringPixAuthorization`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServices_cancelRecurringPixAuthorization
+      parameters:
+      - name: auth_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: X-Tenant-Org-ID
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Organization UUID from tenant config
+      - name: X-Tenant-Ledger-ID
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Ledger UUID from tenant config
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  auth_id:
+                    type: string
+                  status:
+                    type: string
+                  cancelled_at:
+                    type: string
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /paymentos/jdpi/pix/troco:
+    post:
+      tags:
+      - PixServices
+      summary: changePixService
+      description: 'Serviço de integração `PixServices` / operação `changePixService`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServices_changePixService
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ispbPss:
+                  type: string
+                  example: 04902979
+                pagadorcpfCnpj:
+                  type: string
+                  example: '79048471249'
+                pagadorispb:
+                  type: string
+                  example: 04902979
+                pagadornrConta:
+                  type: string
+                  example: 0635528
+                pagadornome:
+                  type: string
+                  example: Alison Ricardo
+                pagadornrAgencia:
+                  type: string
+                  example: '0007'
+                pagadortpConta:
+                  type: string
+                  example: '0'
+                pagadortpPessoa:
+                  type: string
+                  example: '0'
+                recebedorcpfCnpj:
+                  type: string
+                  example: '79048471249'
+                recebedorispb:
+                  type: string
+                  example: 04902978
+                recebedornrConta:
+                  type: string
+                  example: 0635528
+                recebedornome:
+                  type: string
+                  example: Alison Ricardo
+                recebedornrAgencia:
+                  type: string
+                  example: '0007'
+                recebedortpConta:
+                  type: string
+                  example: '0'
+                recebedortpPessoa:
+                  type: string
+                  example: '0'
+                chave:
+                  type: string
+                  example: alison@example.com
+                dtHrRequisicaoPsp:
+                  type: string
+                  example: '2026-05-21T15:00:00Z'
+                endToEndId:
+                  type: string
+                  example: E04902979202605211500GMMV8QAWR99
+                idReqSistemaCliente:
+                  type: string
+                  example: 550e8400-e29b-41d4-a716-446655440000
+                infEntreClientes:
+                  type: string
+                  example: Pagamento de teste
+                modalidadeAgente:
+                  type: string
+                  example: '1'
+                valor:
+                  type: string
+                  example: '1.5'
+                valorCompra:
+                  type: string
+                  example: '8.5'
+                valorEspecie:
+                  type: string
+                  example: '2'
+              required:
+              - ispbPss
+              - pagadorcpfCnpj
+              - pagadorispb
+              - pagadornrConta
+              - pagadornome
+              - pagadornrAgencia
+              - pagadortpConta
+              - pagadortpPessoa
+              - recebedorcpfCnpj
+              - recebedorispb
+              - recebedornrConta
+              - recebedornome
+              - recebedornrAgencia
+              - recebedortpConta
+              - recebedortpPessoa
+              - chave
+              - dtHrRequisicaoPsp
+              - endToEndId
+              - idReqSistemaCliente
+              - infEntreClientes
+              - modalidadeAgente
+              - valor
+              - valorCompra
+              - valorEspecie
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  dtHrReqJdPi:
+                    type: string
+                  endToEndId:
+                    type: string
+                  idReqJdPi:
+                    type: string
+                  idReqSistemaCliente:
+                    type: string
+                  codigo:
+                    type: string
+                  mensagem:
+                    type: string
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /paymentos/jdpi/dict/incluir:
+    post:
+      tags:
+      - PixServices
+      summary: createPixKeyService
+      description: 'Serviço de integração `PixServices` / operação `createPixKeyService`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServices_createPixKeyService
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                chave:
+                  type: string
+                  example: 08328715830
+                cpfCnpj:
+                  type: string
+                  example: 08328715830
+                dtHrAberturaConta:
+                  type: string
+                  example: '2026-06-06T15:45:55.012Z'
+                ispb:
+                  type: string
+                  example: 04902979
+                motivo:
+                  type: string
+                  example: SOLICITACAO_CLIENTE
+                nome:
+                  type: string
+                  example: Eduardo Borges
+                nrAgencia:
+                  type: string
+                  example: '1'
+                nrConta:
+                  type: string
+                  example: '10000008431'
+                tpChave:
+                  type: string
+                  example: '0'
+                tpConta:
+                  type: string
+                  example: CACC
+                tpPessoa:
+                  type: string
+                  example: NATURAL_PERSON
+              required:
+              - chave
+              - cpfCnpj
+              - dtHrAberturaConta
+              - ispb
+              - motivo
+              - nome
+              - nrAgencia
+              - nrConta
+              - tpChave
+              - tpConta
+              - tpPessoa
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  codigo:
+                    type: string
+                  mensagem:
+                    type: string
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /paymentos/v1/pix/recurring:
+    post:
+      tags:
+      - PixServices
+      summary: createRecurringPixAuthorization
+      description: 'Serviço de integração `PixServices` / operação `createRecurringPixAuthorization`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServices_createRecurringPixAuthorization
+      parameters:
+      - name: X-Tenant-Org-ID
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Organization UUID from tenant config
+      - name: X-Tenant-Ledger-ID
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Ledger UUID from tenant config
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                order_id:
+                  type: string
+                  example: '43324243242'
+                amount:
+                  type: string
+                  example: '150.00'
+                payee_key:
+                  type: string
+                  example: key
+                payee_key_type:
+                  type: string
+                  example: CPF
+                payer_ispb:
+                  type: string
+                  example: 04902979
+                payer_account:
+                  type: string
+                  example: '150.00'
+                payer_doc:
+                  type: string
+                  example: doc
+                payer_name:
+                  type: string
+                  example: name
+                recurrence:
+                  type: string
+                  example: DAILY
+                start_date:
+                  type: string
+                  example: '2026-06-01'
+                description:
+                  type: string
+                  example: description
+              required:
+              - order_id
+              - amount
+              - payee_key
+              - payee_key_type
+              - payer_ispb
+              - payer_account
+              - payer_doc
+              - payer_name
+              - recurrence
+              - start_date
+              - description
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transaction_id:
+                    type: string
+                  order_id:
+                    type: string
+                  e2e_id:
+                    type: string
+                  status:
+                    type: string
+                  submitted_at:
+                    type: string
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /paymentos/jdpi/dict/{chave}/excluir:
+    post:
+      tags:
+      - PixServices
+      summary: deletePixKeyService
+      description: 'Serviço de integração `PixServices` / operação `deletePixKeyService`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServices_deletePixKeyService
+      parameters:
+      - name: chave
+        in: path
+        required: true
+        schema:
+          type: string
+        example: 07499547019
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ispb:
+                  type: string
+                  example: 04902979
+                motivo:
+                  type: string
+                  example: '0'
+              required:
+              - ispb
+              - motivo
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /paymentos/jdpi/dict/{chave}:
+    get:
+      tags:
+      - PixServices
+      summary: getPixKeyService
+      description: 'Serviço de integração `PixServices` / operação `getPixKeyService`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServices_getPixKeyService
+      parameters:
+      - name: chave
+        in: path
+        required: true
+        schema:
+          type: string
+        example: eduardo.borges@ust.com
+      - name: PI-PayerId
+        in: header
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nrAgencia:
+                    type: string
+                  dtHrCriacaoChave:
+                    type: string
+                  tpConta:
+                    type: number
+                  chave:
+                    type: string
+                  tpPessoa:
+                    type: number
+                  dtHrAberturaConta:
+                    type: string
+                  nome:
+                    type: string
+                  dtHrInicioPosseChave:
+                    type: string
+                  endToEndId:
+                    type: string
+                  ispb:
+                    type: string
+                  nrConta:
+                    type: string
+                  nomeFantasia:
+                    type: string
+                  cpfCnpj:
+                    type: string
+                  tpChave:
+                    type: number
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /paymentos/jdpi/dict/listar/chave:
+    post:
+      tags:
+      - PixServices
+      summary: getPixListService
+      description: 'Serviço de integração `PixServices` / operação `getPixListService`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServices_getPixListService
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cpfCnpj:
+                  type: string
+                  example: '11835568963'
+                ispb:
+                  type: string
+                  example: 04902979
+                nrAgencia:
+                  type: string
+                  example: '1'
+                nrConta:
+                  type: string
+                  example: '1000006307'
+                tpConta:
+                  type: string
+                  example: CACC
+                tpPessoa:
+                  type: string
+                  example: NATURAL_PERSON
+              required:
+              - cpfCnpj
+              - ispb
+              - nrAgencia
+              - nrConta
+              - tpConta
+              - tpPessoa
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  dtHrJdPi:
+                    type: string
+                  codigo:
+                    type: string
+                  mensagem:
+                    type: string
+                  chavesAssociadas:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        dtHrCriacaoChave:
+                          type: string
+                        chave:
+                          type: string
+                        nome:
+                          type: string
+                        dtHrInicioPosseChave:
+                          type: string
+                        tpChave:
+                          type: number
+                        reivindicacao:
+                          type: string
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /paymentos/v1/pix:
+    post:
+      tags:
+      - PixServices
+      summary: sendPixTransferService
+      description: 'Serviço de integração `PixServices` / operação `sendPixTransferService`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServices_sendPixTransferService
+      parameters:
+      - name: X-Tenant-Org-ID
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Organization UUID from tenant config
+      - name: X-Tenant-Ledger-ID
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Ledger UUID from tenant config
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                order_id:
+                  type: string
+                  example: '43324243242'
+                amount:
+                  type: string
+                  example: '150.00'
+                currency:
+                  type: string
+                  example: BRL
+                description:
+                  type: string
+                  example: transfer test
+                payer_ispb:
+                  type: string
+                  example: '14358798'
+                payer_branch:
+                  type: string
+                  example: BR
+                payer_account:
+                  type: string
+                  example: '34242423'
+                payer_doc:
+                  type: string
+                  example: CPF
+                payer_doc_type:
+                  type: string
+                  example: CPF
+                payer_name:
+                  type: string
+                  example: name
+                payee_key:
+                  type: string
+                  example: key
+                payee_key_type:
+                  type: string
+                  example: CPF
+                e2e_id:
+                  type: string
+                  example: '0000002'
+              required:
+              - order_id
+              - amount
+              - currency
+              - description
+              - payer_ispb
+              - payer_branch
+              - payer_account
+              - payer_doc
+              - payer_doc_type
+              - payer_name
+              - payee_key
+              - payee_key_type
+              - e2e_id
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transaction_id:
+                    type: string
+                  order_id:
+                    type: string
+                  e2e_id:
+                    type: string
+                  status:
+                    type: string
+                  submitted_at:
+                    type: string
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /paymentos/v1/ted:
+    post:
+      tags:
+      - PixServices
+      summary: tedPaymentService
+      description: 'Serviço de integração `PixServices` / operação `tedPaymentService`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServices_tedPaymentService
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                order_id:
+                  type: string
+                  example: 3a54797a-66bd-4552-ab60-6e6997d4d59b
+                amount:
+                  type: string
+                  example: '12.34'
+                currency:
+                  type: string
+                  example: BRL
+                source_ispb:
+                  type: string
+                  example: 04902979
+                source_branch:
+                  type: string
+                  example: '0007'
+                source_account:
+                  type: string
+                  example: 0635528
+                source_account_type:
+                  type: string
+                  example: CC
+                source_document:
+                  type: string
+                  example: '79048471249'
+                source_name:
+                  type: string
+                  example: ALISON RICARDO
+                dest_ispb:
+                  type: string
+                  example: '60701190'
+                dest_branch:
+                  type: string
+                  example: '0001'
+                dest_account:
+                  type: string
+                  example: '12345'
+                dest_account_type:
+                  type: string
+                  example: CC
+                dest_document:
+                  type: string
+                  example: '33608308000173'
+                dest_name:
+                  type: string
+                  example: REVENU
+              required:
+              - order_id
+              - amount
+              - currency
+              - source_ispb
+              - source_branch
+              - source_account
+              - source_account_type
+              - source_document
+              - source_name
+              - dest_ispb
+              - dest_branch
+              - dest_account
+              - dest_account_type
+              - dest_document
+              - dest_name
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SubmittedAt:
+                    type: string
+                  STRMessageID:
+                    type: string
+                  SettlementRoute:
+                    type: string
+                  SITRAFRef:
+                    type: string
+                  OrderID:
+                    type: string
+                  TransactionID:
+                    type: string
+                  instance:
+                    type: string
+                  code:
+                    type: string
+                  detail:
+                    type: string
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: number
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /paymentos/jdpi/dict/verificar:
+    post:
+      tags:
+      - PixServices
+      summary: verifyPixKeyService
+      description: 'Serviço de integração `PixServices` / operação `verifyPixKeyService`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServices_verifyPixKeyService
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ispb:
+                  type: string
+                verificarChaves:
+                  type: string
+                  example: '[ {       "chave": "fulano.tal@provedor.com.br"     }]'
+              required:
+              - ispb
+              - verificarChaves
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  codigo:
+                    type: string
+                  mensagem:
+                    type: string
+                  idCorrelacao:
+                    type: string
+                  dtHrRetornoDict:
+                    type: string
+                  chavesVerificadas:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        existeDict:
+                          type: boolean
+                        chave:
+                          type: string
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /paymentos/jdpi/pix/saque:
+    post:
+      tags:
+      - PixServices
+      summary: withdrawPix
+      description: 'Serviço de integração `PixServices` / operação `withdrawPix`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: PixServices_withdrawPix
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ispbPss:
+                  type: string
+                  example: 04902979
+                pagadorcpfCnpj:
+                  type: string
+                  example: '79048471249'
+                pagadorispb:
+                  type: string
+                  example: 04902979
+                pagadornrConta:
+                  type: string
+                  example: 0635528
+                pagadornome:
+                  type: string
+                  example: Alison Ricardo
+                pagadornrAgencia:
+                  type: string
+                  example: '0007'
+                pagadortpConta:
+                  type: number
+                  example: '0'
+                pagadortpPessoa:
+                  type: number
+                  example: '0'
+                recebedorcpfCnpj:
+                  type: string
+                  example: '79048471249'
+                recebedorispb:
+                  type: string
+                  example: 04902978
+                recebedornrConta:
+                  type: string
+                  example: 0635528
+                recebedornome:
+                  type: string
+                  example: Alison Ricardo
+                recebedornrAgencia:
+                  type: string
+                  example: '0007'
+                recebedortpConta:
+                  type: number
+                  example: '0'
+                recebedortpPessoa:
+                  type: number
+                  example: '0'
+                dtHrRequisicaoPsp:
+                  type: string
+                  example: '2026-05-21T15:00:00Z'
+                endToEndId:
+                  type: string
+                  example: E04902979202605211500GMMV8QAWR99
+                idReqSistemaCliente:
+                  type: string
+                  example: 550e8400-e29b-41d4-a716-446655440000
+                infEntreClientes:
+                  type: string
+                  example: Pagamento de teste
+                modalidadeAgente:
+                  type: number
+                  example: '0'
+                valor:
+                  type: number
+                  example: '1.5'
+                tpIniciacao:
+                  type: number
+                  example: '0'
+              required:
+              - ispbPss
+              - pagadorcpfCnpj
+              - pagadorispb
+              - pagadornrConta
+              - pagadornome
+              - pagadornrAgencia
+              - pagadortpConta
+              - pagadortpPessoa
+              - recebedorcpfCnpj
+              - recebedorispb
+              - recebedornrConta
+              - recebedornome
+              - recebedornrAgencia
+              - recebedortpConta
+              - recebedortpPessoa
+              - dtHrRequisicaoPsp
+              - endToEndId
+              - idReqSistemaCliente
+              - infEntreClientes
+              - modalidadeAgente
+              - valor
+              - tpIniciacao
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  codigo:
+                    type: string
+                  mensagem:
+                    type: string
+                  dtHrReqJdPi:
+                    type: string
+                  endToEndId:
+                    type: string
+                  idReqJdPi:
+                    type: string
+                  idReqSistemaCliente:
+                    type: string
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /paymentos/jdpi/qrcode/decodificar:
+    post:
+      tags:
+      - QrcodeService
+      summary: decodeQRCode
+      description: 'Serviço de integração `QrcodeService` / operação `decodeQRCode`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: QrcodeService_decodeQRCode
+      parameters:
+      - name: PI-PayerId
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                qrCodePayload:
+                  type: string
+                  example: 00020126440014br.gov.bcb.pix0122eduardo.borges@ust.com52040000530398654071100.015802BR5918Recebedor
+                    de Teste6009Sao Paulo610901227-20062260522JDPI2020010300000000016304944B
+              required:
+              - qrCodePayload
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tipo:
+                    type: string
+                  chave:
+                    type: string
+                  txid:
+                    type: string
+                  valor:
+                    type: string
+                  valorEditavel:
+                    type: string
+                  vencimento:
+                    type: string
+                  tpQRCode:
+                    type: number
+                  endToEndId:
+                    type: string
+                  codigo:
+                    type: string
+                  mensagem:
+                    type: string
+                  infoAdicionais:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        nome:
+                          type: string
+                        valor:
+                          type: string
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /paymentos/jdpi/qrcode/decodificar/url:
+    post:
+      tags:
+      - QrcodeService
+      summary: decodeQRCodeByUrl
+      description: 'Serviço de integração `QrcodeService` / operação `decodeQRCodeByUrl`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: QrcodeService_decodeQRCodeByUrl
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                emv:
+                  type: string
+              required:
+              - emv
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tipo:
+                    type: string
+                  chave:
+                    type: string
+                  txid:
+                    type: string
+                  valor:
+                    type: string
+                  valorEditavel:
+                    type: string
+                  vencimento:
+                    type: string
+                  infoAdicionais:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        nome:
+                          type: string
+                        valor:
+                          type: string
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /jdpi/qrcode/certificates/download:
+    get:
+      tags:
+      - QrcodeService
+      summary: downloadCertificateService
+      description: 'Serviço de integração `QrcodeService` / operação `downloadCertificateService`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: QrcodeService_downloadCertificateService
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /jdpi/qrcode/dinamico/gerar:
+    post:
+      tags:
+      - QrcodeService
+      summary: generateDynamicQrCodeService
+      description: 'Serviço de integração `QrcodeService` / operação `generateDynamicQrCodeService`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: QrcodeService_generateDynamicQrCodeService
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /paymentos/jdpi/qrcode/estatico/gerar:
+    post:
+      tags:
+      - QrcodeService
+      summary: generateStaticQrCodeService
+      description: 'Serviço de integração `QrcodeService` / operação `generateStaticQrCodeService`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: QrcodeService_generateStaticQrCodeService
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cep:
+                  type: string
+                  example: 01227-200
+                chave:
+                  type: string
+                  example: eduardo.borges@ust.com
+                cidade:
+                  type: string
+                  example: Sao Paulo
+                codigoCategoria:
+                  type: string
+                  example: '0000'
+                dadosAdicionais:
+                  type: string
+                idConciliacaoRecebedor:
+                  type: string
+                  example: JDPI202001030000000001
+                nomeRecebedor:
+                  type: string
+                  example: Recebedor de Teste
+                valor:
+                  type: number
+                  example: '1100.01'
+                formato:
+                  type: string
+                  example: IMAGEM
+              required:
+              - cep
+              - chave
+              - cidade
+              - codigoCategoria
+              - dadosAdicionais
+              - idConciliacaoRecebedor
+              - nomeRecebedor
+              - valor
+              - formato
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  imagemQRCodeInBase64:
+                    type: string
+                  codigo:
+                    type: string
+                  mensagem:
+                    type: string
+                  payloadBase64:
+                    type: string
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+  /jdpi/qrcode/listar:
+    get:
+      tags:
+      - QrcodeService
+      summary: getListQrCodesServices
+      description: 'Serviço de integração `QrcodeService` / operação `getListQrCodesServices`.
+
+
+        Tipo de conector: `jsonConnector`.'
+      operationId: QrcodeService_getListQrCodesServices
+      responses:
+        '200':
+          description: Resposta com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '401':
+          description: Não autorizado
+        '500':
+          description: Erro interno do servidor
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Token de acesso (header Authorization: Bearer <token>), conforme
+        parâmetro ''Authorization'' definido nas operações de integração.'
