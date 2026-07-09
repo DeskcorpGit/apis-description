@@ -1,77 +1,69 @@
-# React + TypeScript + Vite
+# APIs Description Portal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este projeto é um portal de documentação e exploração de APIs, desenvolvido com **React**, **Vite**, **TypeScript** e **Tailwind CSS**.
 
-Currently, two official plugins are available:
+## 🚀 Funcionalidades e Páginas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+O projeto conta com as seguintes páginas e rotas principais:
 
-## React Compiler
+- **Dashboard (`/`)**: Página inicial com uma visão geral do sistema e indicadores.
+- **Documentação de APIs (`/apis` e `/apis/:partner`)**: Páginas dedicadas à exibição da documentação detalhada das APIs, permitindo filtrar e visualizar especificações de integrações e parceiros.
+- **Swagger UI (`/swagger`)**: Integração nativa com o Swagger UI para visualização e teste interativo dos endpoints das APIs cadastradas.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## 🛠️ Tecnologias Utilizadas
 
-Note: This will impact Vite dev & build performances.
+- [React 19](https://react.dev/)
+- [Vite](https://vitejs.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS 4](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [React Router DOM](https://reactrouter.com/)
+- [Swagger UI React](https://www.npmjs.com/package/swagger-ui-react)
 
-## Expanding the ESLint configuration
+## 📦 Como clonar e executar o projeto
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Siga os passos abaixo para rodar o projeto localmente em sua máquina.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 1. Clone o repositório
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Abra o terminal e execute o comando de clone com o link fornecido:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+git clone https://github.com/deskcorp-git/apis-description.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Acesse a pasta do projeto
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+cd apis-description
 ```
+
+_(ou navegue até a pasta correspondente ao repositório clonado)_
+
+### 3. Instale as dependências
+
+Certifique-se de ter o [Node.js](https://nodejs.org/) instalado. Em seguida, instale todas as dependências do projeto executando:
+
+```bash
+npm install
+```
+
+### 4. Rodando o projeto (Ambiente de Desenvolvimento)
+
+Para iniciar o servidor de desenvolvimento local com hot-reload, execute o seguinte comando:
+
+```bash
+npm run dev
+```
+
+Após rodar o comando, o servidor do Vite será iniciado e exibirá um link (geralmente `http://localhost:5173/`). Acesse-o em seu navegador para utilizar a aplicação.
+
+## 🏗️ Build para Produção
+
+Caso deseje gerar a versão otimizada e minificada para produção, utilize:
+
+```bash
+npm run build
+```
+
+Os arquivos finais compilados estarão disponíveis na pasta `dist/`.
