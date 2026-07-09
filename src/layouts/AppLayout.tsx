@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { SidebarMobile } from "@/components/layout/SidebarMobile";
@@ -33,7 +33,9 @@ export function AppLayout() {
 
       <main className="lg:ml-72 min-h-screen">
         <div className="p-6 lg:p-10 lg:pr-12">
-          <Outlet />
+          <Suspense fallback={<div className="flex justify-center items-center h-64"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div></div>}>
+            <Outlet />
+          </Suspense>
         </div>
       </main>
     </div>

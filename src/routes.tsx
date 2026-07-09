@@ -1,8 +1,18 @@
 import type { RouteObject } from "react-router-dom";
+import { lazy } from "react";
 import { AppLayout } from "@/layouts/AppLayout";
-import { DashboardPage } from "@/pages/DashboardPage";
-import { ApiDocumentationPage } from "@/pages/ApiDocumentationPage";
-import { SwaggerPage } from "@/pages/SwaggerPage";
+
+const DashboardPage = lazy(() =>
+  import("@/pages/DashboardPage").then((m) => ({ default: m.DashboardPage })),
+);
+const ApiDocumentationPage = lazy(() =>
+  import("@/pages/ApiDocumentationPage").then((m) => ({
+    default: m.ApiDocumentationPage,
+  })),
+);
+const SwaggerPage = lazy(() =>
+  import("@/pages/SwaggerPage").then((m) => ({ default: m.SwaggerPage })),
+);
 
 export const routes: RouteObject[] = [
   {
