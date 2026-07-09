@@ -2,7 +2,11 @@ import { useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { allApiSections } from "@/data";
-import { getApisByPartner, getPartnerStats } from "@/data/api-stats";
+import {
+  getApisByPartner,
+  getPartnerStats,
+  getTotalEndpoints,
+} from "@/data/api-stats";
 import { EndpointSection } from "@/components/api-documentation/EndpointSection";
 import { useHashScroll } from "@/hooks/useHashScroll";
 
@@ -26,7 +30,7 @@ export function ApiDocumentationPage() {
 
   const description = partnerInfo
     ? partnerInfo.description
-    : `Documentação de ${allApiSections.length} seções com todos os endpoints cadastrados.`;
+    : `Documentação de ${allApiSections.length} seções com todos os ${getTotalEndpoints()} endpoints cadastrados.`;
 
   return (
     <div className="animate-in fade-in duration-500">
