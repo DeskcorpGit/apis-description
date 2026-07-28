@@ -14,6 +14,43 @@ export const transferApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          payer_key: '50303171000168',
+          payee_key: '79048471249',
+          amount: '67.68',
+          scheduled_date: '2026-08-01',
+          description: 'PIXFUTBA agendado SQA',
+          pixout: {
+            pagador: {
+              ispb: '04902979',
+              tpPessoa: 0,
+              cpfCnpj: '12345678901',
+              nome: 'ORIGEM BASA',
+              nrAgencia: '201',
+              tpConta: 0,
+              nrConta: '1000001003',
+            },
+            recebedor: {
+              ispb: '60701190',
+              tpPessoa: 0,
+              cpfCnpj: '79048471249',
+              nome: 'BENEF',
+              nrAgencia: '0001',
+              tpConta: 0,
+              nrConta: '12345',
+            },
+            finalidade: 0,
+            tpIniciacao: 0,
+            ispbPss: '',
+            chave: '79048471249',
+            orderingCustomerId: '1000000775',
+            beneficiaryAccountId: '1000005939',
+          },
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '201',
@@ -65,6 +102,7 @@ export const transferApis: ApiData = {
         { name: 'pixScheduleId', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: '{}',
       responses: [
         {
           statusCode: '200',
@@ -95,6 +133,31 @@ export const transferApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          order_id: 'a7d02e85-857c-4b4b-bc7c-ce43279f2c03',
+          scheduled_date: '2026-08-18',
+          amount: '1500.00',
+          currency: 'BRL',
+          source_ispb: '04902979',
+          source_branch: '0201',
+          source_account: '100001772',
+          source_account_type: 'CACC',
+          source_document: '79048471249',
+          source_name: 'Alison Ricardo',
+          dest_ispb: '30015936',
+          dest_branch: '0001',
+          dest_account: '12345',
+          dest_account_type: 'CACC',
+          dest_document: '60502961546',
+          dest_name: 'R C TRINDADE',
+          description: 'TED agendado',
+          ordering_customer_id: '1000000845',
+          beneficiary_account_id: 'BRL1401100010001',
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '201',
@@ -135,6 +198,7 @@ export const transferApis: ApiData = {
         { name: 'tedScheduleId', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: '{}',
       responses: [
         {
           statusCode: '200',
@@ -164,6 +228,31 @@ export const transferApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          order_id: 'a7d02e85-857c-4b4b-bc7c-ce43279f2c03',
+          amount: '150.00',
+          currency: 'BRL',
+          source_ispb: '04902979',
+          source_branch: '0007',
+          source_account: '100000768',
+          source_account_type: 'CC',
+          source_document: '79048471249',
+          source_name: 'Alison Ricardo',
+          dest_ispb: '60701190',
+          dest_branch: '0001',
+          dest_account: '100000741',
+          dest_account_type: 'CC',
+          dest_document: '33608308000173',
+          dest_name: 'Revenu',
+          description: 'Pagamento de servicos',
+          via_psti: false,
+          ordering_customer_id: '1000000428',
+          beneficiary_account_id: '1000001003',
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '201',
@@ -199,6 +288,39 @@ export const transferSpiApis: ApiData = {
           type: 'string',
         },
       ],
+      requestBody: JSON.stringify(
+        {
+          idReqSistemaCliente: 'a7d02e85-857c-4b4b-bc7c-ce43279f2c03',
+          dtHrRequisicaoPsp: '2026-07-16T12:00:00.000Z',
+          tpIniciacao: 0,
+          finalidade: 0,
+          prioridadePagamento: 0,
+          tpPrioridadePagamento: 0,
+          valor: 10.01,
+          pagador: {
+            ispb: '04902979',
+            tpPessoa: 0,
+            cpfCnpj: '60502961546',
+            nome: 'Pagador Teste',
+            nrAgencia: '0201',
+            nrConta: '1000009152',
+            tpConta: 0,
+          },
+          recebedor: {
+            ispb: '30015936',
+            tpPessoa: 0,
+            cpfCnpj: '11122233396',
+            nome: 'Recebedor Outro Banco',
+            nrAgencia: '0001',
+            nrConta: '1000001034',
+            tpConta: 0,
+          },
+          orderingCustomerId: '100175',
+          beneficiaryAccountId: 'BRL1401100010001',
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '202',
@@ -227,6 +349,39 @@ export const transferSpiApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          idReqSistemaCliente: 'a7d02e85-857c-4b4b-bc7c-ce43279f2c03',
+          dtHrRequisicaoPsp: '2026-07-07T12:00:00.000Z',
+          tpIniciacao: 0,
+          finalidade: 0,
+          prioridadePagamento: 0,
+          tpPrioridadePagamento: 0,
+          valor: 25.55,
+          pagador: {
+            ispb: '04902979',
+            tpPessoa: 0,
+            cpfCnpj: '60502961546',
+            nome: 'Pagador Teste',
+            nrAgencia: '0201',
+            nrConta: '1000006242',
+            tpConta: 0,
+          },
+          recebedor: {
+            ispb: '04902979',
+            tpPessoa: 1,
+            cpfCnpj: '83584417000176',
+            nome: 'Recebedor Mesmo Banco',
+            nrAgencia: '0201',
+            nrConta: '1000006331',
+            tpConta: 0,
+          },
+          orderingCustomerId: '1000000428',
+          beneficiaryAccountId: '1000001003',
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '202',
@@ -248,6 +403,31 @@ export const transferSpiApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          order_id: 'a7d02e85-857c-4b4b-bc7c-ce43279f2c03',
+          amount: '150.00',
+          currency: 'BRL',
+          source_ispb: '04902979',
+          source_branch: '0007',
+          source_account: '100000768',
+          source_account_type: 'CC',
+          source_document: '79048471249',
+          source_name: 'Alison Ricardo',
+          dest_ispb: '60701190',
+          dest_branch: '0001',
+          dest_account: '100000741',
+          dest_account_type: 'CC',
+          dest_document: '33608308000173',
+          dest_name: 'Revenu',
+          description: 'Pagamento de servicos',
+          via_psti: false,
+          ordering_customer_id: '1000000428',
+          beneficiary_account_id: '1000001003',
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '200',
@@ -293,6 +473,14 @@ export const transferSpiApis: ApiData = {
       summary: 'Aprovar TED',
       description: 'Aprova uma TED pendente de revisão, liberando-a para liquidação.',
       parameters: [{ name: 'id', in: 'path', required: true, type: 'string' }],
+      requestBody: JSON.stringify(
+        {
+          approver_id: 'ops.alice',
+          note: 'Validated counterparty against the AML watchlist',
+        },
+        null,
+        2
+      ),
       responses: [{ statusCode: '200', description: 'TED aprovada e liberada para processamento' }],
       tags: ['TED Facade'],
     },
@@ -301,6 +489,13 @@ export const transferSpiApis: ApiData = {
       path: '/v1/ted/{id}/settle',
       summary: 'Liquidar TED (Settle)',
       parameters: [{ name: 'id', in: 'path', required: true, type: 'string' }],
+      requestBody: JSON.stringify(
+        {
+          force: false,
+        },
+        null,
+        2
+      ),
       responses: [
         { statusCode: '200', description: 'Liquidação confirmada, status atualizado para SETTLED' },
       ],
@@ -311,6 +506,13 @@ export const transferSpiApis: ApiData = {
       path: '/v1/ted/{id}/reverse',
       summary: 'Estornar TED',
       parameters: [{ name: 'id', in: 'path', required: true, type: 'string' }],
+      requestBody: JSON.stringify(
+        {
+          reason: 'Duplicate transfer',
+        },
+        null,
+        2
+      ),
       responses: [
         { statusCode: '200', description: 'Estorno iniciado, status atualizado para REVERSED' },
       ],
@@ -323,6 +525,14 @@ export const transferSpiApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          date: '2026-07-07',
+          settlement_date: '2026-07-07',
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '200',
@@ -340,6 +550,26 @@ export const transferSpiApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          str_message_id: 'STR1781885888',
+          amount: '2500.50',
+          currency: 'BRL',
+          source_ispb: '60701190',
+          source_branch: '0001',
+          source_account: '987654',
+          source_document: '12345678901',
+          source_name: 'Carlos Oliveira',
+          dest_ispb: '04902979',
+          dest_branch: '0201',
+          dest_account: '1000005939',
+          dest_document: '79048471249',
+          dest_name: 'Alison Ricardo',
+          description: 'Transferencia recebida',
+        },
+        null,
+        2
+      ),
       responses: [{ statusCode: '200', description: 'TED inbound registrada e crédito aplicado na conta' }],
       tags: ['TED Facade'],
     },
@@ -350,6 +580,31 @@ export const transferSpiApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          order_id: 'a7d02e85-857c-4b4b-bc7c-ce43279f2c03',
+          scheduled_date: '2026-08-18',
+          amount: '1500.00',
+          currency: 'BRL',
+          source_ispb: '04902979',
+          source_branch: '0201',
+          source_account: '100001772',
+          source_account_type: 'CACC',
+          source_document: '79048471249',
+          source_name: 'Alison Ricardo',
+          dest_ispb: '30015936',
+          dest_branch: '0001',
+          dest_account: '12345',
+          dest_account_type: 'CACC',
+          dest_document: '60502961546',
+          dest_name: 'R C TRINDADE',
+          description: 'TED agendado',
+          ordering_customer_id: '1000000845',
+          beneficiary_account_id: 'BRL1401100010001',
+        },
+        null,
+        2
+      ),
       responses: [
         { statusCode: '201', description: 'Agendamento de TED criado com sucesso' },
       ],
@@ -375,6 +630,7 @@ export const transferSpiApis: ApiData = {
       path: '/v1/ted/scheduled/{id}/execute',
       summary: 'Executar TED Agendada Vencida (SPI)',
       parameters: [{ name: 'id', in: 'path', required: true, type: 'string' }],
+      requestBody: '{}',
       responses: [
         {
           statusCode: '200',

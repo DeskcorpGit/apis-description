@@ -37,7 +37,10 @@ export function EndpointSection({
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        <EndpointParameters parameters={endpoint.parameters} />
+        <EndpointParameters
+          parameters={endpoint.parameters}
+          requestBody={endpoint.requestBody}
+        />
 
         <div className="space-y-6 lg:sticky lg:top-6 lg:self-start">
           <EndpointRequestExample
@@ -45,6 +48,8 @@ export function EndpointSection({
             baseUrl={baseUrl}
             path={endpoint.path}
             hasBodyParams={hasBodyParams}
+            requestBody={endpoint.requestBody}
+            parameters={endpoint.parameters}
           />
 
           {endpoint.responses &&

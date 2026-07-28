@@ -1,6 +1,6 @@
 export interface ApiParameter {
   name: string;
-  in: "query" | "path" | "header" | "cookie";
+  in: "query" | "path" | "header" | "cookie" | "body";
   required: boolean;
   type: string;
   description?: string;
@@ -30,6 +30,7 @@ export interface ApiEndpoint {
   responses?: ApiResponse[];
   tags?: string[];
   krakendUrl?: string;
+  requestBody?: string;
 }
 
 export interface ApiData {

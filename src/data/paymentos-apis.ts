@@ -5,6 +5,9 @@ export const paymentosApis: ApiData = {
   description:
     'Conjunto completo de APIs do ecossistema PaymentOS para o SPI/BACEN (Pix): autenticação, DICT, crédito inbound, MED/fraude/devoluções, QR Codes (dinâmico, COBV, composto) e operações de observabilidade e proxy de core bancário.',
   endpoints: [
+    // ─────────────────────────────────────────────
+    // AUTH
+    // ─────────────────────────────────────────────
     {
       method: 'POST',
       path: '/auth/realms/ledgeros/protocol/openid-connect/token',
@@ -20,6 +23,8 @@ export const paymentosApis: ApiData = {
           description: 'application/x-www-form-urlencoded',
         },
       ],
+      requestBody:
+        'grant_type=client_credentials&client_id=paymentos-service&client_secret=paymentos-secret-uat-2024&scope=ted:create ted:read ted:reverse',
       responses: [
         {
           statusCode: '200',
@@ -29,6 +34,10 @@ export const paymentosApis: ApiData = {
       ],
       tags: ['Corebanx', 'Auth'],
     },
+
+    // ─────────────────────────────────────────────
+    // DICT REIVINDICAÇÕES
+    // ─────────────────────────────────────────────
     {
       method: 'POST',
       path: '/paymentos/jdpi/dict/reivindicacao/incluir',
@@ -38,6 +47,16 @@ export const paymentosApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          chave: 'fulano.tal@provedor.com.br',
+          tpChave: 2,
+          tpReivindicacao: 0,
+          ispbDoador: '60701190',
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '200',
@@ -56,6 +75,15 @@ export const paymentosApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          ehReivindicador: true,
+          pagina: 1,
+          tamanhoPagina: 10,
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '200',
@@ -75,6 +103,13 @@ export const paymentosApis: ApiData = {
         { name: 'idReivindicacao', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          motivo: 0,
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '200',
@@ -83,6 +118,10 @@ export const paymentosApis: ApiData = {
       ],
       tags: ['DICT Reivindicações'],
     },
+
+    // ─────────────────────────────────────────────
+    // INBOUND CREDIT WEBHOOKS
+    // ─────────────────────────────────────────────
     {
       method: 'POST',
       path: '/jdpi/webhook/credito/validar',
@@ -104,6 +143,42 @@ export const paymentosApis: ApiData = {
           type: 'string',
         },
       ],
+      requestBody: JSON.stringify(
+        {
+          tpIniciacao: 0,
+          prioridadePagamento: 0,
+          tpPrioridadePagamento: 0,
+          finalidade: 0,
+          ispbPss: '',
+          pagador: {
+            ispb: '60701190',
+            tpPessoa: 0,
+            cpfCnpj: '11111111111',
+            nome: 'PAGADOR TESTE',
+            nrAgencia: '0001',
+            tpConta: 0,
+            nrConta: '12345678',
+          },
+          recebedor: {
+            ispb: '04902979',
+            tpPessoa: 0,
+            cpfCnpj: '79048471249',
+            nrAgencia: '0007',
+            tpConta: 0,
+            nrConta: '0635528',
+          },
+          dtHrOp: '2026-06-18T20:00:00.000Z',
+          valor: 12.34,
+          infEntreClientes: 'Compra Paga',
+          creditoOrdemPagamento: {
+            endToEndId: 'E049029799697VBL1',
+            idConciliacaoRecebedor: 'REC00000000000000000000000000000001',
+            chave: 'fulano.tal@provedor.com.br',
+          },
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '200',
@@ -134,6 +209,37 @@ export const paymentosApis: ApiData = {
           type: 'string',
         },
       ],
+      requestBody: JSON.stringify(
+        {
+          idReqJdPi: 'REQ-TEM-12345678',
+          endToEndId: 'E30015936202507161200ABCDEF00001',
+          tpIniciacao: 0,
+          finalidade: 0,
+          dtHrOp: '2026-07-16T12:00:00.000Z',
+          dtHrLiquidacao: '2026-07-16T12:00:00.000Z',
+          valor: 15.5,
+          pagador: {
+            ispb: '30015936',
+            tpPessoa: 0,
+            cpfCnpj: '11122233396',
+            nrAgencia: '0001',
+            tpConta: 0,
+            nrConta: '1000001003',
+            nome: 'Pagador Externo',
+          },
+          recebedor: {
+            ispb: '04902979',
+            tpPessoa: 0,
+            cpfCnpj: '60502961546',
+            nrAgencia: '0201',
+            tpConta: 0,
+            nrConta: '1000005939',
+            nome: 'Beneficiario BASA',
+          },
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '200',
@@ -152,6 +258,10 @@ export const paymentosApis: ApiData = {
       ],
       tags: ['Webhooks Crédito'],
     },
+
+    // ─────────────────────────────────────────────
+    // MED — CONTESTAÇÃO
+    // ─────────────────────────────────────────────
     {
       method: 'GET',
       path: '/jdpi/med/contestacao',
@@ -173,8 +283,7 @@ export const paymentosApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description:
-            'Objeto com total, count e array de contestações filtradas',
+          description: 'Objeto com total, count e array de contestações filtradas',
         },
         {
           statusCode: '400',
@@ -192,11 +301,20 @@ export const paymentosApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          endToEndId: 'E04902979202607281200ABCDEF00001',
+          motivo: 'FRAUDE_OU_COACAO',
+          detalhes: 'Suspeita de golpe do Pix',
+          valorContestado: 150.0,
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '201',
-          description:
-            'Contestação criada com sucesso. Status inicial: EM_ANALISE',
+          description: 'Contestação criada com sucesso. Status inicial: EM_ANALISE',
         },
         {
           statusCode: '422',
@@ -215,6 +333,15 @@ export const paymentosApis: ApiData = {
         { name: 'id', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          decision: 'APROVADO',
+          decidedBy: 'analista.med@banco.com.br',
+          justificativa: 'Comprovada fraude por análise do perfil',
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '200',
@@ -225,14 +352,10 @@ export const paymentosApis: ApiData = {
           statusCode: '400',
           description: 'Decisão inválida ou campo decidedBy ausente',
         },
-        {
-          statusCode: '404',
-          description: 'Contestação não encontrada para o ID informado',
-        },
+        { statusCode: '404', description: 'Contestação não encontrada para o ID informado' },
         {
           statusCode: '409',
-          description:
-            'Conflito — a decisão já foi registrada e não pode ser sobrescrita',
+          description: 'Conflito — a decisão já foi registrada e não pode ser sobrescrita',
         },
       ],
       tags: ['Contestação'],
@@ -244,16 +367,16 @@ export const paymentosApis: ApiData = {
       description:
         'Cancela a contestação. Aplicável apenas a contestações com status EM_ANALISE. Operação idempotente.',
       parameters: [{ name: 'id', in: 'path', required: true, type: 'string' }],
+      requestBody: JSON.stringify(
+        {
+          motivo: 'Solicitação do cliente devedor',
+        },
+        null,
+        2
+      ),
       responses: [
-        {
-          statusCode: '200',
-          description:
-            'Contestação cancelada, status atualizado para CANCELADA',
-        },
-        {
-          statusCode: '404',
-          description: 'Contestação não encontrada para o ID informado',
-        },
+        { statusCode: '200', description: 'Contestação cancelada, status atualizado para CANCELADA' },
+        { statusCode: '404', description: 'Contestação não encontrada para o ID informado' },
         {
           statusCode: '409',
           description: 'Conflito — contestação não está em status EM_ANALISE',
@@ -269,16 +392,16 @@ export const paymentosApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description:
-            'Dados completos da contestação incluindo status, trilha e decisão (se houver)',
+          description: 'Dados completos da contestação incluindo status, trilha e decisão (se houver)',
         },
-        {
-          statusCode: '404',
-          description: 'Contestação não encontrada para o ID informado',
-        },
+        { statusCode: '404', description: 'Contestação não encontrada para o ID informado' },
       ],
       tags: ['Contestação'],
     },
+
+    // ─────────────────────────────────────────────
+    // MED — DEVOLUÇÕES
+    // ─────────────────────────────────────────────
     {
       method: 'POST',
       path: '/jdpi/spi/op/devolucao/intra',
@@ -291,6 +414,17 @@ export const paymentosApis: ApiData = {
         { name: 'channelId', in: 'header', required: true, type: 'string' },
         { name: 'userId', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          idReqSistemaCliente: 'a7d02e85-857c-4b4b-bc7c-ce43279f2c03',
+          endToEndIdOriginal: 'E04902979202607161200ABCDEF00001',
+          valorDevolucao: 21.1,
+          beneficiaryAccountId: '1000006331',
+          motivo: 'DEVOLUCAO_ACORDO',
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '202',
@@ -298,8 +432,7 @@ export const paymentosApis: ApiData = {
         },
         {
           statusCode: '400',
-          description:
-            'Campo beneficiaryAccountId ausente no corpo da requisição',
+          description: 'Campo beneficiaryAccountId ausente no corpo da requisição',
         },
       ],
       tags: ['Devoluções'],
@@ -313,12 +446,18 @@ export const paymentosApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [
+      requestBody: JSON.stringify(
         {
-          statusCode: '202',
-          description: 'Devolução PIXREVE aceita e submetida ao BACEN',
+          idReqSistemaCliente: 'a7d02e85-857c-4b4b-bc7c-ce43279f2c03',
+          endToEndIdOriginal: 'E04902979202607161200ABCDEF00001',
+          valorDevolucao: 15.5,
+          orderInitiationType: 'PIXREVE',
+          submitOrder: 'YES',
         },
-      ],
+        null,
+        2
+      ),
+      responses: [{ statusCode: '202', description: 'Devolução PIXREVE aceita e submetida ao BACEN' }],
       tags: ['Devoluções'],
     },
     {
@@ -333,11 +472,20 @@ export const paymentosApis: ApiData = {
         { name: 'channelId', in: 'header', required: false, type: 'string' },
         { name: 'userId', in: 'header', required: false, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          orderingReference: 'ORD-MED-123456',
+          uniqueTransactionReference: 'UTR-MED-789012',
+          endToEndIdOriginal: 'E04902979202607161200ABCDEF00001',
+          valorDevolucao: 100.0,
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '202',
-          description:
-            'Devolução MED aceita — retorna status submitted ou held_unsubmitted',
+          description: 'Devolução MED aceita — retorna status submitted ou held_unsubmitted',
         },
         {
           statusCode: '400',
@@ -356,11 +504,20 @@ export const paymentosApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          idSolDevolucao: 'DEV-MED-001',
+          endToEndIdOriginal: 'E04902979202607161200ABCDEF00001',
+          valorDevolucao: 50.0,
+          dtHrRequisicaoPsp: '2026-07-28T10:00:00.000Z',
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '200',
-          description:
-            'Devolução MED iniciada com sucesso, retorna idSolDevolucao',
+          description: 'Devolução MED iniciada com sucesso, retorna idSolDevolucao',
         },
       ],
       tags: ['MED PIX'],
@@ -373,21 +530,14 @@ export const paymentosApis: ApiData = {
         { name: 'ispb', in: 'query', required: true, type: 'string' },
         { name: 'idSolDevolucao', in: 'query', required: true, type: 'string' },
       ],
-      responses: [
-        {
-          statusCode: '200',
-          description:
-            'Dados atuais da devolução MED incluindo status e valores',
-        },
-      ],
+      responses: [{ statusCode: '200', description: 'Dados atuais da devolução MED incluindo status e valores' }],
       tags: ['MED PIX'],
     },
     {
       method: 'GET',
       path: '/jdpi/devolucao/listar',
       summary: 'Listar Devoluções MED',
-      description:
-        'tpPsp=0 retorna todas as devoluções. tpPsp=1 pode retornar 502 em ambiente HML.',
+      description: 'tpPsp=0 retorna todas as devoluções. tpPsp=1 pode retornar 502 em ambiente HML.',
       parameters: [
         { name: 'ispb', in: 'query', required: true, type: 'string' },
         { name: 'tpPsp', in: 'query', required: true, type: 'number' },
@@ -395,13 +545,14 @@ export const paymentosApis: ApiData = {
         { name: 'tamanhoPagina', in: 'query', required: false, type: 'number' },
       ],
       responses: [
-        {
-          statusCode: '200',
-          description: 'Lista paginada de devoluções MED com status e valores',
-        },
+        { statusCode: '200', description: 'Lista paginada de devoluções MED com status e valores' },
       ],
       tags: ['MED PIX'],
     },
+
+    // ─────────────────────────────────────────────
+    // FRAUDE
+    // ─────────────────────────────────────────────
     {
       method: 'POST',
       path: '/jdpi/marcacao-fraude/incluir',
@@ -411,20 +562,25 @@ export const paymentosApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          cpfCnpj: '60502961546',
+          chave: '60502961546',
+          tipoFraude: 'FALSA_IDENTIDADE',
+          detalhes: 'Conta laranja identificada',
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '200',
-          description:
-            'Marcação de fraude criada com sucesso, retorna idMarcacaoFraude',
+          description: 'Marcação de fraude criada com sucesso, retorna idMarcacaoFraude',
         },
-        {
-          statusCode: '201',
-          description: 'Marcação criada (resposta alternativa do upstream)',
-        },
+        { statusCode: '201', description: 'Marcação criada (resposta alternativa do upstream)' },
         {
           statusCode: '502',
-          description:
-            'Erro transitório — upstream DICT indisponível, tente novamente',
+          description: 'Erro transitório — upstream DICT indisponível, tente novamente',
         },
       ],
       tags: ['Fraude'],
@@ -442,8 +598,7 @@ export const paymentosApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description:
-            'Objeto com array marcacoesInfracao contendo as marcações ativas e canceladas',
+          description: 'Objeto com array marcacoesInfracao contendo as marcações ativas e canceladas',
         },
       ],
       tags: ['Fraude'],
@@ -461,15 +616,22 @@ export const paymentosApis: ApiData = {
         },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [
+      requestBody: JSON.stringify(
         {
-          statusCode: '200',
-          description:
-            'Marcação de fraude cancelada, status atualizado no DICT',
+          motivo: 'Análise de erro comprovada',
         },
+        null,
+        2
+      ),
+      responses: [
+        { statusCode: '200', description: 'Marcação de fraude cancelada, status atualizado no DICT' },
       ],
       tags: ['Fraude'],
     },
+
+    // ─────────────────────────────────────────────
+    // RELATO DE INFRAÇÃO
+    // ─────────────────────────────────────────────
     {
       method: 'POST',
       path: '/jdpi/relato-infracao/incluir',
@@ -479,16 +641,27 @@ export const paymentosApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          cpfCnpj: '60502961546',
+          chave: 'fulano@email.com',
+          contato: {
+            email: 'notificacoes@banco.com.br',
+            telefone: '+5511999998888',
+          },
+          detalhes: 'Relato de golpe do suporte falso',
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '200',
-          description:
-            'Relato de infração criado com sucesso, retorna idRelatoInfracao',
+          description: 'Relato de infração criado com sucesso, retorna idRelatoInfracao',
         },
         {
           statusCode: '404',
-          description:
-            'Rota não encontrada no upstream HML — indisponível neste ambiente',
+          description: 'Rota não encontrada no upstream HML — indisponível neste ambiente',
         },
       ],
       tags: ['Relato Infração'],
@@ -505,8 +678,7 @@ export const paymentosApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description:
-            'Objeto com array reporteInfracao contendo os relatos paginados',
+          description: 'Objeto com array reporteInfracao contendo os relatos paginados',
         },
       ],
       tags: ['Relato Infração'],
@@ -525,14 +697,14 @@ export const paymentosApis: ApiData = {
         },
       ],
       responses: [
-        {
-          statusCode: '200',
-          description:
-            'Dados completos do relato de infração incluindo status e partes envolvidas',
-        },
+        { statusCode: '200', description: 'Dados completos do relato de infração incluindo status e partes envolvidas' },
       ],
       tags: ['Relato Infração'],
     },
+
+    // ─────────────────────────────────────────────
+    // RECUPERAÇÃO DE VALORES
+    // ─────────────────────────────────────────────
     {
       method: 'POST',
       path: '/jdpi/recuperacao-valores/incluir',
@@ -540,30 +712,47 @@ export const paymentosApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          idRelatoInfracao: 'REL-12345',
+          valorSolicitado: 250.0,
+          observacao: 'Solicitação de bloqueio cautelar no recebedor',
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '200',
-          description:
-            'Solicitação de recuperação criada com sucesso, retorna idRecValores',
+          description: 'Solicitação de recuperação criada com sucesso, retorna idRecValores',
         },
       ],
       tags: ['Recuperação de Valores'],
     },
+
+    // ─────────────────────────────────────────────
+    // QR CODE DINÂMICO
+    // ─────────────────────────────────────────────
     {
       method: 'POST',
       path: '/jdpi/qrcode/dinamico/gerar',
       summary: 'Gerar QR Dinâmico Imediato',
-      description:
-        'Gera e assina o QR Code dinâmico imediato. Requer urlJwk para assinatura. Retorna payloadBase64.',
+      description: 'Gera e assina o QR Code dinâmico imediato. Requer urlJwk para assinatura. Retorna payloadBase64.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [
+      requestBody: JSON.stringify(
         {
-          statusCode: '200',
-          description:
-            'QR Code dinâmico gerado com sucesso, retorna payloadBase64',
+          chave: 'gustavo.armoa@corebanx.net.br',
+          urlJwk: 'h-qrcode.basa.com.br/pix/jwks',
+          valorOriginal: 150.0,
+          cidade: 'Sao Paulo',
         },
+        null,
+        2
+      ),
+      responses: [
+        { statusCode: '200', description: 'QR Code dinâmico gerado com sucesso, retorna payloadBase64' },
         {
           statusCode: '400',
           description: 'Campo hostJku ausente — necessário para assinatura JWS',
@@ -581,12 +770,18 @@ export const paymentosApis: ApiData = {
         { name: 'idDocumento', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [
+      requestBody: JSON.stringify(
         {
-          statusCode: '200',
-          description: 'QR Code dinâmico atualizado com sucesso',
+          urlPayloadJson: 'h-qrcode.basa.com.br/cob/teste',
+          urlJwk: 'h-qrcode.basa.com.br/pix/jwks',
+          chave: 'gustavo.armoa@corebanx.net.br',
+          cidade: 'Sao Paulo',
+          valorOriginal: 200.0,
         },
-      ],
+        null,
+        2
+      ),
+      responses: [{ statusCode: '200', description: 'QR Code dinâmico atualizado com sucesso' }],
       tags: ['QR Code'],
     },
     {
@@ -598,11 +793,20 @@ export const paymentosApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          chave: '+5521973937780',
+          nomeRecebedor: 'R C TRINDADE',
+          valorOriginal: 100.5,
+          dtVenc: '2026-08-30',
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '200',
-          description:
-            'QR COBV gerado com sucesso, retorna idDocumento para uso na assinatura',
+          description: 'QR COBV gerado com sucesso, retorna idDocumento para uso na assinatura',
         },
       ],
       tags: ['QR Code'],
@@ -616,6 +820,14 @@ export const paymentosApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          idDocumento: 'DOC-COBV-12345',
+          ispbCertificadoJws: '04902979',
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '200',
@@ -632,11 +844,17 @@ export const paymentosApis: ApiData = {
         { name: 'idDocumento', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          ispbCertificadoJws: '04902979',
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '200',
-          description:
-            'Payload JWS do COBV específico assinado e pronto para uso pelo PSP pagador',
+          description: 'Payload JWS do COBV específico assinado e pronto para uso pelo PSP pagador',
         },
       ],
       tags: ['QR Code'],
@@ -651,11 +869,25 @@ export const paymentosApis: ApiData = {
         { name: 'idDocumento', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          valorFinal: 1100.11,
+          dtVenc: '2026-08-20',
+          diasAposVenc: 15,
+          chave: 'gustavo.armoa@corebanx.net.br',
+        },
+        null,
+        2
+      ),
       responses: [
         { statusCode: '200', description: 'QR COBV atualizado com sucesso' },
       ],
       tags: ['QR Code'],
     },
+
+    // ─────────────────────────────────────────────
+    // QR COMPOSTO
+    // ─────────────────────────────────────────────
     {
       method: 'POST',
       path: '/jdpi/qrcode/composto/gerar',
@@ -665,12 +897,17 @@ export const paymentosApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [
+      requestBody: JSON.stringify(
         {
-          statusCode: '200',
-          description: 'QR Composto imediato gerado com sucesso',
+          urlJwk: 'h-qrcode.basa.com.br/pix/jwks',
+          urlPayloadJson: 'h-qrcode.basa.com.br/cob/teste',
+          urlPayloadJsonRec: 'h-qrcode.basa.com.br/rec/teste',
+          txid: 'TX1234567890',
         },
-      ],
+        null,
+        2
+      ),
+      responses: [{ statusCode: '200', description: 'QR Composto imediato gerado com sucesso' }],
       tags: ['QR Composto'],
     },
     {
@@ -682,12 +919,16 @@ export const paymentosApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [
+      requestBody: JSON.stringify(
         {
-          statusCode: '200',
-          description: 'QR Composto estático gerado com sucesso',
+          chave: '+5521973937780',
+          nomeRecebedor: 'R C TRINDADE',
+          valor: 100.5,
         },
-      ],
+        null,
+        2
+      ),
+      responses: [{ statusCode: '200', description: 'QR Composto estático gerado com sucesso' }],
       tags: ['QR Composto'],
     },
     {
@@ -699,12 +940,16 @@ export const paymentosApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [
+      requestBody: JSON.stringify(
         {
-          statusCode: '200',
-          description: 'QR Composto dinâmico gerado com sucesso',
+          chave: '+5521973937780',
+          nomeRecebedor: 'R C TRINDADE',
+          valorOriginal: 100.5,
         },
-      ],
+        null,
+        2
+      ),
+      responses: [{ statusCode: '200', description: 'QR Composto dinâmico gerado com sucesso' }],
       tags: ['QR Composto'],
     },
     {
@@ -714,13 +959,16 @@ export const paymentosApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [
+      requestBody: JSON.stringify(
         {
-          statusCode: '200',
-          description:
-            'QR Composto COBV gerado com sucesso, retorna idDocumento',
+          chave: '+5521973937780',
+          nomeRecebedor: 'R C TRINDADE',
+          valorOriginal: 100.5,
         },
-      ],
+        null,
+        2
+      ),
+      responses: [{ statusCode: '200', description: 'QR Composto COBV gerado com sucesso, retorna idDocumento' }],
       tags: ['QR Composto'],
     },
     {
@@ -731,30 +979,78 @@ export const paymentosApis: ApiData = {
         { name: 'idDocumento', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [
+      requestBody: JSON.stringify(
         {
-          statusCode: '200',
-          description: 'QR Composto atualizado com sucesso',
+          idDocumento: 'DOC-COMP-12345',
+          formato: 2,
+          ispbCertificadoJws: '04902979',
+          dtInicialRecorrencia: '2026-09-10',
+          stRecorrencia: 1,
         },
-      ],
+        null,
+        2
+      ),
+      responses: [{ statusCode: '200', description: 'QR Composto atualizado com sucesso' }],
       tags: ['QR Composto'],
     },
     {
       method: 'PUT',
       path: '/jdpi/qrcode/composto/dinamico/{idDocumento}',
       summary: 'Atualizar QR Composto Dinâmico',
-      description:
-        'Campo dadosRecorrencia.stRecorrencia é obrigatório nesta atualização.',
+      description: 'Campo dadosRecorrencia.stRecorrencia é obrigatório nesta atualização.',
       parameters: [
         { name: 'idDocumento', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [
+      requestBody: JSON.stringify(
         {
-          statusCode: '200',
-          description: 'QR Composto dinâmico atualizado com sucesso',
+          formato: 2,
+          ispbCertificadoJws: '04902979',
+          chave: 'gustavo.armoa@corebanx.net.br',
+          codigoCategoria: '0000',
+          nomeRecebedor: 'GUSTAVO ARMOA',
+          cidade: 'Sao Paulo',
+          cep: '01227-200',
+          valorOriginal: 20.02,
+          expiracaoQR: '86400',
+          idConciliacaoRecebedor: 'JDPI2020010300000000000000000000001',
+          dadosRecorrencia: {
+            idRecorrencia: 'RR0490297920260522njua7shf40o',
+            tpFrequencia: 4,
+            dtInicialRecorrencia: '2026-08-10',
+            dtFinalRecorrencia: '2027-08-10',
+            pisoValorMaximo: 550,
+            nrContrato: '1234567890ABC',
+            retentativa: 1,
+            recebedor: {
+              ispb: '04902979',
+              tpPessoa: 1,
+              cnpj: '04902979000144',
+              cpfCnpj: '04902979000144',
+              nome: 'GUSTAVO ARMOA',
+              nrAgencia: '0007',
+              tpConta: 0,
+              nrConta: '0635528',
+            },
+            devedor: {
+              ispb: '04902979',
+              tpPessoa: 0,
+              cpfCnpj: '79048471249',
+              nome: 'Alison Ricardo',
+              nrAgencia: '0007',
+              tpConta: 0,
+              nrConta: '0635528',
+            },
+            stRecorrencia: 0,
+          },
+          urlJwk: 'h-qrcode.basa.com.br/pix/jwks',
+          urlPayloadJson: 'h-qrcode.basa.com.br/cob/teste',
+          urlPayloadJsonRec: 'h-qrcode.basa.com.br/rec/teste',
         },
-      ],
+        null,
+        2
+      ),
+      responses: [{ statusCode: '200', description: 'QR Composto dinâmico atualizado com sucesso' }],
       tags: ['QR Composto'],
     },
     {
@@ -765,14 +1061,66 @@ export const paymentosApis: ApiData = {
         { name: 'idDocumento', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [
+      requestBody: JSON.stringify(
         {
-          statusCode: '200',
-          description: 'QR Composto COBV atualizado com sucesso',
+          formato: 2,
+          ispbCertificadoJws: '04902979',
+          chave: 'gustavo.armoa@corebanx.net.br',
+          codigoCategoria: '0000',
+          cpfRecebedor: '07434576170',
+          nomeRecebedor: 'GUSTAVO ARMOA',
+          logradouroRecebedor: 'Rua Pix, 123',
+          cidade: 'Sao Paulo',
+          uf: 'SP',
+          cep: '01227-200',
+          valorOriginal: 1001.16,
+          valorFinal: 1100.11,
+          dtVenc: '2026-08-20',
+          diasAposVenc: 15,
+          idConciliacaoRecebedor: 'JDPI2020010300000000000000000000001',
+          dadosRecorrencia: {
+            idRecorrencia: 'RR0490297920260522njua7shf40o',
+            tpFrequencia: 4,
+            dtInicialRecorrencia: '2026-08-10',
+            dtFinalRecorrencia: '2027-08-10',
+            pisoValorMaximo: 550,
+            nrContrato: '1234567890ABC',
+            retentativa: 1,
+            recebedor: {
+              ispb: '04902979',
+              tpPessoa: 1,
+              cnpj: '04902979000144',
+              cpfCnpj: '04902979000144',
+              nome: 'GUSTAVO ARMOA',
+              nrAgencia: '0007',
+              tpConta: 0,
+              nrConta: '0635528',
+            },
+            devedor: {
+              ispb: '04902979',
+              tpPessoa: 0,
+              cpfCnpj: '79048471249',
+              nome: 'Alison Ricardo',
+              nrAgencia: '0007',
+              tpConta: 0,
+              nrConta: '0635528',
+            },
+            stRecorrencia: 0,
+          },
+          urlJwk: 'h-qrcode.basa.com.br/pix/jwks',
+          urlPayloadJson: 'h-qrcode.basa.com.br/cobv/teste',
+          urlPayloadJsonRec: 'h-qrcode.basa.com.br/rec/teste',
         },
-      ],
+        null,
+        2
+      ),
+      responses: [{ statusCode: '200', description: 'QR Composto COBV atualizado com sucesso' }],
       tags: ['QR Composto'],
     },
+
+    // ─────────────────────────────────────────────
+    // PUBLIC (QR Code resolve / JWKS)
+    // ─────────────────────────────────────────────
     {
       method: 'GET',
       path: '/pix/cobv/{token}',
@@ -797,10 +1145,7 @@ export const paymentosApis: ApiData = {
         { name: 'token', in: 'path', required: true, type: 'string' },
       ],
       responses: [
-        {
-          statusCode: '501',
-          description: 'Endpoint em implantação — não disponível neste momento',
-        },
+        { statusCode: '501', description: 'Endpoint em implantação — não disponível neste momento' },
       ],
       tags: ['Public'],
     },
@@ -816,6 +1161,10 @@ export const paymentosApis: ApiData = {
       ],
       tags: ['Public'],
     },
+
+    // ─────────────────────────────────────────────
+    // OPS — CORE PROXY
+    // ─────────────────────────────────────────────
     {
       method: 'GET',
       path: '/jdpi/spi/temenos/paymentorders/{temenos_payment_order_id}',
@@ -870,15 +1219,48 @@ export const paymentosApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          body: {
+            paymentOrderProductId: 'PIXINTRA',
+            debitAccountId: '1000001003',
+            creditAccountId: '1000006331',
+            paymentCurrencyId: 'BRL',
+            amount: 21.1,
+            orderingCustomerName: 'Pagador Teste',
+            endToEndReference: 'E2E-INTRA',
+            executionDate: '2026-07-16',
+            narratives: [
+              {
+                narrative: 'PIXINTRA Debit Transfer',
+              },
+              {
+                narrative: 'PIXINTRA Credit Transfer',
+              },
+            ],
+            contexts: [
+              {
+                contextName: 'PIX_CUST_NM',
+                contextValue: 'Recebedor Teste',
+              },
+            ],
+          },
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '200',
-          description:
-            'Resposta JSON original processada pelo T24 sem transformações',
+          description: 'Resposta JSON original processada pelo T24 sem transformações',
         },
       ],
       tags: ['Core Proxy'],
     },
+
+    // ─────────────────────────────────────────────
+    // OPS — OBSERVABILITY
+    // ─────────────────────────────────────────────
     {
       method: 'GET',
       path: '/v1/ops/observability/inbound-credit/trace',
@@ -890,8 +1272,7 @@ export const paymentosApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description:
-            'Cadeia de eventos t02 a t05 do fluxo de crédito para o endToEndId informado',
+          description: 'Cadeia de eventos t02 a t05 do fluxo de crédito para o endToEndId informado',
         },
       ],
       tags: ['Observability'],
@@ -910,8 +1291,7 @@ export const paymentosApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description:
-            'Lista de registros enfileirados na DLQ com motivo de falha e payload original',
+          description: 'Lista de registros enfileirados na DLQ com motivo de falha e payload original',
         },
       ],
       tags: ['Observability'],
@@ -942,12 +1322,15 @@ export const paymentosApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description:
-            'Logs de auditoria das integrações com core bancário incluindo erros e timestamps',
+          description: 'Logs de auditoria das integrações com core bancário incluindo erros e timestamps',
         },
       ],
       tags: ['Observability'],
     },
+
+    // ─────────────────────────────────────────────
+    // OPS — TESTING
+    // ─────────────────────────────────────────────
     {
       method: 'POST',
       path: '/test/mq-inject/ted-inbound',
@@ -957,11 +1340,23 @@ export const paymentosApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
+      requestBody: JSON.stringify(
+        {
+          scenario: 'temenos',
+          numCtrlStr: 'STRPOC1785260597T1',
+          ctCredtd: '1000009087',
+          nomCliCredtd: 'BENEFICIARIO TEMENOS',
+          valor: '150.00',
+          nomCliDebtd: 'PAGADOR TED',
+          cnpjCpfCliDebtd: '11111111111',
+        },
+        null,
+        2
+      ),
       responses: [
         {
           statusCode: '202',
-          description:
-            'Mensagem aceita na fila MQ, retorna NumCtrlSTR para rastreamento',
+          description: 'Mensagem aceita na fila MQ, retorna NumCtrlSTR para rastreamento',
         },
       ],
       tags: ['Testing'],

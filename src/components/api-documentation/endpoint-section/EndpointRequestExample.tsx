@@ -1,12 +1,15 @@
 import { useState, useCallback } from "react";
 import { Copy, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { ApiParameter } from "@/types/api";
 
 interface EndpointRequestExampleProps {
   method: string;
   baseUrl?: string;
   path: string;
   hasBodyParams: boolean;
+  requestBody?: string;
+  parameters?: ApiParameter[];
 }
 
 function buildCurlExample(
@@ -14,12 +17,94 @@ function buildCurlExample(
   baseUrl: string | undefined,
   path: string,
   hasBody: boolean,
+  requestBody?: string,
+  parameters?: ApiParameter[]
 ): string {
-  const url = baseUrl ? `${baseUrl}${path}` : path;
-  let curl = `curl -X ${method} \\\n  '${url}' \\\n  -H 'Authorization: Bearer <token>' \\\n  -H 'Accept: application/json'`;
-  if (hasBody) {
-    curl += ` \\\n  -H 'Content-Type: application/json' \\\n  -d '{ ... }'`;
+  const queryParams = parameters?.filter((p) => p.in === "query");
+  let queryString = "";
+  if (queryParams && queryParams.length > 0) {
+    const qParts = queryParams.map((p) => `${p.name}=<${p.name}>`);
+    queryString = `?${qParts.join("&")}`;
   }
+
+  const rawUrl = baseUrl ? `${baseUrl}${path}` : path;
+  const fullUrl = `${rawUrl}${queryString}`;
+
+  const contentTypeHeader = parameters?.find(
+    (p) => p.in === "header" && p.name.toLowerCase() === "content-type"
+  );
+
+  const contentType = contentTypeHeader
+    ? contentTypeHeader.description || "application/json"
+    : "application/json";
+
+  const isFormUrlEncoded = contentType.includes("x-www-form-urlencoded");
+
+  let curl = `curl -X ${method} \\\n  '${fullUrl}' \\\n  -H 'Authorization: Bearer <token>' \\\n  -H 'Accept: application/json'`;
+
+  const extraHeaders = parameters?.filter(
+    (p) =>
+      p.in === "header" &&
+      !["authorization", "accept", "content-type"].includes(p.name.toLowerCase())
+  );
+
+  if (extraHeaders && extraHeaders.length > 0) {
+    for (const h of extraHeaders) {
+      const headerVal =
+        h.name === "Chave-Idempotencia" ? "<idempotency-key>" : `<${h.name}>`;
+      curl += ` \\\n  -H '${h.name}: ${headerVal}'`;
+    }
+  }
+
+  const isPayloadMethod = ["POST", "PUT", "PATCH"].includes(method.toUpperCase());
+
+  if (isPayloadMethod || hasBody || requestBody) {
+    curl += ` \\\n  -H 'Content-Type: ${contentType}'`;
+
+    let bodyString = "";
+
+    if (requestBody) {
+      bodyString = requestBody;
+    } else {
+      const bodyParams = parameters?.filter((p) => p.in === "body");
+      const payloadCandidateParams = parameters?.filter(
+        (p) => p.in !== "header" && p.in !== "path"
+      );
+
+      if (bodyParams && bodyParams.length > 0) {
+        const dummyObj: Record<string, any> = {};
+        for (const p of bodyParams) {
+          dummyObj[p.name] =
+            p.type === "number" ? 0 : p.type === "boolean" ? true : `<${p.name}>`;
+        }
+        bodyString = JSON.stringify(dummyObj, null, 2);
+      } else if (payloadCandidateParams && payloadCandidateParams.length > 0) {
+        const dummyObj: Record<string, any> = {};
+        for (const p of payloadCandidateParams) {
+          dummyObj[p.name] =
+            p.type === "number" ? 0 : p.type === "boolean" ? true : `<${p.name}>`;
+        }
+        bodyString = JSON.stringify(dummyObj, null, 2);
+      } else {
+        bodyString = "{ ... }";
+      }
+    }
+
+    if (isFormUrlEncoded) {
+      curl += ` \\\n  -d '${bodyString}'`;
+    } else {
+      const lines = bodyString.split("\n");
+      if (lines.length > 1) {
+        const indented = lines
+          .map((line, idx) => (idx === 0 ? line : `  ${line}`))
+          .join("\n");
+        curl += ` \\\n  -d '${indented}'`;
+      } else {
+        curl += ` \\\n  -d '${bodyString}'`;
+      }
+    }
+  }
+
   return curl;
 }
 
@@ -28,10 +113,19 @@ export function EndpointRequestExample({
   baseUrl,
   path,
   hasBodyParams,
+  requestBody,
+  parameters,
 }: EndpointRequestExampleProps) {
   const [copied, setCopied] = useState(false);
 
-  const curlText = buildCurlExample(method, baseUrl, path, hasBodyParams);
+  const curlText = buildCurlExample(
+    method,
+    baseUrl,
+    path,
+    hasBodyParams,
+    requestBody,
+    parameters
+  );
 
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(curlText).then(() => {
@@ -83,4 +177,5 @@ export function EndpointRequestExample({
     </div>
   );
 }
+
 

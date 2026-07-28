@@ -2,12 +2,72 @@ import type { ApiParameter } from "@/types/api";
 
 interface EndpointParametersProps {
   parameters?: ApiParameter[];
+  requestBody?: string;
 }
 
-export function EndpointParameters({ parameters }: EndpointParametersProps) {
+function extractBodyParametersFromJson(jsonStr: string): ApiParameter[] {
+  try {
+    const parsed = JSON.parse(jsonStr);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      return [];
+    }
+
+    const params: ApiParameter[] = [];
+
+    for (const [key, val] of Object.entries(parsed)) {
+      let typeStr = "string";
+      let desc = "";
+
+      if (val === null) {
+        typeStr = "null";
+      } else if (Array.isArray(val)) {
+        typeStr = "array";
+      } else if (typeof val === "object") {
+        typeStr = "object";
+      } else if (typeof val === "number") {
+        typeStr = "number";
+      } else if (typeof val === "boolean") {
+        typeStr = "boolean";
+      } else {
+        typeStr = "string";
+        if (typeof val === "string" && val.length > 0) {
+          desc = `Exemplo: "${val.length > 60 ? val.substring(0, 60) + '...' : val}"`;
+        }
+      }
+
+      params.push({
+        name: key,
+        in: "body",
+        required: true,
+        type: typeStr,
+        description: desc || undefined,
+      });
+    }
+
+    return params;
+  } catch {
+    return [];
+  }
+}
+
+export function EndpointParameters({
+  parameters,
+  requestBody,
+}: EndpointParametersProps) {
+  let allParams: ApiParameter[] = [...(parameters || [])];
+
+  const hasExplicitBodyParams = allParams.some((p) => p.in === "body");
+
+  if (!hasExplicitBodyParams && requestBody) {
+    const derivedBodyParams = extractBodyParametersFromJson(requestBody);
+    if (derivedBodyParams.length > 0) {
+      allParams = [...allParams, ...derivedBodyParams];
+    }
+  }
+
   const paramGroups: Record<string, ApiParameter[]> = {};
 
-  parameters?.forEach((p) => {
+  allParams.forEach((p) => {
     const label =
       p.in === "path"
         ? "Path Parameters"
@@ -20,7 +80,7 @@ export function EndpointParameters({ parameters }: EndpointParametersProps) {
     paramGroups[label].push(p);
   });
 
-  if (!parameters || parameters.length === 0) {
+  if (allParams.length === 0) {
     return (
       <p className="text-sm text-muted-foreground italic">
         Nenhum parâmetro documentado.
