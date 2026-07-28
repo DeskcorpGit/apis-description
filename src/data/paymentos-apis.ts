@@ -10,36 +10,40 @@ export const paymentosApis: ApiData = {
       path: '/auth/realms/ledgeros/protocol/openid-connect/token',
       summary: 'Obter Token de Acesso',
       description:
-        'Gera o token via client_credentials com os scopes necessários (ex: pix:create pix:read).[cite: 1, 2]',
+        'Gera o token via client_credentials com os scopes necessários (ex: pix:create pix:read).',
       parameters: [
         {
           name: 'Content-Type',
           in: 'header',
           required: true,
           type: 'string',
-          description: 'application/x-www-form-urlencoded[cite: 1]',
+          description: 'application/x-www-form-urlencoded',
         },
       ],
       responses: [
         {
           statusCode: '200',
-          description: 'Token obtido com sucesso[cite: 1, 2]',
+          description: 'Token JWT gerado com sucesso',
           example: '{"access_token": "eyJhbG..."}',
         },
       ],
-      tags: ['Auth'],
+      tags: ['Corebanx', 'Auth'],
     },
     {
       method: 'POST',
       path: '/paymentos/jdpi/dict/reivindicacao/incluir',
       summary: 'Incluir Reivindicação',
       description:
-        'Cria a reivindicação (retorna idReivindicacao). Aparece flagada só na chave do doador.[cite: 5]',
+        'Cria a reivindicação de portabilidade de chave Pix (retorna idReivindicacao). Aparece flagada apenas na chave do doador.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
-        { statusCode: '200', description: 'Reivindicação criada[cite: 5]' },
+        {
+          statusCode: '200',
+          description:
+            'Reivindicação criada com sucesso, retorna idReivindicacao',
+        },
       ],
       tags: ['DICT Reivindicações'],
     },
@@ -48,7 +52,7 @@ export const paymentosApis: ApiData = {
       path: '/paymentos/jdpi/dict/reivindicacao/listar',
       summary: 'Listar Reivindicações',
       description:
-        'Lista as reivindicações iniciadas (ehReivindicador=true).[cite: 5]',
+        'Lista as reivindicações iniciadas pelo PSP reivindicador (ehReivindicador=true).',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
@@ -56,7 +60,7 @@ export const paymentosApis: ApiData = {
         {
           statusCode: '200',
           description:
-            'Array contendo objetos com idReivindicacao e chave[cite: 5]',
+            'Array de reivindicações contendo idReivindicacao, chave Pix e status de cada item',
         },
       ],
       tags: ['DICT Reivindicações'],
@@ -65,26 +69,26 @@ export const paymentosApis: ApiData = {
       method: 'POST',
       path: '/paymentos/jdpi/dict/reivindicacao/{idReivindicacao}/cancelar',
       summary: 'Cancelar Reivindicação',
-      description: 'Cancela reivindicação iniciada (motivo=0).[cite: 5]',
+      description:
+        'Cancela uma reivindicação iniciada (motivo=0 — desistência do reivindicador).',
       parameters: [
         { name: 'idReivindicacao', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
-        { statusCode: '200', description: 'Reivindicação cancelada[cite: 5]' },
+        {
+          statusCode: '200',
+          description: 'Reivindicação cancelada com sucesso no DICT',
+        },
       ],
       tags: ['DICT Reivindicações'],
     },
-
-    // ─────────────────────────────────────────────
-    // INBOUND CREDIT WEBHOOKS
-    // ─────────────────────────────────────────────
     {
       method: 'POST',
       path: '/jdpi/webhook/credito/validar',
       summary: 'Validar Crédito (9.3.1)',
       description:
-        'Validação síncrona prévia. Chave-Idempotencia opcional nesta etapa.[cite: 23, 24]',
+        'Validação síncrona prévia ao crédito. Chave-Idempotencia é opcional nesta etapa.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
         {
@@ -104,7 +108,7 @@ export const paymentosApis: ApiData = {
         {
           statusCode: '200',
           description:
-            'Retorna {resultado: 1} se válido ou 0 c/ motivo se inválido[cite: 23, 24]',
+            'Retorna {resultado: 1} se o crédito é válido, ou {resultado: 0, motivo: "..."} se inválido',
         },
       ],
       tags: ['Webhooks Crédito'],
@@ -114,7 +118,7 @@ export const paymentosApis: ApiData = {
       path: '/jdpi/webhook/credito',
       summary: 'Registrar Crédito (9.3.2)',
       description:
-        'Efetiva a claim-before-credit. Exige Chave-Idempotencia (retorna 400 JDPI0001 sem ela). Replays da mesma chave geram ack 200 síncrono para idempotência (sem re-creditar).[cite: 23, 24]',
+        'Efetiva a claim-before-credit. Exige Chave-Idempotencia (retorna 400 JDPI0001 sem ela). Replays com a mesma chave geram ack 200 síncrono sem re-creditar.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
         {
@@ -134,30 +138,26 @@ export const paymentosApis: ApiData = {
         {
           statusCode: '200',
           description:
-            'Registrado com sucesso (retorna idCreditoSgct)[cite: 23, 24]',
+            'Crédito registrado com sucesso, retorna idCreditoSgct para rastreamento',
         },
         {
           statusCode: '400',
-          description: 'Falta Chave-Idempotencia[cite: 23, 24]',
+          description: 'Header Chave-Idempotencia ausente (código JDPI0001)',
         },
         {
           statusCode: '502',
           description:
-            'Falha de processamento core (ex: conta não cadastrada no Temenos)[cite: 22, 24]',
+            'Falha de processamento no core bancário (ex: conta não cadastrada no Temenos)',
         },
       ],
       tags: ['Webhooks Crédito'],
     },
-
-    // ─────────────────────────────────────────────
-    // MED — CONTESTAÇÃO
-    // ─────────────────────────────────────────────
     {
       method: 'GET',
       path: '/jdpi/med/contestacao',
       summary: 'Listar Contestações',
       description:
-        'Lista contestações filtradas. Papel ledger-viewer necessário.[cite: 2]',
+        'Lista contestações MED filtradas por cliente. Requer papel ledger-viewer.',
       parameters: [
         { name: 'coreCustomerId', in: 'query', required: true, type: 'string' },
         { name: 'accountNumber', in: 'query', required: false, type: 'string' },
@@ -166,18 +166,19 @@ export const paymentosApis: ApiData = {
           in: 'query',
           required: false,
           type: 'string',
-          description: 'EM_ANALISE | APROVADO | REJEITADA | CANCELADA[cite: 2]',
+          description: 'EM_ANALISE | APROVADO | REJEITADA | CANCELADA',
         },
         { name: 'limit', in: 'query', required: false, type: 'number' },
       ],
       responses: [
         {
           statusCode: '200',
-          description: 'Retorna {total, count, contestations[]}[cite: 2]',
+          description:
+            'Objeto com total, count e array de contestações filtradas',
         },
         {
           statusCode: '400',
-          description: 'status inválido ou sem chaves obrigatórias[cite: 2]',
+          description: 'Status inválido ou parâmetros obrigatórios ausentes',
         },
       ],
       tags: ['Contestação'],
@@ -187,18 +188,19 @@ export const paymentosApis: ApiData = {
       path: '/jdpi/med/contestacao',
       summary: 'Criar Contestação',
       description:
-        'A janela de contestação é de 80 dias (medida sobre instante no endToEndId).[cite: 2]',
+        'Cria uma contestação MED. A janela permitida é de até 80 dias medidos sobre o instante no endToEndId da transação original.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
         {
           statusCode: '201',
-          description: 'Criado com sucesso. Status inicial EM_ANALISE[cite: 2]',
+          description:
+            'Contestação criada com sucesso. Status inicial: EM_ANALISE',
         },
         {
           statusCode: '422',
-          description: 'Fora da janela de 80 dias[cite: 2]',
+          description: 'Transação fora da janela de 80 dias para contestação',
         },
       ],
       tags: ['Contestação'],
@@ -208,7 +210,7 @@ export const paymentosApis: ApiData = {
       path: '/jdpi/med/contestacao/{id}/decide',
       summary: 'Decisão do Analista',
       description:
-        'Grava APROVADO/REJEITADA. 409 ao tentar redecidir. Papel ledger-operator/admin[cite: 2]',
+        'Grava a decisão APROVADO ou REJEITADA. Retorna 409 ao tentar alterar uma decisão já registrada. Requer papel ledger-operator ou admin.',
       parameters: [
         { name: 'id', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
@@ -217,17 +219,20 @@ export const paymentosApis: ApiData = {
         {
           statusCode: '200',
           description:
-            'Sucesso, retorna trilha (decidedBy, decidedAt)[cite: 2]',
+            'Decisão gravada com sucesso, retorna trilha de auditoria (decidedBy, decidedAt)',
         },
         {
           statusCode: '400',
-          description:
-            'Bad Request (decision inválida ou falta decidedBy)[cite: 2]',
+          description: 'Decisão inválida ou campo decidedBy ausente',
         },
-        { statusCode: '404', description: 'ID inexistente[cite: 2]' },
+        {
+          statusCode: '404',
+          description: 'Contestação não encontrada para o ID informado',
+        },
         {
           statusCode: '409',
-          description: 'Conflito (não sobrescreve 1ª decisão)[cite: 2]',
+          description:
+            'Conflito — a decisão já foi registrada e não pode ser sobrescrita',
         },
       ],
       tags: ['Contestação'],
@@ -237,14 +242,21 @@ export const paymentosApis: ApiData = {
       path: '/jdpi/med/contestacao/{id}/cancel',
       summary: 'Cancelar Contestação',
       description:
-        'Apenas aplicável a contestações ativas. É idempotente.[cite: 2]',
+        'Cancela a contestação. Aplicável apenas a contestações com status EM_ANALISE. Operação idempotente.',
       parameters: [{ name: 'id', in: 'path', required: true, type: 'string' }],
       responses: [
-        { statusCode: '200', description: 'Status CANCELADA[cite: 2]' },
-        { statusCode: '404', description: 'ID inexistente[cite: 2]' },
+        {
+          statusCode: '200',
+          description:
+            'Contestação cancelada, status atualizado para CANCELADA',
+        },
+        {
+          statusCode: '404',
+          description: 'Contestação não encontrada para o ID informado',
+        },
         {
           statusCode: '409',
-          description: 'Conflito (se já não está EM_ANALISE)[cite: 2]',
+          description: 'Conflito — contestação não está em status EM_ANALISE',
         },
       ],
       tags: ['Contestação'],
@@ -257,22 +269,22 @@ export const paymentosApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description: 'Traz campos do contrato e trilha se decidida[cite: 2]',
+          description:
+            'Dados completos da contestação incluindo status, trilha e decisão (se houver)',
         },
-        { statusCode: '404', description: 'ID inexistente[cite: 2]' },
+        {
+          statusCode: '404',
+          description: 'Contestação não encontrada para o ID informado',
+        },
       ],
       tags: ['Contestação'],
     },
-
-    // ─────────────────────────────────────────────
-    // MED — DEVOLUÇÕES
-    // ─────────────────────────────────────────────
     {
       method: 'POST',
       path: '/jdpi/spi/op/devolucao/intra',
       summary: 'Devolução INTRA (BASA→BASA)',
       description:
-        'Quando pagador e recebedor estão no mesmo ISPB. Sem BACEN. Exige beneficiaryAccountId.[cite: 3]',
+        'Processa devolução quando pagador e recebedor pertencem ao mesmo ISPB. Não passa pelo BACEN. Exige beneficiaryAccountId no corpo.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
         { name: 'companyId', in: 'header', required: true, type: 'string' },
@@ -282,11 +294,12 @@ export const paymentosApis: ApiData = {
       responses: [
         {
           statusCode: '202',
-          description: 'Aceito. Flow=intra, rail=temenos[cite: 3]',
+          description: 'Devolução intra aceita — flow=intra, rail=temenos',
         },
         {
           statusCode: '400',
-          description: 'Falha se não conter beneficiaryAccountId[cite: 3]',
+          description:
+            'Campo beneficiaryAccountId ausente no corpo da requisição',
         },
       ],
       tags: ['Devoluções'],
@@ -296,11 +309,16 @@ export const paymentosApis: ApiData = {
       path: '/jdpi/spi/op/devolucao/pixout',
       summary: 'Devolução PIXOUT (PIXREVE)',
       description:
-        'Devolve um PIX-out em uma chamada (orderInitiationType=PIXREVE, submitOrder=YES)[cite: 3]',
+        'Devolve um PIX-out em uma única chamada (orderInitiationType=PIXREVE, submitOrder=YES).',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '202', description: 'Aceito[cite: 3]' }],
+      responses: [
+        {
+          statusCode: '202',
+          description: 'Devolução PIXREVE aceita e submetida ao BACEN',
+        },
+      ],
       tags: ['Devoluções'],
     },
     {
@@ -308,7 +326,7 @@ export const paymentosApis: ApiData = {
       path: '/jdpi/spi/op/devolucao/med',
       summary: 'Devolução MED (PIXMED) - 2 Passos',
       description:
-        'Orquestra os 2 passos: Cria retida PIXMED e submete com orderingReference.[cite: 4]',
+        'Orquestra os 2 passos da devolução MED: cria a ordem retida PIXMED e a submete com o orderingReference.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
         { name: 'companyId', in: 'header', required: false, type: 'string' },
@@ -318,12 +336,13 @@ export const paymentosApis: ApiData = {
       responses: [
         {
           statusCode: '202',
-          description: 'Aceito (submitted ou held_unsubmitted)[cite: 4]',
+          description:
+            'Devolução MED aceita — retorna status submitted ou held_unsubmitted',
         },
         {
           statusCode: '400',
           description:
-            'Falha sem orderingReference ou uniqueTransactionReference[cite: 4]',
+            'Campos orderingReference ou uniqueTransactionReference ausentes no corpo',
         },
       ],
       tags: ['Devoluções'],
@@ -333,14 +352,15 @@ export const paymentosApis: ApiData = {
       path: '/jdpi/devolucao/incluir',
       summary: 'Incluir Devolução MED (PIX)',
       description:
-        'valorDevolucao >= 0.01. dtHrRequisicaoPsp deve ser data REAL[cite: 7]',
+        'Registra solicitação de devolução MED. valorDevolucao deve ser >= 0.01. dtHrRequisicaoPsp deve ser a data real da requisição.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
         {
           statusCode: '200',
-          description: 'Devolução iniciada, retorna idSolDevolucao[cite: 7]',
+          description:
+            'Devolução MED iniciada com sucesso, retorna idSolDevolucao',
         },
       ],
       tags: ['MED PIX'],
@@ -348,19 +368,26 @@ export const paymentosApis: ApiData = {
     {
       method: 'GET',
       path: '/jdpi/devolucao/consultar',
-      summary: 'Consultar Devolução MED',
+      summary: 'Consultar Devolução MED por ID',
       parameters: [
         { name: 'ispb', in: 'query', required: true, type: 'string' },
         { name: 'idSolDevolucao', in: 'query', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 7]' }],
+      responses: [
+        {
+          statusCode: '200',
+          description:
+            'Dados atuais da devolução MED incluindo status e valores',
+        },
+      ],
       tags: ['MED PIX'],
     },
     {
       method: 'GET',
       path: '/jdpi/devolucao/listar',
       summary: 'Listar Devoluções MED',
-      description: 'tpPsp=0; tpPsp=1 pode causar 502 na HML[cite: 7]',
+      description:
+        'tpPsp=0 retorna todas as devoluções. tpPsp=1 pode retornar 502 em ambiente HML.',
       parameters: [
         { name: 'ispb', in: 'query', required: true, type: 'string' },
         { name: 'tpPsp', in: 'query', required: true, type: 'number' },
@@ -368,32 +395,36 @@ export const paymentosApis: ApiData = {
         { name: 'tamanhoPagina', in: 'query', required: false, type: 'number' },
       ],
       responses: [
-        { statusCode: '200', description: 'Lista de devoluções[cite: 7]' },
+        {
+          statusCode: '200',
+          description: 'Lista paginada de devoluções MED com status e valores',
+        },
       ],
       tags: ['MED PIX'],
     },
-
-    // ─────────────────────────────────────────────
-    // FRAUDE
-    // ─────────────────────────────────────────────
     {
       method: 'POST',
       path: '/jdpi/marcacao-fraude/incluir',
       summary: 'Criar Marcação de Fraude',
       description:
-        'Cria sobre um CPF/CNPJ. Se chave enviada, tem que casar com cpfCnpj.[cite: 6]',
+        'Cria marcação sobre um CPF/CNPJ. Se a chave Pix for enviada, deve corresponder ao cpfCnpj informado.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
         {
           statusCode: '200',
-          description: 'Sucesso, retorna idMarcacaoFraude[cite: 6]',
+          description:
+            'Marcação de fraude criada com sucesso, retorna idMarcacaoFraude',
         },
-        { statusCode: '201', description: 'Criado[cite: 6]' },
+        {
+          statusCode: '201',
+          description: 'Marcação criada (resposta alternativa do upstream)',
+        },
         {
           statusCode: '502',
-          description: 'Erro transitório se upstream indisponível[cite: 6]',
+          description:
+            'Erro transitório — upstream DICT indisponível, tente novamente',
         },
       ],
       tags: ['Fraude'],
@@ -411,7 +442,8 @@ export const paymentosApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description: 'Retorna { marcacoesInfracao: [...] }[cite: 6]',
+          description:
+            'Objeto com array marcacoesInfracao contendo as marcações ativas e canceladas',
         },
       ],
       tags: ['Fraude'],
@@ -430,31 +462,33 @@ export const paymentosApis: ApiData = {
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
-        { statusCode: '200', description: 'Status atualizado[cite: 6]' },
+        {
+          statusCode: '200',
+          description:
+            'Marcação de fraude cancelada, status atualizado no DICT',
+        },
       ],
       tags: ['Fraude'],
     },
-
-    // ─────────────────────────────────────────────
-    // RELATO DE INFRAÇÃO
-    // ─────────────────────────────────────────────
     {
       method: 'POST',
       path: '/jdpi/relato-infracao/incluir',
       summary: 'Incluir Relato de Infração',
       description:
-        'Cria relato. email e telefone são obrigatórios se o bloco existir. Retorna 404 em HML devido a falha de upstream.[cite: 6]',
+        'Cria um relato de infração no DICT. Os campos email e telefone são obrigatórios se o bloco de contato for enviado. Pode retornar 404 em HML por ausência de rota no upstream.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
         {
           statusCode: '200',
-          description: 'Sucesso (idRelatoInfracao gerado)[cite: 6]',
+          description:
+            'Relato de infração criado com sucesso, retorna idRelatoInfracao',
         },
         {
           statusCode: '404',
-          description: 'Rota ausente no upstream HML[cite: 6]',
+          description:
+            'Rota não encontrada no upstream HML — indisponível neste ambiente',
         },
       ],
       tags: ['Relato Infração'],
@@ -471,7 +505,8 @@ export const paymentosApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description: 'Retorna array { reporteInfracao: [...] }[cite: 6]',
+          description:
+            'Objeto com array reporteInfracao contendo os relatos paginados',
         },
       ],
       tags: ['Relato Infração'],
@@ -479,7 +514,7 @@ export const paymentosApis: ApiData = {
     {
       method: 'GET',
       path: '/jdpi/relato-infracao/consultar',
-      summary: 'Consultar Relato por ID',
+      summary: 'Consultar Relato de Infração por ID',
       parameters: [
         { name: 'ispb', in: 'query', required: true, type: 'string' },
         {
@@ -490,14 +525,14 @@ export const paymentosApis: ApiData = {
         },
       ],
       responses: [
-        { statusCode: '200', description: 'Detalhes do relato[cite: 6]' },
+        {
+          statusCode: '200',
+          description:
+            'Dados completos do relato de infração incluindo status e partes envolvidas',
+        },
       ],
       tags: ['Relato Infração'],
     },
-
-    // ─────────────────────────────────────────────
-    // RECUPERAÇÃO DE VALORES
-    // ─────────────────────────────────────────────
     {
       method: 'POST',
       path: '/jdpi/recuperacao-valores/incluir',
@@ -508,28 +543,30 @@ export const paymentosApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description: 'idRecValores gerado com sucesso[cite: 7]',
+          description:
+            'Solicitação de recuperação criada com sucesso, retorna idRecValores',
         },
       ],
       tags: ['Recuperação de Valores'],
     },
-
-    // ─────────────────────────────────────────────
-    // QR CODE DINÂMICO
-    // ─────────────────────────────────────────────
     {
       method: 'POST',
       path: '/jdpi/qrcode/dinamico/gerar',
       summary: 'Gerar QR Dinâmico Imediato',
-      description: 'Requer urlJwk. Retorna payloadBase64.[cite: 18, 19]',
+      description:
+        'Gera e assina o QR Code dinâmico imediato. Requer urlJwk para assinatura. Retorna payloadBase64.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
-        { statusCode: '200', description: 'Sucesso[cite: 18, 19]' },
+        {
+          statusCode: '200',
+          description:
+            'QR Code dinâmico gerado com sucesso, retorna payloadBase64',
+        },
         {
           statusCode: '400',
-          description: 'Erro por falta de hostJku[cite: 18]',
+          description: 'Campo hostJku ausente — necessário para assinatura JWS',
         },
       ],
       tags: ['QR Code'],
@@ -539,12 +576,17 @@ export const paymentosApis: ApiData = {
       path: '/jdpi/qrcode/dinamico/{idDocumento}',
       summary: 'Atualizar QR Dinâmico',
       description:
-        'Substituição total. O que não for enviado some. Requer urlPayloadJson, urlJwk, chave, cidade, etc.[cite: 18, 19]',
+        'Substituição total do QR dinâmico. Campos não enviados são removidos. Requer urlPayloadJson, urlJwk, chave e cidade.',
       parameters: [
         { name: 'idDocumento', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 18, 19]' }],
+      responses: [
+        {
+          statusCode: '200',
+          description: 'QR Code dinâmico atualizado com sucesso',
+        },
+      ],
       tags: ['QR Code'],
     },
     {
@@ -552,14 +594,15 @@ export const paymentosApis: ApiData = {
       path: '/jdpi/qrcode/dinamico/cobv/gerar',
       summary: 'Gerar QR COBV',
       description:
-        'Não assina (não requer urlJwk imediato). A assinatura ocorre em passo posterior.[cite: 18, 19]',
+        'Gera o QR Code de cobrança com vencimento (COBV). Não assina neste passo — a assinatura JWS ocorre em chamada posterior.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
         {
           statusCode: '200',
-          description: 'Sucesso (gera idDocumento)[cite: 18, 19]',
+          description:
+            'QR COBV gerado com sucesso, retorna idDocumento para uso na assinatura',
         },
       ],
       tags: ['QR Code'],
@@ -569,14 +612,14 @@ export const paymentosApis: ApiData = {
       path: '/jdpi/qrcode/dinamico/cobv/jws',
       summary: 'Assinar COBV (JWS)',
       description:
-        'Assina o payload gerando um header alg PS512 baseado no certificado.[cite: 18, 19]',
+        'Assina o payload COBV gerando header alg PS512 baseado no certificado digital.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
         {
           statusCode: '200',
-          description: 'Retorna payloadJws assinado[cite: 18, 19]',
+          description: 'Payload JWS assinado com sucesso, retorna payloadJws',
         },
       ],
       tags: ['QR Code'],
@@ -592,7 +635,8 @@ export const paymentosApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description: 'Retorna payloadJws assinado[cite: 18, 19]',
+          description:
+            'Payload JWS do COBV específico assinado e pronto para uso pelo PSP pagador',
         },
       ],
       tags: ['QR Code'],
@@ -602,30 +646,31 @@ export const paymentosApis: ApiData = {
       path: '/jdpi/qrcode/dinamico/cobv/{idDocumento}',
       summary: 'Atualizar QR COBV',
       description:
-        'Substituição total. Requer valorFinal, dtVenc, etc.[cite: 18, 19]',
+        'Substituição total do COBV. Requer valorFinal, dtVenc e demais campos obrigatórios.',
       parameters: [
         { name: 'idDocumento', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
-        { statusCode: '200', description: 'Atualizado[cite: 18, 19]' },
+        { statusCode: '200', description: 'QR COBV atualizado com sucesso' },
       ],
       tags: ['QR Code'],
     },
-
-    // ─────────────────────────────────────────────
-    // QR COMPOSTO
-    // ─────────────────────────────────────────────
     {
       method: 'POST',
       path: '/jdpi/qrcode/composto/gerar',
       summary: 'Gerar QR Composto (Imediato)',
       description:
-        'Requer três URLs (urlJwk, urlPayloadJson, urlPayloadJsonRec). txid <= 25 chars.[cite: 18, 19]',
+        'Gera QR Composto imediato. Requer três URLs: urlJwk, urlPayloadJson e urlPayloadJsonRec. txid deve ter até 25 caracteres.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 18, 19]' }],
+      responses: [
+        {
+          statusCode: '200',
+          description: 'QR Composto imediato gerado com sucesso',
+        },
+      ],
       tags: ['QR Composto'],
     },
     {
@@ -633,11 +678,16 @@ export const paymentosApis: ApiData = {
       path: '/jdpi/qrcode/composto/estatico/gerar',
       summary: 'Gerar QR Composto Estático',
       description:
-        'txid <= 25 chars. Exige dadosRecorrencia completos.[cite: 19]',
+        'Gera QR Composto estático. txid deve ter até 25 caracteres. Exige bloco dadosRecorrencia completo.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 19]' }],
+      responses: [
+        {
+          statusCode: '200',
+          description: 'QR Composto estático gerado com sucesso',
+        },
+      ],
       tags: ['QR Composto'],
     },
     {
@@ -645,11 +695,16 @@ export const paymentosApis: ApiData = {
       path: '/jdpi/qrcode/composto/dinamico/gerar',
       summary: 'Gerar QR Composto Dinâmico',
       description:
-        'txid 26 a 35 chars. Omitir dadosRecorrencia causa erro 500 no JDPI.[cite: 18, 19]',
+        'Gera QR Composto dinâmico. txid deve ter entre 26 e 35 caracteres. Omitir dadosRecorrencia causa erro 500 no JDPI.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 18, 19]' }],
+      responses: [
+        {
+          statusCode: '200',
+          description: 'QR Composto dinâmico gerado com sucesso',
+        },
+      ],
       tags: ['QR Composto'],
     },
     {
@@ -659,7 +714,13 @@ export const paymentosApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 18, 19]' }],
+      responses: [
+        {
+          statusCode: '200',
+          description:
+            'QR Composto COBV gerado com sucesso, retorna idDocumento',
+        },
+      ],
       tags: ['QR Composto'],
     },
     {
@@ -670,19 +731,30 @@ export const paymentosApis: ApiData = {
         { name: 'idDocumento', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 19]' }],
+      responses: [
+        {
+          statusCode: '200',
+          description: 'QR Composto atualizado com sucesso',
+        },
+      ],
       tags: ['QR Composto'],
     },
     {
       method: 'PUT',
       path: '/jdpi/qrcode/composto/dinamico/{idDocumento}',
       summary: 'Atualizar QR Composto Dinâmico',
-      description: 'dadosRecorrencia.stRecorrencia é obrigatório.[cite: 19]',
+      description:
+        'Campo dadosRecorrencia.stRecorrencia é obrigatório nesta atualização.',
       parameters: [
         { name: 'idDocumento', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 19]' }],
+      responses: [
+        {
+          statusCode: '200',
+          description: 'QR Composto dinâmico atualizado com sucesso',
+        },
+      ],
       tags: ['QR Composto'],
     },
     {
@@ -693,13 +765,14 @@ export const paymentosApis: ApiData = {
         { name: 'idDocumento', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 19]' }],
+      responses: [
+        {
+          statusCode: '200',
+          description: 'QR Composto COBV atualizado com sucesso',
+        },
+      ],
       tags: ['QR Composto'],
     },
-
-    // ─────────────────────────────────────────────
-    // PUBLIC (QR Code resolve / JWKS)
-    // ─────────────────────────────────────────────
     {
       method: 'GET',
       path: '/pix/cobv/{token}',
@@ -711,7 +784,7 @@ export const paymentosApis: ApiData = {
         {
           statusCode: '200',
           description:
-            'Retorna o JOSE payloadJws para PSP pagador (Cadeia Pública)[cite: 18]',
+            'Retorna o payload JWS (JOSE) da cobrança para uso pelo PSP pagador via cadeia pública',
         },
       ],
       tags: ['Public'],
@@ -724,7 +797,10 @@ export const paymentosApis: ApiData = {
         { name: 'token', in: 'path', required: true, type: 'string' },
       ],
       responses: [
-        { statusCode: '501', description: 'Resolver em implantação[cite: 18]' },
+        {
+          statusCode: '501',
+          description: 'Endpoint em implantação — não disponível neste momento',
+        },
       ],
       tags: ['Public'],
     },
@@ -735,21 +811,17 @@ export const paymentosApis: ApiData = {
       responses: [
         {
           statusCode: '404',
-          description: 'Pendente de montagem no domínio real[cite: 18]',
+          description: 'JWKS pendente de configuração no domínio público real',
         },
       ],
       tags: ['Public'],
     },
-
-    // ─────────────────────────────────────────────
-    // OPS — CORE PROXY
-    // ─────────────────────────────────────────────
     {
       method: 'GET',
       path: '/jdpi/spi/temenos/paymentorders/{temenos_payment_order_id}',
-      summary: 'Consultar Status Temenos',
+      summary: 'Consultar Status de Ordem no Temenos',
       description:
-        'Acessa diretamente o status da order no Transact.[cite: 23, 24]',
+        'Acessa diretamente o status da payment order no Transact (T24).',
       parameters: [
         {
           name: 'temenos_payment_order_id',
@@ -764,7 +836,7 @@ export const paymentosApis: ApiData = {
         {
           statusCode: '200',
           description:
-            'Status atual (completed, pending, failed) e body original (se raw=true)[cite: 23, 24]',
+            'Status atual da ordem (completed, pending ou failed) e body original do Transact quando raw=true',
         },
       ],
       tags: ['Core Proxy'],
@@ -772,7 +844,7 @@ export const paymentosApis: ApiData = {
     {
       method: 'GET',
       path: '/jdpi/spi/banklink/saldo',
-      summary: 'Consultar Saldo Banklink',
+      summary: 'Consultar Saldo via Banklink',
       parameters: [
         { name: 'Authorization', in: 'header', required: true, type: 'string' },
         { name: 'agencia', in: 'query', required: true, type: 'string' },
@@ -784,7 +856,7 @@ export const paymentosApis: ApiData = {
         {
           statusCode: '200',
           description:
-            'Retorna saldoDisponivel e saldoBloqueadoJudicial[cite: 23, 24]',
+            'Objeto com saldoDisponivel e saldoBloqueadoJudicial da conta consultada',
         },
       ],
       tags: ['Core Proxy'],
@@ -794,26 +866,23 @@ export const paymentosApis: ApiData = {
       path: '/v1/temenos/order/payment-orders',
       summary: 'Proxy RAW Payment Order Temenos',
       description:
-        'Envia requisição crua para o Transact. Valida contas e headers.[cite: 22, 24]',
+        'Envia requisição crua diretamente para o Transact. Valida contas e headers antes do repasse.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
         {
           statusCode: '200',
-          description: 'JSON original processado pelo T24[cite: 22, 24]',
+          description:
+            'Resposta JSON original processada pelo T24 sem transformações',
         },
       ],
       tags: ['Core Proxy'],
     },
-
-    // ─────────────────────────────────────────────
-    // OPS — OBSERVABILITY
-    // ─────────────────────────────────────────────
     {
       method: 'GET',
       path: '/v1/ops/observability/inbound-credit/trace',
-      summary: 'Trace Inbound PIX',
+      summary: 'Trace de Crédito Inbound PIX',
       parameters: [
         { name: 'Authorization', in: 'header', required: true, type: 'string' },
         { name: 'endToEndId', in: 'query', required: true, type: 'string' },
@@ -821,7 +890,8 @@ export const paymentosApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description: 'Cadeia t02..t05 do crédito[cite: 23, 24]',
+          description:
+            'Cadeia de eventos t02 a t05 do fluxo de crédito para o endToEndId informado',
         },
       ],
       tags: ['Observability'],
@@ -829,9 +899,9 @@ export const paymentosApis: ApiData = {
     {
       method: 'GET',
       path: '/v1/ops/observability/inbound-credit/dlq',
-      summary: 'Consultar Filas DLQ',
+      summary: 'Consultar Fila DLQ de Crédito',
       description:
-        'Linhas de crédito não confirmados. Suporta rails TED e PIX.[cite: 23, 24]',
+        'Lista créditos inbound não confirmados na Dead Letter Queue. Suporta rails TED e PIX.',
       parameters: [
         { name: 'Authorization', in: 'header', required: true, type: 'string' },
         { name: 'rail', in: 'query', required: true, type: 'string' },
@@ -840,7 +910,8 @@ export const paymentosApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description: 'Registros enfileirados[cite: 23, 24]',
+          description:
+            'Lista de registros enfileirados na DLQ com motivo de falha e payload original',
         },
       ],
       tags: ['Observability'],
@@ -848,14 +919,14 @@ export const paymentosApis: ApiData = {
     {
       method: 'GET',
       path: '/v1/ops/observability/inbound-credit/dlq/summary',
-      summary: 'Resumo Filas DLQ',
+      summary: 'Resumo da Fila DLQ',
       parameters: [
         { name: 'Authorization', in: 'header', required: true, type: 'string' },
       ],
       responses: [
         {
           statusCode: '200',
-          description: 'Aggregates por status e rail[cite: 23, 24]',
+          description: 'Agregados totais da DLQ por status e rail (TED/PIX)',
         },
       ],
       tags: ['Observability'],
@@ -863,7 +934,7 @@ export const paymentosApis: ApiData = {
     {
       method: 'GET',
       path: '/v1/ops/observability/audit/core-banking-errors',
-      summary: 'Auditoria Erros Bancários',
+      summary: 'Auditoria de Erros de Core Bancário',
       parameters: [
         { name: 'Authorization', in: 'header', required: true, type: 'string' },
         { name: 'limit', in: 'query', required: false, type: 'string' },
@@ -871,28 +942,26 @@ export const paymentosApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description: 'Logs de auditoria de integração core[cite: 23, 24]',
+          description:
+            'Logs de auditoria das integrações com core bancário incluindo erros e timestamps',
         },
       ],
       tags: ['Observability'],
     },
-
-    // ─────────────────────────────────────────────
-    // OPS — TESTING
-    // ─────────────────────────────────────────────
     {
       method: 'POST',
       path: '/test/mq-inject/ted-inbound',
       summary: 'Injeção Mock de TED Inbound',
       description:
-        'Injeta pacote STR0008R2 na fila de entrada MQ para simulação de recebimentos em ambiente não-produtivo.[cite: 23, 24]',
+        'Injeta pacote STR0008R2 na fila de entrada MQ para simular recebimento de TED em ambiente não-produtivo.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
         {
           statusCode: '202',
-          description: 'Aceito no MQ (Retorna NumCtrlSTR)[cite: 23, 24]',
+          description:
+            'Mensagem aceita na fila MQ, retorna NumCtrlSTR para rastreamento',
         },
       ],
       tags: ['Testing'],

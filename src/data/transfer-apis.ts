@@ -1,40 +1,40 @@
-﻿import type { ApiData } from '@/types/api';
+import type { ApiData } from '@/types/api';
 
 export const transferApis: ApiData = {
   title: 'PaymentOS - Transfers (PIX & TED)',
   description:
-    'Fluxos de transferências imediatas e agendadas validados no core Temenos.[cite: 1]',
+    'Fluxos de transferências imediatas e agendadas validados no core bancário Temenos.',
   endpoints: [
     {
       method: 'POST',
       path: '/v1/pix/scheduled',
       summary: 'Agendar PIX',
       description:
-        'Reserva a ordem PIXFUTBA no Transact em D-n. Sem o bloco pixout o agendamento é criado mas NÃO reserva no core. Datas de fim de semana são ajustadas para o próximo dia útil.[cite: 1]',
+        'Reserva a ordem PIXFUTBA no Transact em D-n. Sem o bloco pixout o agendamento é criado mas NÃO reserva saldo no core. Datas de fim de semana são ajustadas para o próximo dia útil.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
         {
           statusCode: '201',
-          description: 'Agendamento criado com status SCHEDULED[cite: 1]',
+          description: 'Agendamento PIX criado com status SCHEDULED',
         },
       ],
-      tags: ['Pix Agendado'],
+      tags: ['Corebanx', 'Pix Agendado'],
     },
     {
       method: 'GET',
       path: '/v1/pix/scheduled/{pixScheduleId}',
       summary: 'Consultar PIX Agendado por ID',
       description:
-        'Mostra o temenos_future_order_id evidenciando reserva no core.[cite: 1]',
+        'Retorna os detalhes do agendamento, incluindo temenos_future_order_id que evidencia reserva no core.',
       parameters: [
         { name: 'pixScheduleId', in: 'path', required: true, type: 'string' },
       ],
       responses: [
         {
           statusCode: '200',
-          description: 'Retorna os detalhes do agendamento[cite: 1]',
+          description: 'Objeto de agendamento com status, valor e datas de vencimento',
         },
       ],
       tags: ['Pix Agendado'],
@@ -50,7 +50,7 @@ export const transferApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description: 'Lista pagamentos PIX agendados[cite: 1]',
+          description: 'Lista paginada de agendamentos PIX com status e metadados',
         },
       ],
       tags: ['Pix Agendado'],
@@ -60,7 +60,7 @@ export const transferApis: ApiData = {
       path: '/v1/pix/scheduled/{pixScheduleId}/execute',
       summary: 'Executar PIX Agendado Vencido',
       description:
-        'Força o vencimento (D0). Roda o ciclo block->JD->settle no ato.[cite: 1]',
+        'Força o vencimento em D0. Roda o ciclo block → JDPI → settle imediatamente.',
       parameters: [
         { name: 'pixScheduleId', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
@@ -69,7 +69,7 @@ export const transferApis: ApiData = {
         {
           statusCode: '200',
           description:
-            'EXECUTED ou SKIPPED (Temenos -> dono e o poller D0)[cite: 1]',
+            'Retorna EXECUTED se liquidado com sucesso, ou SKIPPED se já processado pelo poller D0',
         },
       ],
       tags: ['Pix Agendado'],
@@ -78,12 +78,12 @@ export const transferApis: ApiData = {
       method: 'DELETE',
       path: '/v1/pix/scheduled/{pixScheduleId}',
       summary: 'Cancelar PIX Agendado',
-      description: 'Cancela a ordem no Transact.[cite: 1]',
+      description: 'Cancela a ordem futura no Transact antes do vencimento.',
       parameters: [
         { name: 'pixScheduleId', in: 'path', required: true, type: 'string' },
       ],
       responses: [
-        { statusCode: '200', description: 'Status CANCELLED[cite: 1]' },
+        { statusCode: '200', description: 'Agendamento cancelado, status atualizado para CANCELLED' },
       ],
       tags: ['Pix Agendado'],
     },
@@ -91,14 +91,14 @@ export const transferApis: ApiData = {
       method: 'POST',
       path: '/v1/ted/scheduled',
       summary: 'Agendar TED',
-      description: 'Reserva TEDFUTBA no Transact em D-n.[cite: 1]',
+      description: 'Reserva ordem TEDFUTBA no Transact em D-n para liquidação futura.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
         {
           statusCode: '201',
-          description: 'TED agendado com sucesso (SCHEDULED)[cite: 1]',
+          description: 'TED agendada com sucesso, retorna ID com status SCHEDULED',
         },
       ],
       tags: ['TED Agendado'],
@@ -106,12 +106,12 @@ export const transferApis: ApiData = {
     {
       method: 'GET',
       path: '/v1/ted/scheduled/{tedScheduleId}',
-      summary: 'Consultar TED Agendado',
+      summary: 'Consultar TED Agendada por ID',
       parameters: [
         { name: 'tedScheduleId', in: 'path', required: true, type: 'string' },
       ],
       responses: [
-        { statusCode: '200', description: 'Retorna detalhes da TED[cite: 1]' },
+        { statusCode: '200', description: 'Objeto com detalhes da TED agendada, valor, data e status' },
       ],
       tags: ['TED Agendado'],
     },
@@ -123,14 +123,14 @@ export const transferApis: ApiData = {
         { name: 'limit', in: 'query', required: false, type: 'number' },
         { name: 'offset', in: 'query', required: false, type: 'number' },
       ],
-      responses: [{ statusCode: '200', description: 'Lista TEDs[cite: 1]' }],
+      responses: [{ statusCode: '200', description: 'Lista paginada de TEDs agendadas com status' }],
       tags: ['TED Agendado'],
     },
     {
       method: 'POST',
       path: '/v1/ted/scheduled/{tedScheduleId}/execute',
       summary: 'Executar TED Agendada',
-      description: 'Mover dinheiro no ciclo D0.[cite: 1]',
+      description: 'Força a execução da TED em D0, movendo o saldo no ciclo de liquidação imediata.',
       parameters: [
         { name: 'tedScheduleId', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
@@ -138,7 +138,7 @@ export const transferApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description: 'EXECUTED e rota de liquidacao presente[cite: 1]',
+          description: 'TED executada com sucesso, retorna EXECUTED e rota de liquidação confirmada',
         },
       ],
       tags: ['TED Agendado'],
@@ -151,7 +151,7 @@ export const transferApis: ApiData = {
         { name: 'tedScheduleId', in: 'path', required: true, type: 'string' },
       ],
       responses: [
-        { statusCode: '200', description: 'Status CANCELLED[cite: 1]' },
+        { statusCode: '200', description: 'TED agendada cancelada, status atualizado para CANCELLED' },
       ],
       tags: ['TED Agendado'],
     },
@@ -160,7 +160,7 @@ export const transferApis: ApiData = {
       path: '/v1/ted',
       summary: 'Enviar TED Imediata (Normal)',
       description:
-        'TED funds held + ordem Temenos + STR (SITRAF). Interbancario NAO vai por /op/tedout.[cite: 1]',
+        'Fluxo completo: bloqueio de saldo (funds held) → ordem Temenos → envio via MQ STR (SITRAF). Operações interbancárias NÃO devem usar /op/tedout.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
@@ -168,7 +168,7 @@ export const transferApis: ApiData = {
         {
           statusCode: '201',
           description:
-            'Sucesso, retorna TransactionID e SettlementRoute[cite: 1]',
+            'TED submetida com sucesso, retorna TransactionID e SettlementRoute',
         },
       ],
       tags: ['TED Normal'],
@@ -179,14 +179,14 @@ export const transferApis: ApiData = {
 export const transferSpiApis: ApiData = {
   title: 'PaymentOS - Transfers (SPI: TED & PIX OUT)',
   description:
-    'Operacoes de saida via PIX (Saque, Troco, Intra) e orquestracao de TEDs interbancarias e agendadas.[cite: 16, 17, 20, 21, 22, 24]',
+    'Operações de saída via PIX (Saque, Troco, Intra) e orquestração de TEDs interbancárias e agendadas via SPI.',
   endpoints: [
     {
       method: 'POST',
       path: '/jdpi/spi/op/pixout',
       summary: 'Ordem de Pagamento PIX (Temenos)',
       description:
-        'Saga Temenos: bloqueio de saldo -> JDPI/BACEN -> confirma. Suporta Intra-PSP PF, Saque e Troco.[cite: 16, 17, 22, 24]',
+        'Executa a saga Temenos: bloqueio de saldo → envio ao JDPI/BACEN → confirmação. Suporta fluxos Intra-PSP (PF), Saque e Troco.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
         { name: 'companyId', in: 'header', required: false, type: 'string' },
@@ -203,38 +203,38 @@ export const transferSpiApis: ApiData = {
         {
           statusCode: '202',
           description:
-            'Aceito (temenosConfirmed:true ou intraPsp:true)[cite: 16, 17, 22, 24]',
+            'Ordem aceita pelo JDPI. Retorna temenosConfirmed:true para externo ou intraPsp:true para intra-PSP',
         },
         {
           statusCode: '400',
           description:
-            'Invalid Request (ex: falta ispbPss no Saque)[cite: 16, 17]',
+            'Requisição inválida — ex: campo ispbPss ausente em operações de Saque',
         },
         {
           statusCode: '502',
           description:
-            'Falha na criacao Temenos (gap ambiente HML para PJ)[cite: 16, 17]',
+            'Falha na criação de ordem no Temenos (comum em ambiente HML para contas PJ)',
         },
       ],
-      tags: ['PIX SPI'],
+      tags: ['Corebanx', 'PIX SPI'],
     },
     {
       method: 'POST',
       path: '/jdpi/spi/op/tedout',
       summary: 'TED-out via Temenos',
       description:
-        'Liquida TED intra-bancaria (mesmo ISPB) via Temenos. Interbancarias retornam 422.[cite: 20]',
+        'Liquida TED intra-bancária (mesmo ISPB) diretamente via Temenos. Operações interbancárias retornam 422 e devem usar /v1/ted.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
         {
           statusCode: '202',
-          description: 'Liquida intra no Temenos (TEDINTIN)[cite: 20]',
+          description: 'TED intra-bancária liquidada no Temenos (TEDINTIN)',
         },
         {
           statusCode: '422',
-          description: 'Interbancario negado (use /v1/ted)[cite: 20]',
+          description: 'Operação interbancária não suportada nesta rota — utilize /v1/ted',
         },
       ],
       tags: ['TED SPI'],
@@ -242,16 +242,16 @@ export const transferSpiApis: ApiData = {
     {
       method: 'POST',
       path: '/v1/ted',
-      summary: 'Submit TED Interbancario (Facade)',
+      summary: 'Submit TED Interbancária (Facade)',
       description:
-        'Cria e envia a TED via MQ STR (STR0008 + poster Temenos).[cite: 20, 21]',
+        'Cria e envia a TED via fila MQ STR (mensagem STR0008 + poster Temenos) para liquidação interbancária.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
         {
           statusCode: '200',
-          description: 'TED submetida, retorna transaction_id[cite: 20]',
+          description: 'TED submetida com sucesso, retorna transaction_id para rastreamento',
         },
       ],
       tags: ['TED Facade'],
@@ -270,19 +270,19 @@ export const transferSpiApis: ApiData = {
         },
       ],
       responses: [
-        { statusCode: '200', description: 'Lista retornada[cite: 20]' },
+        { statusCode: '200', description: 'Lista de TEDs filtradas por status e/ou rota de liquidação' },
       ],
       tags: ['TED Facade'],
     },
     {
       method: 'GET',
       path: '/v1/ted/{id}',
-      summary: 'Consultar TED',
+      summary: 'Consultar TED por ID',
       parameters: [{ name: 'id', in: 'path', required: true, type: 'string' }],
       responses: [
         {
           statusCode: '200',
-          description: 'Retorna status atual[cite: 20, 21]',
+          description: 'Objeto com status atual, rota de liquidação e metadados da TED',
         },
       ],
       tags: ['TED Facade'],
@@ -291,9 +291,9 @@ export const transferSpiApis: ApiData = {
       method: 'POST',
       path: '/v1/ted/{id}/approve',
       summary: 'Aprovar TED',
-      description: 'Aprova TED em revisao.[cite: 20, 21]',
+      description: 'Aprova uma TED pendente de revisão, liberando-a para liquidação.',
       parameters: [{ name: 'id', in: 'path', required: true, type: 'string' }],
-      responses: [{ statusCode: '200', description: 'Aprovado[cite: 20]' }],
+      responses: [{ statusCode: '200', description: 'TED aprovada e liberada para processamento' }],
       tags: ['TED Facade'],
     },
     {
@@ -302,7 +302,7 @@ export const transferSpiApis: ApiData = {
       summary: 'Liquidar TED (Settle)',
       parameters: [{ name: 'id', in: 'path', required: true, type: 'string' }],
       responses: [
-        { statusCode: '200', description: 'Liquidacao confirmada[cite: 20]' },
+        { statusCode: '200', description: 'Liquidação confirmada, status atualizado para SETTLED' },
       ],
       tags: ['TED Facade'],
     },
@@ -312,7 +312,7 @@ export const transferSpiApis: ApiData = {
       summary: 'Estornar TED',
       parameters: [{ name: 'id', in: 'path', required: true, type: 'string' }],
       responses: [
-        { statusCode: '200', description: 'Reversao iniciada[cite: 20, 21]' },
+        { statusCode: '200', description: 'Estorno iniciado, status atualizado para REVERSED' },
       ],
       tags: ['TED Facade'],
     },
@@ -326,7 +326,7 @@ export const transferSpiApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description: 'TEDs reconciliadas por data[cite: 20, 21]',
+          description: 'TEDs reconciliadas por data, retorna divergências e totais processados',
         },
       ],
       tags: ['TED Facade'],
@@ -336,49 +336,49 @@ export const transferSpiApis: ApiData = {
       path: '/v1/ted/receive',
       summary: 'Receber TED Inbound',
       description:
-        'Registra uma TED recebida (STR0008R2 inbound).[cite: 20, 21]',
+        'Registra uma TED recebida via mensagem STR0008R2 inbound para crédito na conta destino.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'TED recebida[cite: 20]' }],
+      responses: [{ statusCode: '200', description: 'TED inbound registrada e crédito aplicado na conta' }],
       tags: ['TED Facade'],
     },
     {
       method: 'POST',
       path: '/v1/ted/scheduled',
-      summary: 'Agendar TED',
+      summary: 'Agendar TED (SPI)',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
-        { statusCode: '201', description: 'Agendamento criado[cite: 20, 21]' },
+        { statusCode: '201', description: 'Agendamento de TED criado com sucesso' },
       ],
       tags: ['TED Agendado'],
     },
     {
       method: 'GET',
       path: '/v1/ted/scheduled',
-      summary: 'Listar TEDs Agendadas',
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 20, 21]' }],
+      summary: 'Listar TEDs Agendadas (SPI)',
+      responses: [{ statusCode: '200', description: 'Lista de TEDs agendadas com status e datas de vencimento' }],
       tags: ['TED Agendado'],
     },
     {
       method: 'GET',
       path: '/v1/ted/scheduled/{id}',
-      summary: 'Consultar TED Agendada',
+      summary: 'Consultar TED Agendada por ID (SPI)',
       parameters: [{ name: 'id', in: 'path', required: true, type: 'string' }],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 20, 21]' }],
+      responses: [{ statusCode: '200', description: 'Detalhes da TED agendada incluindo valor e beneficiário' }],
       tags: ['TED Agendado'],
     },
     {
       method: 'POST',
       path: '/v1/ted/scheduled/{id}/execute',
-      summary: 'Executar TED Agendada Vencida',
+      summary: 'Executar TED Agendada Vencida (SPI)',
       parameters: [{ name: 'id', in: 'path', required: true, type: 'string' }],
       responses: [
         {
           statusCode: '200',
-          description: 'Execucao em lote iniciada[cite: 20, 21]',
+          description: 'Execução em lote iniciada, TEDs vencidas enviadas ao STR',
         },
       ],
       tags: ['TED Agendado'],
@@ -386,10 +386,10 @@ export const transferSpiApis: ApiData = {
     {
       method: 'DELETE',
       path: '/v1/ted/scheduled/{id}',
-      summary: 'Cancelar TED Agendada',
+      summary: 'Cancelar TED Agendada (SPI)',
       parameters: [{ name: 'id', in: 'path', required: true, type: 'string' }],
       responses: [
-        { statusCode: '200', description: 'Cancelado[cite: 20, 21]' },
+        { statusCode: '200', description: 'TED agendada cancelada, status atualizado para CANCELLED' },
       ],
       tags: ['TED Agendado'],
     },

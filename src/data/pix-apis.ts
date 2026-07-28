@@ -3402,14 +3402,14 @@ export const pixApiSections: ApiData[] = [
 export const pixAgendadoApis: ApiData = {
   title: 'PaymentOS - PIX Agendado',
   description:
-    'Gerenciamento de PIX Agendado (Facade e Dispatch Nativo). Executa o bloqueio de saldo no vencimento via driver D0.[cite: 8, 9, 12, 13]',
+    'Gerenciamento de PIX Agendado (Facade e Dispatch Nativo). Executa o bloqueio de saldo no vencimento via driver D0.',
   endpoints: [
     {
       method: 'POST',
       path: '/v1/pix/scheduled',
       summary: 'Agendar PIX (Facade)',
       description:
-        'Cria um agendamento na camada do PaymentOS.[cite: 8, 9, 12, 13]',
+        'Cria um agendamento na camada do PaymentOS.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
         {
@@ -3420,7 +3420,7 @@ export const pixAgendadoApis: ApiData = {
         },
       ],
       responses: [
-        { statusCode: '201', description: 'Agendamento criado[cite: 8, 9]' },
+        { statusCode: '201', description: 'Agendamento criado' },
       ],
       tags: ['Agendado'],
     },
@@ -3429,8 +3429,8 @@ export const pixAgendadoApis: ApiData = {
       path: '/v1/pix/scheduled',
       summary: 'Listar PIX Agendados',
       description:
-        'Lista agendamentos retidos na base local.[cite: 8, 9, 12, 13]',
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 8]' }],
+        'Lista agendamentos retidos na base local.',
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Agendado'],
     },
     {
@@ -3443,7 +3443,7 @@ export const pixAgendadoApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description: 'Detalhes do agendamento[cite: 8, 9]',
+          description: 'Detalhes do agendamento',
         },
       ],
       tags: ['Agendado'],
@@ -3453,12 +3453,12 @@ export const pixAgendadoApis: ApiData = {
       path: '/v1/pix/scheduled/execute',
       summary: 'Executar Batch de Vencidos',
       description:
-        'Força o poller a disparar vencidos do tenant para o JDPI.[cite: 8, 9, 12, 13]',
+        'Força o poller a disparar vencidos do tenant para o JDPI.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
-        { statusCode: '200', description: 'Lote processado[cite: 8]' },
+        { statusCode: '200', description: 'Lote processado' },
       ],
       tags: ['Agendado'],
     },
@@ -3469,7 +3469,7 @@ export const pixAgendadoApis: ApiData = {
       parameters: [
         { name: 'scheduleId', in: 'path', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Cancelado[cite: 8]' }],
+      responses: [{ statusCode: '200', description: 'Cancelado' }],
       tags: ['Agendado'],
     },
     {
@@ -3477,7 +3477,7 @@ export const pixAgendadoApis: ApiData = {
       path: '/jdpi/pix/agendado',
       summary: 'Dispatch Nativo (JDPI)',
       description:
-        'Cria instrução direta de agendamento na JDPI (tpIniciacao=8).[cite: 12, 13]',
+        'Cria instrução direta de agendamento na JDPI (tpIniciacao=8).',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
         {
@@ -3488,7 +3488,7 @@ export const pixAgendadoApis: ApiData = {
         },
       ],
       responses: [
-        { statusCode: '202', description: 'Aceito no JDPI[cite: 12]' },
+        { statusCode: '202', description: 'Aceito no JDPI' },
       ],
       tags: ['Agendado'],
     },
@@ -3498,21 +3498,21 @@ export const pixAgendadoApis: ApiData = {
 export const pixAutomaticoApis: ApiData = {
   title: 'PaymentOS - PIX Automático',
   description:
-    'APIs para Autorização e Agendamento de recorrências (PA).[cite: 10, 12, 13, 14]',
+    'APIs para Autorização e Agendamento de recorrências (PA).',
   endpoints: [
     {
       method: 'POST',
       path: '/jdpi/pa/autorizacao',
       summary: 'Criar Autorização de Recorrência',
       description:
-        'Gera a intenção de recorrência para aprovação.[cite: 10, 14]',
+        'Gera a intenção de recorrência para aprovação.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
         {
           statusCode: '202',
-          description: 'Criação de autorização aceita[cite: 10]',
+          description: 'Criação de autorização aceita',
         },
       ],
       tags: ['PIX Automático'],
@@ -3540,7 +3540,7 @@ export const pixAutomaticoApis: ApiData = {
         },
       ],
       responses: [
-        { statusCode: '200', description: 'Lista de recorrências[cite: 10]' },
+        { statusCode: '200', description: 'Lista de recorrências' },
       ],
       tags: ['PIX Automático'],
     },
@@ -3553,7 +3553,7 @@ export const pixAutomaticoApis: ApiData = {
         { name: 'ispb', in: 'query', required: true, type: 'string' },
       ],
       responses: [
-        { statusCode: '200', description: 'Detalhes retornados[cite: 10]' },
+        { statusCode: '200', description: 'Detalhes retornados' },
       ],
       tags: ['PIX Automático'],
     },
@@ -3562,13 +3562,13 @@ export const pixAutomaticoApis: ApiData = {
       path: '/jdpi/pa/autorizacao/{idRecorrencia}/responder',
       summary: 'Responder Autorização (Aprovação)',
       description:
-        'PSP Pagador aprova a autorização (stJdPi=9 na Jornada 1).[cite: 10]',
+        'PSP Pagador aprova a autorização (stJdPi=9 na Jornada 1).',
       parameters: [
         { name: 'idRecorrencia', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
-        { statusCode: '200', description: 'Respondido com sucesso[cite: 10]' },
+        { statusCode: '200', description: 'Respondido com sucesso' },
       ],
       tags: ['PIX Automático'],
     },
@@ -3577,7 +3577,7 @@ export const pixAutomaticoApis: ApiData = {
       path: '/jdpi/pa/autorizacao/{idRecorrencia}/confirmar',
       summary: 'Confirmar Autorização',
       description:
-        'PSP Recebedor confirma. Aplicável a Jornadas 2/3/4.[cite: 10, 14]',
+        'PSP Recebedor confirma. Aplicável a Jornadas 2/3/4.',
       parameters: [
         { name: 'idRecorrencia', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
@@ -3585,7 +3585,7 @@ export const pixAutomaticoApis: ApiData = {
       responses: [
         {
           statusCode: '400',
-          description: 'Esperado na Jornada 1 caso já respondida[cite: 10]',
+          description: 'Esperado na Jornada 1 caso já respondida',
         },
       ],
       tags: ['PIX Automático'],
@@ -3601,7 +3601,7 @@ export const pixAutomaticoApis: ApiData = {
       responses: [
         {
           statusCode: '400',
-          description: 'Ou 406. API Inbound contraparte[cite: 10]',
+          description: 'Ou 406. API Inbound contraparte',
         },
       ],
       tags: ['PIX Automático'],
@@ -3615,7 +3615,7 @@ export const pixAutomaticoApis: ApiData = {
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
-        { statusCode: '200', description: 'Valor alterado[cite: 10]' },
+        { statusCode: '200', description: 'Valor alterado' },
       ],
       tags: ['PIX Automático'],
     },
@@ -3630,7 +3630,7 @@ export const pixAutomaticoApis: ApiData = {
       responses: [
         {
           statusCode: '202',
-          description: 'Cancelamento em processamento[cite: 10]',
+          description: 'Cancelamento em processamento',
         },
       ],
       tags: ['PIX Automático'],
@@ -3647,7 +3647,7 @@ export const pixAutomaticoApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description: 'Detalhes do cancelamento[cite: 10]',
+          description: 'Detalhes do cancelamento',
         },
       ],
       tags: ['PIX Automático'],
@@ -3657,12 +3657,12 @@ export const pixAutomaticoApis: ApiData = {
       path: '/jdpi/pa/agendamento',
       summary: 'Agendar Instrução do PIX Automático',
       description:
-        'Exige idConciliacaoRecebedor (26-35 chars). A recorrência deve estar ATIVA.[cite: 10, 14]',
+        'Exige idConciliacaoRecebedor (26-35 chars). A recorrência deve estar ATIVA.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
-        { statusCode: '202', description: 'Agendamento Aceito[cite: 10]' },
+        { statusCode: '202', description: 'Agendamento Aceito' },
       ],
       tags: ['PIX Automático'],
     },
@@ -3688,7 +3688,7 @@ export const pixAutomaticoApis: ApiData = {
         { name: 'pagina', in: 'query', required: false, type: 'string' },
         { name: 'tamanhoPagina', in: 'query', required: false, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 10]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['PIX Automático'],
     },
     {
@@ -3699,7 +3699,7 @@ export const pixAutomaticoApis: ApiData = {
         { name: 'endToEndId', in: 'path', required: true, type: 'string' },
         { name: 'ispb', in: 'query', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 10]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['PIX Automático'],
     },
     {
@@ -3711,7 +3711,7 @@ export const pixAutomaticoApis: ApiData = {
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
       responses: [
-        { statusCode: '202', description: 'Cancelamento aceito[cite: 10]' },
+        { statusCode: '202', description: 'Cancelamento aceito' },
       ],
       tags: ['PIX Automático'],
     },
@@ -3725,7 +3725,7 @@ export const pixAutomaticoApis: ApiData = {
         { name: 'ispb', in: 'query', required: true, type: 'string' },
       ],
       responses: [
-        { statusCode: '200', description: 'Status de sucesso[cite: 10]' },
+        { statusCode: '200', description: 'Status de sucesso' },
       ],
       tags: ['PIX Automático'],
     },
@@ -3734,7 +3734,7 @@ export const pixAutomaticoApis: ApiData = {
 
 export const pixMedApis: ApiData = {
   title: 'PaymentOS - PIX MED (Devolução e Risco)',
-  description: 'Tratamento MED pós-transacional JDPI.[cite: 12, 13, 14]',
+  description: 'Tratamento MED pós-transacional JDPI.',
   endpoints: [
     {
       method: 'POST',
@@ -3750,7 +3750,7 @@ export const pixMedApis: ApiData = {
         },
       ],
       responses: [
-        { statusCode: '201', description: 'Devolução iniciada[cite: 12]' },
+        { statusCode: '201', description: 'Devolução iniciada' },
       ],
       tags: ['Devoluções MED'],
     },
@@ -3762,7 +3762,7 @@ export const pixMedApis: ApiData = {
         { name: 'ispb', in: 'query', required: true, type: 'string' },
         { name: 'idSolDevolucao', in: 'query', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Devoluções MED'],
     },
     {
@@ -3773,7 +3773,7 @@ export const pixMedApis: ApiData = {
         { name: 'ispb', in: 'query', required: true, type: 'string' },
         { name: 'idSolDevolucao', in: 'query', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Devoluções MED'],
     },
     {
@@ -3786,7 +3786,7 @@ export const pixMedApis: ApiData = {
         { name: 'pagina', in: 'query', required: false, type: 'string' },
         { name: 'tamanhoPagina', in: 'query', required: false, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Devoluções MED'],
     },
     {
@@ -3798,18 +3798,18 @@ export const pixMedApis: ApiData = {
         { name: 'pagina', in: 'query', required: false, type: 'string' },
         { name: 'tamanhoPagina', in: 'query', required: false, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Devoluções MED'],
     },
     {
       method: 'POST',
       path: '/jdpi/devolucao/analisar',
       summary: 'Analisar Devolução (Contestado)',
-      description: '0=aceita, 1=rejeitada.[cite: 12, 13]',
+      description: '0=aceita, 1=rejeitada.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Analisado[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Analisado' }],
       tags: ['Devoluções MED'],
     },
     {
@@ -3819,7 +3819,7 @@ export const pixMedApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Cancelado[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Cancelado' }],
       tags: ['Devoluções MED'],
     },
     {
@@ -3836,7 +3836,7 @@ export const pixMedApis: ApiData = {
         },
       ],
       responses: [
-        { statusCode: '201', description: 'Relato Incluído[cite: 12, 14]' },
+        { statusCode: '201', description: 'Relato Incluído' },
       ],
       tags: ['Relato de Infração'],
     },
@@ -3849,7 +3849,7 @@ export const pixMedApis: ApiData = {
         { name: 'pagina', in: 'query', required: false, type: 'number' },
         { name: 'tamanhoPagina', in: 'query', required: false, type: 'number' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Relato de Infração'],
     },
     {
@@ -3861,7 +3861,7 @@ export const pixMedApis: ApiData = {
         { name: 'pagina', in: 'query', required: false, type: 'number' },
         { name: 'tamanhoPagina', in: 'query', required: false, type: 'number' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Relato de Infração'],
     },
     {
@@ -3877,7 +3877,7 @@ export const pixMedApis: ApiData = {
           type: 'string',
         },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Relato de Infração'],
     },
     {
@@ -3893,7 +3893,7 @@ export const pixMedApis: ApiData = {
           type: 'string',
         },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Relato de Infração'],
     },
     {
@@ -3903,7 +3903,7 @@ export const pixMedApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Analisado[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Analisado' }],
       tags: ['Relato de Infração'],
     },
     {
@@ -3913,7 +3913,7 @@ export const pixMedApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Cancelado[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Cancelado' }],
       tags: ['Relato de Infração'],
     },
     {
@@ -3929,7 +3929,7 @@ export const pixMedApis: ApiData = {
         },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Atualizado[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Atualizado' }],
       tags: ['Relato de Infração'],
     },
     {
@@ -3946,7 +3946,7 @@ export const pixMedApis: ApiData = {
         },
       ],
       responses: [
-        { statusCode: '201', description: 'Marcação incluída[cite: 12, 14]' },
+        { statusCode: '201', description: 'Marcação incluída' },
       ],
       tags: ['Marcação Fraude'],
     },
@@ -3963,7 +3963,7 @@ export const pixMedApis: ApiData = {
         },
         { name: 'ispb', in: 'query', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Marcação Fraude'],
     },
     {
@@ -3979,7 +3979,7 @@ export const pixMedApis: ApiData = {
         },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Cancelado[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Cancelado' }],
       tags: ['Marcação Fraude'],
     },
     {
@@ -3992,7 +3992,7 @@ export const pixMedApis: ApiData = {
         { name: 'pagina', in: 'query', required: false, type: 'number' },
         { name: 'tamanhoPagina', in: 'query', required: false, type: 'number' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Marcação Fraude'],
     },
     {
@@ -4004,7 +4004,7 @@ export const pixMedApis: ApiData = {
         { name: 'cpfCnpj', in: 'query', required: true, type: 'string' },
         { name: 'tpPessoa', in: 'query', required: true, type: 'number' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Marcação Fraude'],
     },
     {
@@ -4014,7 +4014,7 @@ export const pixMedApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '201', description: 'Criado[cite: 12]' }],
+      responses: [{ statusCode: '201', description: 'Criado' }],
       tags: ['Recuperação'],
     },
     {
@@ -4025,7 +4025,7 @@ export const pixMedApis: ApiData = {
         { name: 'ispb', in: 'query', required: true, type: 'string' },
         { name: 'idRecValores', in: 'query', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Recuperação'],
     },
     {
@@ -4036,7 +4036,7 @@ export const pixMedApis: ApiData = {
         { name: 'ispb', in: 'query', required: true, type: 'string' },
         { name: 'idRecValores', in: 'query', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Recuperação'],
     },
     {
@@ -4047,7 +4047,7 @@ export const pixMedApis: ApiData = {
         { name: 'idRecValores', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Incluído[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Incluído' }],
       tags: ['Recuperação'],
     },
     {
@@ -4058,7 +4058,7 @@ export const pixMedApis: ApiData = {
         { name: 'idRecValores', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Bloqueado[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Bloqueado' }],
       tags: ['Recuperação'],
     },
     {
@@ -4069,7 +4069,7 @@ export const pixMedApis: ApiData = {
         { name: 'idRecValores', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Devolvido[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Devolvido' }],
       tags: ['Recuperação'],
     },
     {
@@ -4080,7 +4080,7 @@ export const pixMedApis: ApiData = {
         { name: 'idRecValores', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Cancelado[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Cancelado' }],
       tags: ['Recuperação'],
     },
     {
@@ -4091,7 +4091,7 @@ export const pixMedApis: ApiData = {
         { name: 'idRecValores', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Atualizado[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Atualizado' }],
       tags: ['Recuperação'],
     },
   ],
@@ -4100,7 +4100,7 @@ export const pixMedApis: ApiData = {
 export const pixQrCodeApis: ApiData = {
   title: 'PaymentOS - PIX QR Code',
   description:
-    'Gerenciamento de QR Codes Estáticos, Dinâmicos, COBV e URL Payloads.[cite: 14, 15]',
+    'Gerenciamento de QR Codes Estáticos, Dinâmicos, COBV e URL Payloads.',
   endpoints: [
     {
       method: 'POST',
@@ -4115,14 +4115,14 @@ export const pixQrCodeApis: ApiData = {
           type: 'string',
         },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 15]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['QR Code'],
     },
     {
       method: 'POST',
       path: '/jdpi/qrcode/dinamico/gerar',
       summary: 'Gerar QR Dinâmico',
-      description: 'Exige valorOriginal. Depende de certificado JWS.[cite: 15]',
+      description: 'Exige valorOriginal. Depende de certificado JWS.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
         {
@@ -4133,8 +4133,8 @@ export const pixQrCodeApis: ApiData = {
         },
       ],
       responses: [
-        { statusCode: '200', description: 'Sucesso[cite: 15]' },
-        { statusCode: '400', description: 'Valor.Original ausente[cite: 15]' },
+        { statusCode: '200', description: 'Sucesso' },
+        { statusCode: '400', description: 'Valor.Original ausente' },
       ],
       tags: ['QR Code'],
     },
@@ -4152,7 +4152,7 @@ export const pixQrCodeApis: ApiData = {
         },
       ],
       responses: [
-        { statusCode: '201', description: 'Criado com sucesso[cite: 14]' },
+        { statusCode: '201', description: 'Criado com sucesso' },
       ],
       tags: ['QR Code'],
     },
@@ -4163,7 +4163,7 @@ export const pixQrCodeApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 15]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['QR Code'],
     },
     {
@@ -4174,14 +4174,14 @@ export const pixQrCodeApis: ApiData = {
         { name: 'idDocumento', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 15]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['QR Code'],
     },
     {
       method: 'POST',
       path: '/jdpi/qrcode/decodificar',
       summary: 'Decodificar BR Code / Copia e Cola',
-      description: 'Decodifica a string EMV.[cite: 14, 15]',
+      description: 'Decodifica a string EMV.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
         {
@@ -4194,7 +4194,7 @@ export const pixQrCodeApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description: 'Decodificado com sucesso[cite: 14]',
+          description: 'Decodificado com sucesso',
         },
       ],
       tags: ['QR Code'],
@@ -4206,7 +4206,7 @@ export const pixQrCodeApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 15]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['QR Code'],
     },
     {
@@ -4216,7 +4216,7 @@ export const pixQrCodeApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 15]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['QR Composto'],
     },
     {
@@ -4226,7 +4226,7 @@ export const pixQrCodeApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 15]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['QR Composto'],
     },
     {
@@ -4236,7 +4236,7 @@ export const pixQrCodeApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 15]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['QR Composto'],
     },
     {
@@ -4246,7 +4246,7 @@ export const pixQrCodeApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 15]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['QR Composto'],
     },
     {
@@ -4256,7 +4256,7 @@ export const pixQrCodeApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 15]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['QR Composto'],
     },
     {
@@ -4266,7 +4266,7 @@ export const pixQrCodeApis: ApiData = {
       parameters: [
         { name: 'ispb', in: 'query', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 15]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['QR Code'],
     },
     {
@@ -4276,14 +4276,14 @@ export const pixQrCodeApis: ApiData = {
       parameters: [
         { name: 'ispb', in: 'path', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 15]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['QR Code'],
     },
     {
       method: 'GET',
       path: '/jdpi/qrcode/certificates/download',
       summary: 'Download de Certificados',
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 15]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['QR Code'],
     },
   ],
@@ -4292,14 +4292,14 @@ export const pixQrCodeApis: ApiData = {
 export const pixSpiWebhooksApis: ApiData = {
   title: 'PaymentOS - PIX SPI (In/Out & Webhooks)',
   description:
-    'Rotas core operacionais para liquidação (outbound Temenos funds-block) e webhooks inbound (SGCT, JDPI→PSP).[cite: 10, 12, 13, 14]',
+    'Rotas core operacionais para liquidação (outbound Temenos funds-block) e webhooks inbound (SGCT, JDPI→PSP).',
   endpoints: [
     {
       method: 'POST',
       path: '/jdpi/spi/op/pixout',
       summary: 'Ordem de Pagamento Outbound (Saga Temenos)',
       description:
-        'Despacha o bloqueio do core bancário → JDPI. Suporta tpIniciacao=0..3 e finalidades 1 (Troco), 2 (Saque), COBV. Exige beneficiaryAccountId/orderingCustomerId.[cite: 12, 13, 14]',
+        'Despacha o bloqueio do core bancário → JDPI. Suporta tpIniciacao=0..3 e finalidades 1 (Troco), 2 (Saque), COBV. Exige beneficiaryAccountId/orderingCustomerId.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
         {
@@ -4313,7 +4313,7 @@ export const pixSpiWebhooksApis: ApiData = {
         {
           statusCode: '202',
           description:
-            '{fundsBlocked:true, temenosConfirmed:true, paymentOrderId}[cite: 12, 14]',
+            '{fundsBlocked:true, temenosConfirmed:true, paymentOrderId}',
         },
       ],
       tags: ['SPI Outbound'],
@@ -4334,7 +4334,7 @@ export const pixSpiWebhooksApis: ApiData = {
       responses: [
         {
           statusCode: '202',
-          description: 'Ordem aceita diretamente no JD[cite: 14]',
+          description: 'Ordem aceita diretamente no JD',
         },
       ],
       tags: ['SPI Outbound'],
@@ -4343,18 +4343,18 @@ export const pixSpiWebhooksApis: ApiData = {
       method: 'POST',
       path: '/jdpi/spi/op/interna',
       summary: 'Liquidação Intra-PSP',
-      description: 'Mesmo ISPB.[cite: 12, 13]',
+      description: 'Mesmo ISPB.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Liquidado[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Liquidado' }],
       tags: ['SPI Outbound'],
     },
     {
       method: 'POST',
       path: '/jdpi/webhook/credito/validar',
       summary: 'Validar Crédito Inbound',
-      description: 'Validação síncrona pré-crédito (9.3.1).[cite: 12, 13, 14]',
+      description: 'Validação síncrona pré-crédito (9.3.1).',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
         {
@@ -4364,7 +4364,7 @@ export const pixSpiWebhooksApis: ApiData = {
           type: 'string',
         },
       ],
-      responses: [{ statusCode: '200', description: 'Validado[cite: 14]' }],
+      responses: [{ statusCode: '200', description: 'Validado' }],
       tags: ['Webhooks Inbound'],
     },
     {
@@ -4372,7 +4372,7 @@ export const pixSpiWebhooksApis: ApiData = {
       path: '/jdpi/webhook/credito',
       summary: 'Registrar Crédito Inbound',
       description:
-        'Efetivação de claim-before-credit (9.3.2). Roteia para o core.[cite: 12, 13, 14]',
+        'Efetivação de claim-before-credit (9.3.2). Roteia para o core.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
         {
@@ -4383,7 +4383,7 @@ export const pixSpiWebhooksApis: ApiData = {
         },
       ],
       responses: [
-        { statusCode: '200', description: 'Credito processado[cite: 14]' },
+        { statusCode: '200', description: 'Credito processado' },
       ],
       tags: ['Webhooks Inbound'],
     },
@@ -4392,7 +4392,7 @@ export const pixSpiWebhooksApis: ApiData = {
       path: '/jdpi/webhook/credito/devolucao',
       summary: 'Registrar Crédito de Devolução',
       description:
-        'Crédito devolvido recebido. Dispara HandleReturnCredit.[cite: 12, 13]',
+        'Crédito devolvido recebido. Dispara HandleReturnCredit.',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
         {
@@ -4402,7 +4402,7 @@ export const pixSpiWebhooksApis: ApiData = {
           type: 'string',
         },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound'],
     },
     {
@@ -4418,7 +4418,7 @@ export const pixSpiWebhooksApis: ApiData = {
           type: 'string',
         },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound'],
     },
     {
@@ -4426,7 +4426,7 @@ export const pixSpiWebhooksApis: ApiData = {
       path: '/jdpi/webhook/spi/pa/bloquear',
       summary: 'SGCT Inbound - Bloquear Saldo (PA)',
       description:
-        '5.4.1. Com PADebitService nil -> SGCTPIX999[cite: 10, 12, 13]',
+        '5.4.1. Com PADebitService nil -> SGCTPIX999',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
         {
@@ -4439,7 +4439,7 @@ export const pixSpiWebhooksApis: ApiData = {
       responses: [
         {
           statusCode: '200',
-          description: 'Retorna 1 (Aceito) / 0 (Rejeitado)[cite: 10]',
+          description: 'Retorna 1 (Aceito) / 0 (Rejeitado)',
         },
       ],
       tags: ['Webhooks Inbound', 'PIX Automático'],
@@ -4448,7 +4448,7 @@ export const pixSpiWebhooksApis: ApiData = {
       method: 'POST',
       path: '/jdpi/webhook/spi/pa/debito',
       summary: 'SGCT Inbound - Efetivar Débito (PA)',
-      description: '5.4.2 Liquida o bloqueio[cite: 10, 12, 13]',
+      description: '5.4.2 Liquida o bloqueio',
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
         {
@@ -4459,7 +4459,7 @@ export const pixSpiWebhooksApis: ApiData = {
         },
       ],
       responses: [
-        { statusCode: '200', description: 'Retorna idOperacaoSgct[cite: 10]' },
+        { statusCode: '200', description: 'Retorna idOperacaoSgct' },
       ],
       tags: ['Webhooks Inbound', 'PIX Automático'],
     },
@@ -4467,7 +4467,7 @@ export const pixSpiWebhooksApis: ApiData = {
       method: 'DELETE',
       path: '/jdpi/webhook/spi/pa/debito/{endToEndId}',
       summary: 'SGCT Inbound - Estorno PA',
-      description: '5.4.3 Reverte[cite: 10, 12, 13]',
+      description: '5.4.3 Reverte',
       parameters: [
         { name: 'endToEndId', in: 'path', required: true, type: 'string' },
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
@@ -4478,7 +4478,7 @@ export const pixSpiWebhooksApis: ApiData = {
           type: 'string',
         },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 10]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'PIX Automático'],
     },
     {
@@ -4488,7 +4488,7 @@ export const pixSpiWebhooksApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'Conta PI'],
     },
     {
@@ -4498,7 +4498,7 @@ export const pixSpiWebhooksApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'Conta PI'],
     },
     {
@@ -4508,7 +4508,7 @@ export const pixSpiWebhooksApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'Conta PI'],
     },
     {
@@ -4518,7 +4518,7 @@ export const pixSpiWebhooksApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'Conta PI'],
     },
     {
@@ -4530,7 +4530,7 @@ export const pixSpiWebhooksApis: ApiData = {
         { name: 'idRequisicao', in: 'query', required: true, type: 'string' },
         { name: 'tpRequisicao', in: 'query', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'Conta PI'],
     },
     {
@@ -4540,7 +4540,7 @@ export const pixSpiWebhooksApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'Conta PI'],
     },
     {
@@ -4550,7 +4550,7 @@ export const pixSpiWebhooksApis: ApiData = {
       parameters: [
         { name: 'ispb', in: 'query', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'Conta PI'],
     },
     {
@@ -4560,7 +4560,7 @@ export const pixSpiWebhooksApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'Risco'],
     },
     {
@@ -4570,7 +4570,7 @@ export const pixSpiWebhooksApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'PIX Automático'],
     },
     {
@@ -4580,7 +4580,7 @@ export const pixSpiWebhooksApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'PIX Automático'],
     },
     {
@@ -4590,7 +4590,7 @@ export const pixSpiWebhooksApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'Cobrança'],
     },
     {
@@ -4600,7 +4600,7 @@ export const pixSpiWebhooksApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'PIX Automático'],
     },
     {
@@ -4610,7 +4610,7 @@ export const pixSpiWebhooksApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'PIX Automático'],
     },
     {
@@ -4620,7 +4620,7 @@ export const pixSpiWebhooksApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'PIX Automático'],
     },
     {
@@ -4630,7 +4630,7 @@ export const pixSpiWebhooksApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'PIX Automático'],
     },
     {
@@ -4640,7 +4640,7 @@ export const pixSpiWebhooksApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'PIX Automático'],
     },
     {
@@ -4650,7 +4650,7 @@ export const pixSpiWebhooksApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'PIX Automático'],
     },
     {
@@ -4660,7 +4660,7 @@ export const pixSpiWebhooksApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'PIX Automático'],
     },
     {
@@ -4670,7 +4670,7 @@ export const pixSpiWebhooksApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'PIX Automático'],
     },
     {
@@ -4680,7 +4680,7 @@ export const pixSpiWebhooksApis: ApiData = {
       parameters: [
         { name: 'Content-Type', in: 'header', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'PIX Automático'],
     },
     {
@@ -4691,7 +4691,7 @@ export const pixSpiWebhooksApis: ApiData = {
         { name: 'ispb', in: 'path', required: true, type: 'string' },
         { name: 'cnpj', in: 'path', required: true, type: 'string' },
       ],
-      responses: [{ statusCode: '200', description: 'Sucesso[cite: 12]' }],
+      responses: [{ statusCode: '200', description: 'Sucesso' }],
       tags: ['Webhooks Inbound', 'PIX Automático'],
     },
   ],
