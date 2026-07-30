@@ -18,4 +18,10 @@ export const Apis: ApisProps[] = [
     function: 'Payments',
     url: 'https://uat.corebanxapp.com.br/paymentos/docs/index.html#/',
   },
+  {
+    title: 'API Provedor Limite',
+    company: 'Banco da Amazônia',
+    function: 'Limite',
+    url: 'https://api-provedor-limite.apps.ocp-hml.bancoamazonia.sa/',
+  },
 ];

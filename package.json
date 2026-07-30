@@ -8,6 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "docker:dev": "docker compose -f docker-compose.dev.yml up --build",
+    "docker:dev:stop": "docker compose -f docker-compose.dev.yml down",
     "docker:build": "docker build -t apis-basa-gate .",
     "docker:run": "docker run -d --name apis-basa-gate-container -p 8080:80 apis-basa-gate",
     "docker:stop": "docker stop apis-basa-gate-container && docker rm apis-basa-gate-container"
