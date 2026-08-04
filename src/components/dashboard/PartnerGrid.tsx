@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import type { PartnerInfo } from "@/data/api-stats";
+import type { PartnerInfo } from "@/types/partner";
 
 interface PartnerGridProps {
   partners: PartnerInfo[];

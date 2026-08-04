@@ -31,7 +31,7 @@ export function AppLayout() {
       <Sidebar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
       <SidebarMobile isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
 
-      <main className="lg:ml-72 min-h-screen">
+      <main className="lg:ml-72 min-h-screen pt-16 lg:pt-0">
         <div className="p-6 lg:p-10 lg:pr-12">
           <Suspense fallback={<div className="flex justify-center items-center h-64"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div></div>}>
             <Outlet />

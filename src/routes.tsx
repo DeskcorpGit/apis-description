@@ -13,6 +13,11 @@ const ApiDocumentationPage = lazy(() =>
 const SwaggerPage = lazy(() =>
   import("@/pages/SwaggerPage").then((m) => ({ default: m.SwaggerPage })),
 );
+const MethodEndpointsPage = lazy(() =>
+  import("@/pages/MethodEndpointsPage").then((m) => ({
+    default: m.MethodEndpointsPage,
+  })),
+);
 
 export const routes: RouteObject[] = [
   {
@@ -33,6 +38,10 @@ export const routes: RouteObject[] = [
       {
         path: "/swagger",
         element: <SwaggerPage />,
+      },
+      {
+        path: "/apis/method/:method",
+        element: <MethodEndpointsPage />,
       },
     ],
   },
