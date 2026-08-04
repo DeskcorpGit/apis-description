@@ -66,7 +66,7 @@ export function StatCard({
     <div
       ref={cardRef}
       className="group relative overflow-hidden rounded-2xl border border-border/50
-        bg-card/80 backdrop-blur-sm p-6 transition-all duration-300
+        bg-card p-6 transition-all duration-300
         hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20
         hover:-translate-y-1 hover:border-border"
     >

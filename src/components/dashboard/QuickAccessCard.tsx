@@ -21,7 +21,7 @@ export function QuickAccessCard({
     <Link
       to={to}
       className="group flex items-center gap-4 rounded-2xl border border-border/50
-        bg-card/80 backdrop-blur-sm p-5 transition-all duration-300
+        bg-card p-5 transition-all duration-300
         hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20
         hover:-translate-y-0.5 hover:border-border no-underline"
     >

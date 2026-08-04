@@ -14,7 +14,7 @@ export function PartnerGrid({ partners }: PartnerGridProps) {
           key={partner.id}
           to={`/apis/${partner.id}`}
           className="group relative overflow-hidden rounded-2xl border border-border/50
-            bg-card/80 backdrop-blur-sm p-5 transition-all duration-300
+            bg-card p-5 transition-all duration-300
             hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20
             hover:-translate-y-1 hover:border-border no-underline"
         >
