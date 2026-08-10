@@ -47,12 +47,9 @@ export function SwaggerPage() {
               Links de Documentação
             </button>
             <button
+              disabled
               onClick={() => setIsSwaggerLink(false)}
-              className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-200 cursor-pointer ${
-                !isSwaggerLink
-                  ? 'bg-brand-green text-white shadow-sm'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
+              className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-200 cursor-not-allowed`}
             >
               <FileCode2 className="size-3.5" />
               Documentação Swagger
