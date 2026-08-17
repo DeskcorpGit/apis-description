@@ -24,4 +24,16 @@ export const Apis: ApisProps[] = [
     function: 'Limite',
     url: 'https://api-provedor-limite.apps.ocp-hml.bancoamazonia.sa/',
   },
+  {
+    title: 'API Restritivos',
+    company: 'Banco da Amazônia',
+    function: 'Restritivos',
+    url: 'https://api-restritivos.apps.ocp-hml.bancoamazonia.sa/',
+  },
+  {
+    title: 'API Amazoncad',
+    company: 'Banco da Amazônia',
+    function: 'Cadastro de Clientes',
+    url: 'https://api-amazoncad.apps.ocp-qa.bancoamazonia.sa/',
+  },
 ];
