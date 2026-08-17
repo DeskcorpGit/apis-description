@@ -38,5 +38,6 @@ export interface ApiData {
   version?: string;
   description?: string;
   baseUrl?: string;
+  partner?: string;
   endpoints: ApiEndpoint[];
 }
