@@ -1,0 +1,68 @@
+name: Auto PR — dev → master
+
+on:
+  push:
+    branches:
+      - dev
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  open-pr:
+    name: Abrir PR automático para master
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verificar commits novos em relação a master
+        id: check_diff
+        run: |
+          git fetch origin master
+          COUNT=$(git rev-list --count origin/master..HEAD)
+          echo "commits_ahead=$COUNT" >> "$GITHUB_OUTPUT"
+          echo "→ Commits à frente de master: $COUNT"
+
+      - name: Criar ou atualizar PR de dev → master
+        if: steps.check_diff.outputs.commits_ahead != '0'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: master
+          branch: dev
+          title:
+            '🚀 [Auto PR] dev → master — ${{ github.event.head_commit.message }}'
+          body: |
+            ## Pull Request automático
+
+            Este PR foi gerado automaticamente pelo workflow **auto-pr-to-main**
+            após um push na branch `dev`.
+
+            ### Último commit
+            - **SHA:** `${{ github.sha }}`
+            - **Autor:** ${{ github.event.head_commit.author.name }}
+            - **Mensagem:** ${{ github.event.head_commit.message }}
+
+            ---
+            > ⚠️ **Revisão obrigatória pelo time de Arquitetura** conforme definido em `CODEOWNERS`.
+            > Não faça merge sem ao menos uma aprovação do grupo `@deskcorp-git/arquitetura`.
+          labels: |
+            auto-pr
+            aguardando-revisão
+          reviewers: |
+            OtavioAraujoS
+            DeskcorpOtavio
+          team-reviewers: |
+            deskcorp-git/arquitetura
+          draft: false
+          delete-branch: false
+
+      - name: Sem diferença — PR não necessário
+        if: steps.check_diff.outputs.commits_ahead == '0'
+        run:
+          echo "✅ dev já está sincronizado com master. Nenhum PR necessário."
