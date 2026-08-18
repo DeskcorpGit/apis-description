@@ -36,4 +36,10 @@ export const Apis: ApisProps[] = [
     function: 'Cadastro de Clientes',
     url: 'https://api-amazoncad.apps.ocp-qa.bancoamazonia.sa/',
   },
+  {
+    title: 'Teste OS 2',
+    company: 'Tst Da Silva',
+    function: 'Teste',
+    url: 'https://www.google.com/',
+  },
 ];
