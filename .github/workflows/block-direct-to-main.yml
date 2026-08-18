@@ -19,4 +19,4 @@ jobs:
 
       - name: Sucesso
         if: github.head_ref == 'dev'
-        run: echo "✅ A origem é a dev. PR liberado para análise!"
+        run: echo "A origem é a dev. PR liberado para análise!"

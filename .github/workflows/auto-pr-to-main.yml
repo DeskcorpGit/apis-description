@@ -72,12 +72,11 @@ jobs:
               --label "auto-pr,aguardando-revisão" \
               --reviewer "OtavioAraujoS,DeskcorpOtavio"
 
-            echo "✅ PR criado com sucesso!"
+            echo "PR criado com sucesso!"
           else
-            echo "✅ Já existe um PR aberto de dev para master. Ele foi atualizado automaticamente com este push."
+            echo "Já existe um PR aberto de dev para master. Ele foi atualizado automaticamente com este push."
           fi
 
       - name: Sem diferença — PR não necessário
         if: steps.check_diff.outputs.commits_ahead == '0'
-        run:
-          echo "✅ dev já está sincronizado com master. Nenhum PR necessário."
+        run: echo "dev já está sincronizado com master. Nenhum PR necessário."
