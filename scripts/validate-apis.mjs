@@ -5,7 +5,7 @@ import { join } from 'node:path';
 const ROOT = process.cwd();
 const APIS_DIR = join(ROOT, 'apis');
 const SPECTRAL_YAML = join(ROOT, '.spectral.yaml');
-const SPECTRAL_BIN = 'npx';
+const SPECTRAL_BIN = process.platform === 'win32' ? 'npx.cmd' : 'npx';
 const SPECTRAL_ARGS = [
   '@stoplight/spectral-cli@6.11.1',
   'lint',
@@ -63,7 +63,7 @@ for (const file of files) {
 
   const result = spawnSync(SPECTRAL_BIN, [...SPECTRAL_ARGS, file], {
     encoding: 'utf-8',
-    shell: true,
+    shell: false,
   });
 
   if (result.status === 0) {
