@@ -1,0 +1,22 @@
+name: Bloquear PRs diretos para Main
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-source-branch:
+    name: Verificar branch de origem
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validar se a origem é a dev
+        if: github.head_ref != 'dev'
+        run: |
+          echo "ERRO: Não é permitido enviar código direto para a main!"
+          echo "Você deve enviar sua branch para a 'dev' primeiro."
+          exit 1
+
+      - name: Sucesso
+        if: github.head_ref == 'dev'
+        run: echo "✅ A origem é a dev. PR liberado para análise!"
