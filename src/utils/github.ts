@@ -37,7 +37,7 @@ export function patchApiFileContent(
 ): string {
   const cleanBase64 = encodedContent.replaceAll('\n', '');
   const binaryString = atob(cleanBase64);
-  const bytes = Uint8Array.from(binaryString, (char) => char.codePointAt(0));
+  const bytes = Uint8Array.from(binaryString, (char) => char.codePointAt(0) ?? 0);
   const decoded = new TextDecoder().decode(bytes);
 
   const newEntry = `  {\n    title: '${entry.title}',\n    company: '${entry.company}',\n    function: '${entry.function}',\n    url: '${entry.url}',\n  },\n`;
