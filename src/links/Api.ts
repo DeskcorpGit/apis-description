@@ -20,20 +20,26 @@ export const Apis: ApisProps[] = [
   },
   {
     title: 'API Provedor Limite',
-    company: 'Banco da Amazônia',
+    company: 'Banco da AmazÃ´nia',
     function: 'Limite',
     url: 'https://api-provedor-limite.apps.ocp-hml.bancoamazonia.sa/',
   },
   {
     title: 'API Restritivos',
-    company: 'Banco da Amazônia',
+    company: 'Banco da AmazÃ´nia',
     function: 'Restritivos',
     url: 'https://api-restritivos.apps.ocp-hml.bancoamazonia.sa/',
   },
   {
     title: 'API Amazoncad',
-    company: 'Banco da Amazônia',
+    company: 'Banco da AmazÃ´nia',
     function: 'Cadastro de Clientes',
     url: 'https://api-amazoncad.apps.ocp-qa.bancoamazonia.sa/',
+  },
+  {
+    title: 'Teste OS',
+    company: 'Teste',
+    function: 'Teste',
+    url: 'https://www.google.com/',
   },
 ];
