@@ -31,6 +31,12 @@ jobs:
       - name: Validar todos os arquivos OpenAPI/Swagger
         run: |
           echo "Buscando especificações na pasta apis/..."
+
+          if [ ! -d "apis/" ]; then
+            echo "Pasta apis/ não encontrada. Nenhuma especificação para validar."
+            exit 0
+          fi
+
           FILES=$(find apis/ -type f \( -name "*.yaml" -o -name "*.yml" -o -name "*.json" \))
 
           if [ -z "$FILES" ]; then
@@ -55,6 +61,11 @@ jobs:
       - name: Verificar Endpoints Duplicados
         run: |
           echo "Analisando duplicidade de rotas (paths)..."
+
+          if [ ! -d "apis/" ]; then
+            echo "Pasta apis/ não encontrada. Nenhum endpoint para verificar."
+            exit 0
+          fi
 
           grep -hroE "^  /[a-zA-Z0-9/_{}-]+:" apis/ | sort | uniq -d > duplicados.txt
 
