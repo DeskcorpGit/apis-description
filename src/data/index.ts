@@ -1,14 +1,15 @@
-import { basaApiSections } from './basa-drop1-apis';
-import { basaApiSectionsDrop2 } from './basa-drop2-apis';
-import { pixApiSections } from './pix-apis';
-import { paymentosApis } from './paymentos-apis';
-import { transferApis, transferSpiApis } from './transfer-apis';
+import { cadocsApiSections } from './collections/cadocs-api-sections';
+import { cardosApiSections } from './collections/cardos-api-sections';
+import { onboardosApiSections } from './collections/onboardos-api-sections';
+import { parceirosOnboardingApiSections } from './collections/parceiros-onboarding-api-sections';
+import { paymentosPixTedApiSections } from './collections/paymentos-pix-ted-api-sections';
+import { paymentOsPixTedSections } from './collections/paymentOsPixTedSections';
 
 export const allApiSections = [
-  ...basaApiSections,
-  ...basaApiSectionsDrop2,
-  ...pixApiSections,
-  transferApis,
-  transferSpiApis,
-  paymentosApis,
+  ...cadocsApiSections,
+  ...cardosApiSections,
+  ...onboardosApiSections,
+  ...parceirosOnboardingApiSections,
+  ...paymentosPixTedApiSections,
+  ...paymentOsPixTedSections,
 ];
