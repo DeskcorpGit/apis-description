@@ -1,0 +1,22 @@
+# ── Regra global (fallback) ────────────────────────────────────────────────
+# O time de Arquitetura é dono padrão de QUALQUER arquivo não coberto abaixo.
+*                                   @deskcorp-git/arquitetura
+
+# ── Infraestrutura e CI/CD ────────────────────────────────────────────────
+# Alterações em workflows, Docker, configurações de build e este próprio arquivo
+# exigem revisão obrigatória de Arquitetura.
+.github/                            @deskcorp-git/arquitetura
+Dockerfile                          @deskcorp-git/arquitetura
+Dockerfile.dev                      @deskcorp-git/arquitetura
+docker-compose*.yml                 @deskcorp-git/arquitetura
+nginx.conf                          @deskcorp-git/arquitetura
+
+# ── Dados das coleções de APIs ────────────────────────────────────────────
+# Qualquer mudança nos arquivos de coleção de dados requer revisão de Arquitetura.
+src/data/                           @deskcorp-git/arquitetura
+
+# ── Configurações do projeto ──────────────────────────────────────────────
+package.json                        @deskcorp-git/arquitetura
+package-lock.json                   @deskcorp-git/arquitetura
+vite.config.ts                      @deskcorp-git/arquitetura
+tsconfig*.json                      @deskcorp-git/arquitetura
