@@ -5,13 +5,12 @@ export const paymentOsPixTedSections: ApiData[] = [
     title: 'Autenticação — Token OAuth2 (client_credentials)',
     description:
       'Endpoint responsável por autenticar o client via OAuth2 Client Credentials Grant no Keycloak (realm ledgeros) e obter o access_token (Bearer) utilizado em todas as demais chamadas do PaymentOS. Deve ser executado antes de qualquer outro endpoint da collection.',
-    baseUrl:
-      'https://uat.corebanxapp.com.br/auth/realms/ledgeros/protocol/openid-connect/token',
+    baseUrl: 'https://uat.corebanxapp.com.br',
     partner: 'Corebanx',
     endpoints: [
       {
         method: 'POST',
-        path: '/',
+        path: '/auth/realms/ledgeros/protocol/openid-connect/token',
         summary: 'Auth - Token (client_credentials)',
         tags: ['Autenticação'],
         parameters: [
@@ -65,7 +64,7 @@ export const paymentOsPixTedSections: ApiData[] = [
     endpoints: [
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/spi/op/pixout',
+        path: '/jdpi/spi/op/pixout',
         summary: 'POST pixout BASE (finalidade 0)  -> 202',
         tags: ['PIX', 'SPI', 'Pixout'],
         parameters: [
@@ -90,7 +89,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/spi/op/pixout',
+        path: '/jdpi/spi/op/pixout',
         summary: 'POST pixout TROCO (finalidade 1)  -> 202',
         tags: ['PIX', 'SPI', 'Pixout'],
         parameters: [
@@ -115,7 +114,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/spi/op/pixout',
+        path: '/jdpi/spi/op/pixout',
         summary: 'POST pixout SAQUE (finalidade 2)  -> 202',
         tags: ['PIX', 'SPI', 'Pixout'],
         parameters: [
@@ -140,7 +139,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/spi/op/pixout',
+        path: '/jdpi/spi/op/pixout',
         summary: 'POST pixout tpIniciacao=1 CHAVE  -> 202',
         tags: ['PIX', 'SPI', 'Pixout'],
         parameters: [
@@ -165,7 +164,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/spi/op/pixout',
+        path: '/jdpi/spi/op/pixout',
         summary: 'POST pixout tpIniciacao=2 QR ESTATICO  -> 202',
         tags: ['PIX', 'SPI', 'Pixout'],
         parameters: [
@@ -190,7 +189,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/spi/op/pixout',
+        path: '/jdpi/spi/op/pixout',
         summary: 'POST pixout tpIniciacao=3 QR DINAMICO  -> 202',
         tags: ['PIX', 'SPI', 'Pixout'],
         parameters: [
@@ -215,7 +214,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/spi/op/pixout',
+        path: '/jdpi/spi/op/pixout',
         summary: 'POST pixout finalidade=3 REEMBOLSO  -> 202',
         tags: ['PIX', 'SPI', 'Pixout'],
         parameters: [
@@ -240,7 +239,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/spi/op/pixout',
+        path: '/jdpi/spi/op/pixout',
         summary: 'POST pixout finalidade=5 DEVOLUCAO  -> 202',
         tags: ['PIX', 'SPI', 'Pixout'],
         parameters: [
@@ -265,7 +264,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/spi/op/interna',
+        path: '/jdpi/spi/op/interna',
         summary: 'POST op/interna (liquidação interna)  -> 200',
         tags: ['PIX', 'SPI', 'Pixout'],
         parameters: [
@@ -299,7 +298,7 @@ export const paymentOsPixTedSections: ApiData[] = [
     endpoints: [
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/pix/in-out',
+        path: '/jdpi/pix/in-out',
         summary: 'POST /jdpi/pix/in-out  (saída padrão)',
         tags: ['PIX', 'Variações Tipadas'],
         parameters: [
@@ -324,7 +323,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/pix/chave',
+        path: '/jdpi/pix/chave',
         summary: 'POST /jdpi/pix/chave  (saída por chave)',
         tags: ['PIX', 'Variações Tipadas'],
         parameters: [
@@ -349,7 +348,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/pix/qr-estatico',
+        path: '/jdpi/pix/qr-estatico',
         summary: 'POST /jdpi/pix/qr-estatico',
         tags: ['PIX', 'Variações Tipadas'],
         parameters: [
@@ -374,7 +373,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/pix/qr-dinamico',
+        path: '/jdpi/pix/qr-dinamico',
         summary: 'POST /jdpi/pix/qr-dinamico',
         tags: ['PIX', 'Variações Tipadas'],
         parameters: [
@@ -399,7 +398,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/pix/cobv',
+        path: '/jdpi/pix/cobv',
         summary: 'POST /jdpi/pix/cobv  (cobrança c/ vencimento)',
         tags: ['PIX', 'Variações Tipadas'],
         description: 'Requer chave + idConciliacaoRecebedor (txid).',
@@ -425,7 +424,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/pix/parcelado',
+        path: '/jdpi/pix/parcelado',
         summary: 'POST /jdpi/pix/parcelado',
         tags: ['PIX', 'Variações Tipadas'],
         parameters: [
@@ -450,7 +449,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/pix/troco',
+        path: '/jdpi/pix/troco',
         summary: 'POST /jdpi/pix/troco  (compra + troco)',
         tags: ['PIX', 'Variações Tipadas'],
         description:
@@ -477,7 +476,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/pix/saque',
+        path: '/jdpi/pix/saque',
         summary: 'POST /jdpi/pix/saque  (Pix Saque)',
         tags: ['PIX', 'Variações Tipadas'],
         parameters: [
@@ -511,7 +510,7 @@ export const paymentOsPixTedSections: ApiData[] = [
     endpoints: [
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/qrcode/estatico/gerar',
+        path: '/jdpi/qrcode/estatico/gerar',
         summary: 'POST /qrcode/estatico/gerar',
         tags: ['PIX', 'QR Code', 'Gerar'],
         description: 'formato: 0=imagem,1=payload base64,2=ambos.',
@@ -537,7 +536,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/qrcode/dinamico/gerar',
+        path: '/jdpi/qrcode/dinamico/gerar',
         summary: 'POST /qrcode/dinamico/gerar',
         tags: ['PIX', 'QR Code', 'Gerar'],
         description:
@@ -564,7 +563,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/qrcode/dinamico/cobv/gerar',
+        path: '/jdpi/qrcode/dinamico/cobv/gerar',
         summary: 'POST /qrcode/dinamico/cobv/gerar',
         tags: ['PIX', 'QR Code', 'Gerar'],
         parameters: [
@@ -589,7 +588,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/qrcode/dinamico/cobv/jws',
+        path: '/jdpi/qrcode/dinamico/cobv/jws',
         summary: 'POST /qrcode/dinamico/cobv/jws',
         tags: ['PIX', 'QR Code', 'Gerar'],
         parameters: [
@@ -614,7 +613,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/qrcode/dinamico/cobv/jws/{cobvIdDoc}',
+        path: '/jdpi/qrcode/dinamico/cobv/jws/{cobvIdDoc}',
         summary: 'POST /qrcode/dinamico/cobv/jws/{idDocumento}',
         tags: ['PIX', 'QR Code', 'Gerar'],
         parameters: [
@@ -655,7 +654,7 @@ export const paymentOsPixTedSections: ApiData[] = [
     endpoints: [
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/qrcode/decodificar',
+        path: '/jdpi/qrcode/decodificar',
         summary: 'POST /qrcode/decodificar  (qrCodePayload)',
         tags: ['PIX', 'QR Code', 'Decodificar'],
         description: 'BR Code (EMV) a decodificar.',
@@ -681,7 +680,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/qrcode/decodificar/url',
+        path: '/jdpi/qrcode/decodificar/url',
         summary: 'POST /qrcode/decodificar/url  (urlPayloadJson)',
         tags: ['PIX', 'QR Code', 'Decodificar'],
         description:
@@ -717,7 +716,7 @@ export const paymentOsPixTedSections: ApiData[] = [
     endpoints: [
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/pix/agendado',
+        path: '/jdpi/pix/agendado',
         summary:
           'POST /jdpi/pix/agendado  (dispatch — tpIniciacao=8, tpPrioridade=2)',
         tags: ['PIX', 'Agendado', 'Nativo JDPI'],
@@ -754,7 +753,7 @@ export const paymentOsPixTedSections: ApiData[] = [
     endpoints: [
       {
         method: 'POST',
-        path: '{baseUrl}/v1/pix/scheduled',
+        path: '/v1/pix/scheduled',
         summary:
           'POST /v1/pix/scheduled  (agendar, COM pixout -> reserva PIXFUTBA)',
         tags: ['PIX', 'Agendado', 'Facade paymentOS'],
@@ -796,7 +795,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'GET',
-        path: '{baseUrl}/v1/pix/scheduled',
+        path: '/v1/pix/scheduled',
         summary: 'GET /v1/pix/scheduled  (listar)',
         tags: ['PIX', 'Agendado', 'Facade paymentOS'],
         parameters: [
@@ -826,7 +825,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'GET',
-        path: '{baseUrl}/v1/pix/scheduled/{scheduleId}',
+        path: '/v1/pix/scheduled/{scheduleId}',
         summary: 'GET /v1/pix/scheduled/{schedule_id}  (consultar)',
         tags: ['PIX', 'Agendado', 'Facade paymentOS'],
         parameters: [
@@ -863,7 +862,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/v1/pix/scheduled/{scheduleId}/execute',
+        path: '/v1/pix/scheduled/{scheduleId}/execute',
         summary: 'POST /v1/pix/scheduled/{id}/execute  (executar UM)',
         tags: ['PIX', 'Agendado', 'Facade paymentOS'],
         parameters: [
@@ -901,7 +900,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'DELETE',
-        path: '{baseUrl}/v1/pix/scheduled/{scheduleId}',
+        path: '/v1/pix/scheduled/{scheduleId}',
         summary: 'DELETE /v1/pix/scheduled/{schedule_id}  (cancelar)',
         tags: ['PIX', 'Agendado', 'Facade paymentOS'],
         parameters: [
@@ -947,7 +946,7 @@ export const paymentOsPixTedSections: ApiData[] = [
     endpoints: [
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/webhook/credito/validar',
+        path: '/jdpi/webhook/credito/validar',
         summary: 'POST /credito/validar  (9.3.1)',
         tags: ['PIX', 'Crédito Inbound', 'Webhook'],
         description: 'Validação síncrona de crédito a receber (pré-registro).',
@@ -988,7 +987,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/webhook/credito',
+        path: '/jdpi/webhook/credito',
         summary: 'POST /credito  (registrar — 9.3.2)',
         tags: ['PIX', 'Crédito Inbound', 'Webhook'],
         description:
@@ -1030,7 +1029,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/webhook/credito/devolucao',
+        path: '/jdpi/webhook/credito/devolucao',
         summary: 'POST /credito/devolucao  (return — 9.3.3)',
         tags: ['PIX', 'Crédito Inbound', 'Webhook'],
         description:
@@ -1072,7 +1071,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/jdpi/webhook/credito/validar/async',
+        path: '/jdpi/webhook/credito/validar/async',
         summary: 'POST /credito/validar/async  (9.3.4)',
         tags: ['PIX', 'Crédito Inbound', 'Webhook'],
         parameters: [
@@ -1121,7 +1120,7 @@ export const paymentOsPixTedSections: ApiData[] = [
     endpoints: [
       {
         method: 'POST',
-        path: '{baseUrl}/v1/ted',
+        path: '/v1/ted',
         summary: 'POST /v1/ted  INTERBANCARIO (TEDOUTBASA -> STR/cabine)',
         tags: ['TED'],
         description:
@@ -1162,7 +1161,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/v1/ted',
+        path: '/v1/ted',
         summary: 'POST /v1/ted  INTRA mesmo-ISPB (TEDIN -> core 999)  ✅',
         tags: ['TED'],
         description:
@@ -1203,7 +1202,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'GET',
-        path: '{baseUrl}/v1/ted/{tedTxId}',
+        path: '/v1/ted/{tedTxId}',
         summary: 'GET /v1/ted/{id}  (status)',
         tags: ['TED'],
         description:
@@ -1249,7 +1248,7 @@ export const paymentOsPixTedSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: '{baseUrl}/v1/ted/scheduled',
+        path: '/v1/ted/scheduled',
         summary: 'POST /v1/ted/scheduled  (agendar)',
         tags: ['TED'],
         description:
@@ -1299,7 +1298,7 @@ export const paymentOsPixTedSections: ApiData[] = [
     endpoints: [
       {
         method: 'GET',
-        path: '{baseUrl}/jdpi/spi/op/temenos-status/{paymentOrderId}',
+        path: '/jdpi/spi/op/temenos-status/{paymentOrderId}',
         summary: 'GET /op/temenos-status/{paymentOrderId}  ✅',
         tags: ['Transact', 'Status'],
         description:

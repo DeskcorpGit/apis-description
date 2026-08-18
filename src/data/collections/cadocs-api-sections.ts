@@ -82,7 +82,7 @@ export const cadocsApiSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: 'https://authorityos.allenty.io/api/v1/cadocs/documents/{docId}/convert',
+        path: '/api/v1/cadocs/documents/{docId}/convert',
         summary: 'converter Copy',
         tags: ['cadoc', '6209'],
         parameters: [
@@ -98,7 +98,7 @@ export const cadocsApiSections: ApiData[] = [
       },
       {
         method: 'GET',
-        path: 'https://authorityos.allenty.io/api/v1/cadocs/documents/{docId}/export',
+        path: '/api/v1/cadocs/documents/{docId}/export',
         summary: 'export Copy',
         tags: ['cadoc', '6209'],
         parameters: [
@@ -161,10 +161,17 @@ export const cadocsApiSections: ApiData[] = [
       },
       {
         method: 'GET',
-        path: 'https://authorityos.allenty.io/api/v1/cadocs/documents/8754fc06-51c4-4c07-a045-3682d6419f25/export',
+        path: '/api/v1/cadocs/documents/{docId}/export',
         summary: 'export Copy',
         tags: ['cadoc', '1201'],
         parameters: [
+          {
+            name: 'docId',
+            in: 'path',
+            required: true,
+            type: 'string',
+            description: 'ID do documento CADOC',
+          },
           {
             name: 'Authorization',
             in: 'header',
@@ -183,10 +190,17 @@ export const cadocsApiSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: 'https://authorityos.allenty.io/api/v1/cadocs/documents/5ca7d00b-bc98-4a2a-929b-cb48ec4f39b1/convert',
+        path: '/api/v1/cadocs/documents/{docId}/convert',
         summary: 'convert Copy',
         tags: ['cadoc', '1201'],
         parameters: [
+          {
+            name: 'docId',
+            in: 'path',
+            required: true,
+            type: 'string',
+            description: 'ID do documento CADOC',
+          },
           {
             name: 'X-Tenant-ID',
             in: 'header',
@@ -245,13 +259,13 @@ export const cadocsApiSections: ApiData[] = [
       },
       {
         method: 'POST',
-        path: 'https://authorityos.allenty.io/api/v1/cadocs/documents/{docId}/convert',
+        path: '/api/v1/cadocs/documents/{docId}/convert',
         summary: 'converter Copy 2',
         tags: ['cadoc', '5500'],
       },
       {
         method: 'GET',
-        path: 'https://authorityos.allenty.io/api/v1/cadocs/documents/{docId}/export',
+        path: '/api/v1/cadocs/documents/{docId}/export',
         summary: 'export Copy 2',
         tags: ['cadoc', '5500'],
         parameters: [

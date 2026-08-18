@@ -3,15 +3,14 @@ import type { ApiData } from '@/types/api';
 export const paymentosPixTedApiSections: ApiData[] = [
   {
     title: 'Autenticação',
-    baseUrl:
-      'https://uat.corebanxapp.com.br/auth/realms/ledgeros/protocol/openid-connect/token',
+    baseUrl: 'https://uat.corebanxapp.com.br',
     partner: 'Corebanx',
     description:
       'Endpoint de obtenção do token de acesso (OAuth2 Client Credentials) usado para autenticar as demais chamadas da API PaymentOS.',
     endpoints: [
       {
         method: 'POST',
-        path: '/',
+        path: '/auth/realms/ledgeros/protocol/openid-connect/token',
         summary: 'Auth - Token (client_credentials)',
         tags: ['_auth'],
         parameters: [
