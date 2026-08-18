@@ -34,22 +34,22 @@ jobs:
           FILES=$(find apis/ -type f \( -name "*.yaml" -o -name "*.yml" -o -name "*.json" \))
 
           if [ -z "$FILES" ]; then
-            echo "⚠️ Nenhum arquivo de API encontrado para validar."
+            echo "Nenhum arquivo de API encontrado para validar."
             exit 0
           fi
 
           HAS_ERROR=0
           for file in $FILES; do
-            echo "🔍 Validando sintaxe de: $file"
+            echo "Validando sintaxe de: $file"
             # O parâmetro --fail-severity=error garante que apenas ERROS CRÍTICOS travem o pipeline (ignorando warnings de boas práticas por enquanto)
             spectral lint "$file" --fail-severity=error || HAS_ERROR=1
           done
 
           if [ $HAS_ERROR -eq 1 ]; then
-            echo "❌ Falha na validação. Foram encontrados erros de sintaxe nas especificações acima."
+            echo "Falha na validação. Foram encontrados erros de sintaxe nas especificações acima."
             exit 1
           else
-            echo "✅ Todas as especificações estão válidas e seguem o padrão OpenAPI!"
+            echo "Todas as especificações estão válidas e seguem o padrão OpenAPI!"
           fi
 
       - name: Verificar Endpoints Duplicados
@@ -59,10 +59,10 @@ jobs:
           grep -hroE "^  /[a-zA-Z0-9/_{}-]+:" apis/ | sort | uniq -d > duplicados.txt
 
           if [ -s duplicados.txt ]; then
-            echo "❌ ALERTA: Foram encontrados endpoints duplicados nos arquivos do repositório:"
+            echo "ALERTA: Foram encontrados endpoints duplicados nos arquivos do repositório:"
             cat duplicados.txt
             echo "Por favor, unifique as rotas ou corrija os caminhos antes de fazer o merge."
             exit 1
           else
-            echo "✅ Nenhum endpoint duplicado encontrado."
+            echo "Nenhum endpoint duplicado encontrado."
           fi
