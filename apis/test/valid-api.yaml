@@ -1,0 +1,23 @@
+openapi: 3.0.3
+
+info:
+  title: API de Teste — Válida
+  description: Especificação mínima e válida para teste do pipeline CI.
+  version: 1.0.0
+
+paths:
+  /health:
+    get:
+      summary: Verificação de saúde da API
+      operationId: getHealth
+      responses:
+        '200':
+          description: API funcionando corretamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok

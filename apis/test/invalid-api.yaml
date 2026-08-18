@@ -1,0 +1,22 @@
+openapi: 3.0.3
+
+# ARQUIVO PROPOSITALMENTE INVÁLIDO — para teste do pipeline CI
+# Problemas introduzidos:
+#   1. Campo "info" ausente (obrigatório pelo OAS 3.0)
+#   2. Operação sem "responses" (obrigatório pelo OAS 3.0)
+#   3. Campo "operationId" duplicado
+
+paths:
+  /usuarios:
+    get:
+      summary: Listar usuários
+      operationId: listarItens
+      # "responses" ausente — viola a spec OAS
+
+  /produtos:
+    get:
+      summary: Listar produtos
+      operationId: listarItens   # operationId duplicado — viola a spec OAS
+      responses:
+        '200':
+          description: OK

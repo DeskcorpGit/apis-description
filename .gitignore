@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 # Markdown files
 *.md
+
+#spectral files
+*.spectral.yaml
