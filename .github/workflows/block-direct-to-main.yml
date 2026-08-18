@@ -1,9 +1,9 @@
-name: Bloquear PRs diretos para Main
+name: Bloquear PRs diretos para Master
 
 on:
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   check-source-branch:
@@ -13,10 +13,10 @@ jobs:
       - name: Validar se a origem é a dev
         if: github.head_ref != 'dev'
         run: |
-          echo "ERRO: Não é permitido enviar código direto para a main!"
+          echo "ERRO: Não é permitido enviar código direto para a master!"
           echo "Você deve enviar sua branch para a 'dev' primeiro."
           exit 1
 
       - name: Sucesso
         if: github.head_ref == 'dev'
-        run: echo "✅ A origem é a dev. PR liberado para análise!"
+        run: echo "A origem é a dev. PR liberado para análise!"
