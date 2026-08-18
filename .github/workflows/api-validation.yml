@@ -20,7 +20,7 @@ jobs:
           node-version: '20'
 
       - name: Instalar Linter (Spectral CLI)
-        run: npm install -g @stoplight/spectral-cli
+        run: npm install -g @stoplight/spectral-cli@6.11.1 --ignore-scripts
 
       - name: Configurar regras de validação (Spectral)
         run: |

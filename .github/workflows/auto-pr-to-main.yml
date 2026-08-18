@@ -50,22 +50,25 @@ jobs:
           if [ "$PR_EXISTS" -eq "0" ]; then
             echo "Nenhum PR aberto encontrado. Criando um novo PR..."
 
+            PR_TITLE="🚀 [Auto PR] dev → master — $COMMIT_MSG"
+            PR_BODY="## Pull Request automático
+
+          Este PR foi gerado automaticamente pelo workflow **auto-pr-to-main** após um push na branch \`dev\`.
+
+          ### Último commit
+          - **SHA:** \`$COMMIT_SHA\`
+          - **Autor:** $COMMIT_AUTHOR
+          - **Mensagem:** $COMMIT_MSG
+
+          ---
+          > ⚠️ **Revisão obrigatória pelo time de Arquitetura** conforme definido em \`CODEOWNERS\`.
+          > Não faça merge sem ao menos uma aprovação do grupo \`@deskcorp-git/arquitetura\`."
+
             gh pr create \
               --base master \
               --head dev \
-              --title "🚀 [Auto PR] dev → master — ${COMMIT_MSG}" \
-              --body "## Pull Request automático
-
-              Este PR foi gerado automaticamente pelo workflow **auto-pr-to-main** após um push na branch \`dev\`.
-
-              ### Último commit
-              - **SHA:** \`${COMMIT_SHA}\`
-              - **Autor:** ${COMMIT_AUTHOR}
-              - **Mensagem:** ${COMMIT_MSG}
-
-              ---
-              > ⚠️ **Revisão obrigatória pelo time de Arquitetura** conforme definido em \`CODEOWNERS\`.
-              > Não faça merge sem ao menos uma aprovação do grupo \`@deskcorp-git/arquitetura\`." \
+              --title "$PR_TITLE" \
+              --body "$PR_BODY" \
               --label "auto-pr,aguardando-revisão" \
               --reviewer "OtavioAraujoS,DeskcorpOtavio"
 
