@@ -27,3 +27,6 @@ dist-ssr
 
 #spectral files
 *.spectral.yaml
+
+# Env files
+*.env
