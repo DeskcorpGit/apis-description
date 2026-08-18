@@ -8,6 +8,7 @@ on:
 permissions:
   contents: read
   pull-requests: write
+  issues: write
 
 jobs:
   open-pr:
@@ -27,6 +28,14 @@ jobs:
           COUNT=$(git rev-list --count origin/master..HEAD)
           echo "commits_ahead=$COUNT" >> "$GITHUB_OUTPUT"
           echo "→ Commits à frente de master: $COUNT"
+
+      - name: Garantir labels existentes no repositório
+        if: steps.check_diff.outputs.commits_ahead != '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create "auto-pr" --description "PR criado automaticamente pelo CI" --color "0075ca" --force
+          gh label create "aguardando-revisão" --description "Aguardando revisão do time de Arquitetura" --color "e4e669" --force
 
       - name: Criar PR de dev → master
         if: steps.check_diff.outputs.commits_ahead != '0'
