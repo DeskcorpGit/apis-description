@@ -13,7 +13,7 @@ jobs:
       - name: Validar se a origem é a dev
         if: github.head_ref != 'dev'
         run: |
-          echo "ERRO: Não é permitido enviar código direto para a main!"
+          echo "ERRO: Não é permitido enviar código direto para a master!"
           echo "Você deve enviar sua branch para a 'dev' primeiro."
           exit 1
 
