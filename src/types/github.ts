@@ -22,6 +22,12 @@ export interface NewApiEntry {
   url: string;
 }
 
+export interface NewSwaggerSpecEntry {
+  title: string;
+  fileName: string;
+  fileContent: string;
+}
+
 export interface GitHubSession {
   token: string;
   user: GitHubUser;
