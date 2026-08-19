@@ -6,7 +6,7 @@ export function SwaggerDoc({
   activeSpec,
   setActiveSpec,
   SWAGGER_SPECS,
-}: {
+}: Readonly<{
   activeSpec: {
     name: string;
     url: string;
@@ -16,7 +16,7 @@ export function SwaggerDoc({
     name: string;
     url: string;
   }[];
-}) {
+}>) {
   return (
     <>
       <div>
@@ -33,6 +33,7 @@ export function SwaggerDoc({
           <div className="flex bg-[#f8f9fa] dark:bg-zinc-800 p-1 rounded-md border border-border shadow-sm">
             {SWAGGER_SPECS.map((spec) => (
               <button
+                type="button"
                 key={spec.url}
                 onClick={() => setActiveSpec(spec)}
                 className={cn(

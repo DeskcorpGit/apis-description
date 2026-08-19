@@ -6,20 +6,10 @@ import { SwaggerDoc } from '@/components/swagger/SwaggerDoc';
 import { ApiCard } from '@/components/swagger/ApiCard';
 import { AddApiDialog } from '@/components/swagger/AddApiDialog';
 import { Apis } from '@/links/Api';
-
-const SWAGGER_SPECS = [
-  {
-    name: 'APIs Externas BASA',
-    url: '/all-external-endpoints.openapi.json',
-  },
-  {
-    name: 'APIs Pix',
-    url: '/Collection Pix.yaml',
-  },
-];
+import { allApisDocCollections } from '../../apis';
 
 export function SwaggerPage() {
-  const [activeSpec, setActiveSpec] = useState(SWAGGER_SPECS[0]);
+  const [activeSpec, setActiveSpec] = useState(allApisDocCollections[0]);
   const [isSwaggerLink, setIsSwaggerLink] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -51,9 +41,8 @@ export function SwaggerPage() {
             </button>
             <button
               type="button"
-              disabled
               onClick={() => setIsSwaggerLink(false)}
-              className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-200 cursor-not-allowed`}
+              className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-200 cursor-pointer`}
             >
               <FileCode2 className="size-3.5" />
               Documentação Swagger
@@ -65,7 +54,10 @@ export function SwaggerPage() {
           <>
             <div className="flex items-center justify-between mb-4">
               <p className="text-xs text-muted-foreground">
-                {Apis.length} {Apis.length === 1 ? 'documentação disponível' : 'documentações disponíveis'}
+                {Apis.length}{' '}
+                {Apis.length === 1
+                  ? 'documentação disponível'
+                  : 'documentações disponíveis'}
               </p>
               <button
                 type="button"
@@ -86,7 +78,7 @@ export function SwaggerPage() {
           <SwaggerDoc
             activeSpec={activeSpec}
             setActiveSpec={setActiveSpec}
-            SWAGGER_SPECS={SWAGGER_SPECS}
+            SWAGGER_SPECS={allApisDocCollections}
           />
         )}
       </div>
@@ -95,4 +87,3 @@ export function SwaggerPage() {
     </div>
   );
 }
-
