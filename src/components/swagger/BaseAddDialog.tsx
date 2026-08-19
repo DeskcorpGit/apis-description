@@ -81,22 +81,22 @@ export function BaseAddDialog({
       ref={dialogRef}
       onCancel={(e) => e.preventDefault()}
       className={cn(
-        'w-full rounded-xl border border-border bg-background p-0 shadow-xl',
-        'mx-auto my-auto',
-        'backdrop:bg-black/50 backdrop:backdrop-blur-sm',
+        'w-[calc(100vw-2rem)] max-w-md rounded-xl border border-border bg-background p-0 shadow-2xl',
+        'mx-auto my-auto max-h-[90vh] overflow-y-auto custom-scrollbar',
+        'backdrop:bg-black/60 backdrop:backdrop-blur-xs',
         'open:animate-in open:fade-in open:zoom-in-95 open:duration-200',
         maxWidthClassName,
       )}
     >
-      <div className="flex items-center justify-between border-b border-border px-5 py-4">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between border-b border-border px-4 py-3 sm:px-5 sm:py-4 min-w-0">
+        <div className="flex items-center gap-2 min-w-0">
           {icon}
-          <h2 className="text-sm font-semibold">{title}</h2>
+          <h2 className="text-sm font-semibold truncate">{title}</h2>
         </div>
         <button
           type="button"
           onClick={handleClose}
-          className="rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+          className="rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors shrink-0 cursor-pointer"
           aria-label="Fechar"
         >
           <X className="size-4" />
@@ -105,7 +105,7 @@ export function BaseAddDialog({
 
       <StepIndicator currentStep={currentStep} />
 
-      <div className="px-5 py-5">
+      <div className="px-4 py-4 sm:px-5 sm:py-5 min-w-0">
         {currentStep === 'auth' && (
           <AuthStep
             onAuthenticate={async (token) => {
