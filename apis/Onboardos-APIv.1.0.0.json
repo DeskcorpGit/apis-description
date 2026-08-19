@@ -1,0 +1,722 @@
+openapi: 3.0.3
+info:
+  title: Onboardos-API v.1.0.0
+  description: API convertida a partir de Collection Postman.
+  version: 1.0.0
+servers:
+  - url: https://api.example.com
+paths:
+  /v1/onboarding/entities:
+    post:
+      summary: Create Entity
+      tags:
+        - Entity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              cpf: "08747201096"
+              password: "123456"
+              phone:
+                ddd: "91"
+                number: "988887777"
+              documents:
+                - documentName: POLITICA DE PRIVACIDADE
+                  documentVersion: "1.1"
+                - documentName: POLITICA DE SEGURANCA
+                  documentVersion: v2.3
+                - documentName: TERMO DE ABERTURA
+                  documentVersion: "3"
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/onboarding/accept-terms:
+    post:
+      summary: Accept Terms
+      tags:
+        - Entity
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/onboarding/pep-declaration:
+    post:
+      summary: PEP Declaration
+      tags:
+        - Entity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              is_pep: true
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/onboarding/identity-documents:
+    put:
+      summary: Update Identity Documents
+      tags:
+        - Entity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              rg_number: "123566789"
+              rg_issuer: SSP-SP
+              rg_issued_date: 2000-03-12
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/onboarding/demographics:
+    put:
+      summary: Update Person
+      description: "Generated from cURL: curl -X PUT
+        http://localhost:8080/v1/onboarding/demographics \\\r
+
+        \  -H \"Authorization: Bearer SEU_TOKEN_JWT\" \\\r
+
+        \  -H \"Content-Type: application/json\" \\\r
+
+        \  -d '{\r
+
+        \    \"first_name\": \"João\",\r
+
+        \    \"last_name\": \"Silva\",\r
+
+        \    \"date_of_birth\": \"1990-05-15\",\r
+
+        \    \"father_name\": \"Antônio Silva\",\r
+
+        \    \"mother_name\": \"Maria Silva\",\r
+
+        \    \"gender\": \"male\",\r
+
+        \    \"marital_status\": \"single\",\r
+
+        \    \"education_level\": \"bachelors\",\r
+
+        \    \"occupation\": \"Software Engineer\",\r
+
+        \    \"email\": \"joao.silva@example.com\",\r
+
+        \    \"nationality\": \"Brasileiro\",\r
+
+        \    \"country_birth\": \"Brasil\",\r
+
+        \    \"state_birth\": \"PA\",\r
+
+        \    \"city_of_birth\": \"Belém\",\r
+
+        \    \"phone\": {\r
+
+        \      \"ddd\": \"91\",\r
+
+        \      \"number\": \"988887777\"\r
+
+        \    },\r
+
+        \    \"address\": {\r
+
+        \      \"zip_code\": \"66000-000\",\r
+
+        \      \"street_name\": \"Avenida Nazaré\",\r
+
+        \      \"number\": \"1000\",\r
+
+        \      \"complement\": \"Apto 101\",\r
+
+        \      \"district\": \"Nazaré\",\r
+
+        \      \"city\": \"Belém\",\r
+
+        \      \"state\": \"PA\",\r
+
+        \      \"country\": \"Brasil\"\r
+
+        \    },\r
+
+        \    \"financial\": {\r
+
+        \      \"occupation\": \"Desenvolvedor\",\r
+
+        \      \"monthly_income\": 5000.50,\r
+
+        \      \"patrimony\": 150000.00,\r
+
+        \      \"basa_employee\": false\r
+
+        \    }\r
+
+        \  }'\r\n"
+      tags:
+        - Entity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              date_of_birth: 1990-05-15
+              first_name: Maria
+              last_name: Silva
+              father_name: Carlos Silva
+              mother_name: Ana Silva
+              gender: FEMALE
+              gender_identity: FEMALE
+              pronoun: SHE_HER
+              sexual_orientation: HETEROSEXUAL
+              marital_status: SINGLE
+              education_level: UNDERGRADUATE_COMPLETE
+              address:
+                zip_code: "01310100"
+                street_name: Av Paulista
+                number: "1000"
+                complement: Apto 42
+                district: Bela Vista
+                city: Sao Paulo
+                state: SP
+                country: BR
+              financial:
+                occupation: "123456"
+                monthly_income: 15000
+                patrimony: 200000
+                basa_employee: false
+              email: maria.silva@example.com
+              nationality: BRASILEIRA
+              country_birth: BR
+              state_birth: SP
+              city_of_birth: Sao Paulo
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/onboarding/submit:
+    post:
+      summary: Confirm Submit
+      tags:
+        - Entity
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/onboarding/info:
+    get:
+      summary: Get Info
+      tags:
+        - Entity
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/onboarding/check-cpf:
+    post:
+      summary: Check CPF
+      tags:
+        - Entity
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+            example: |-
+              {
+                "cpf": {{cpf}}
+              }
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/onboarding/reset/entity:
+    post:
+      summary: Reset Entity
+      description: "Generated from cURL: curl -X POST
+        http://localhost:8080/v1/onboarding/reset \\\r
+
+        \  -H \"Authorization: Bearer <TOKEN_JWT>\" \\\r
+
+        \  -H \"Content-Type: application/json\" \\\r
+
+        \  -d '{ \"reason\": \"Refazendo com novos documentos\" }'\r\n"
+      tags:
+        - Entity
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/onboarding/threat-metrix:
+    post:
+      summary: Send SessionID
+      description: "Generated from cURL: curl -X POST
+        \"http://localhost:8080/v1/onboarding/threat-metrix?session_id=sua_sess\
+        ion_id_do_threat_metrix\" \\\r
+
+        \  -H \"Authorization: Bearer <seu_token_jwt_aqui>\"\r\n"
+      tags:
+        - Entity
+      parameters:
+        - name: session_id
+          in: query
+          required: false
+          schema:
+            type: string
+          example: "{{session_id}}"
+        - name: ip_address
+          in: query
+          required: false
+          schema:
+            type: string
+          example: "{{ip_address}}"
+        - name: web_session_id
+          in: query
+          required: false
+          schema:
+            type: string
+          example: "{{web_session_id}}"
+        - name: Authorization
+          in: header
+          required: false
+          schema:
+            type: string
+          example: Bearer <seu_token_jwt_aqui>
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/onboarding/bcp/retry:
+    post:
+      summary: Retry BCP
+      tags:
+        - Entity
+      parameters:
+        - name: token
+          in: query
+          required: false
+          schema:
+            type: string
+          example: Zbz-OL0xTJog-Eqt-I76tdCA-K3AZxQrTTu3zRyUpEQ
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/documents/inss:
+    post:
+      summary: INSS
+      description: |-
+        Generated from cURL: curl -X POST "$BASE/v1/documents/proof/inss" \
+          -H "Authorization: Bearer $TOKEN" \
+          -F "file=@inss.pdf"
+      tags:
+        - Documents
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/documents/dap:
+    post:
+      summary: Dap
+      description: |-
+        Generated from cURL: curl -X POST "$BASE/v1/documents/proof/dap" \
+          -H "Authorization: Bearer $TOKEN" \
+          -F "file=@dap.pdf"
+      tags:
+        - Documents
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/documents/proof-income:
+    post:
+      summary: Proof Income
+      description: "Generated from cURL: curl -X POST
+        http://localhost:8092/v1/documents/proof/income \\\r
+
+        \  -H \"Authorization: Bearer SEU_TOKEN_AQUI\" \\\r
+
+        \  -F \"file=@/caminho/para/seu/comprovante_renda.pdf\"\r\n"
+      tags:
+        - Documents
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/documents/proof-assets:
+    post:
+      summary: Proof Assets
+      description: "Generated from cURL: curl -X POST
+        http://localhost:8092/v1/documents/proof/assets \\\r
+
+        \  -H \"Authorization: Bearer SEU_TOKEN_AQUI\" \\\r
+
+        \  -F \"file=@/caminho/para/seu/comprovante_patrimonio.pdf\"\r\n"
+      tags:
+        - Documents
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/documents/proofs:
+    get:
+      summary: "Get Documents "
+      description: 'Generated from cURL: curl "$BASE/v1/documents/proofs" -H
+        "Authorization: Bearer $TOKEN"'
+      tags:
+        - Documents
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/documents/dirf:
+    post:
+      summary: DIRF
+      description: >-
+        Generated from cURL: curl -X POST "$BASE/v1/documents/dirf" -H
+        "Authorization: Bearer $TOKEN" \
+          -F "file=@dirf.pdf" -F "qtd_dependentes=2" -F "cpf_conjuge=98765432100"
+      tags:
+        - Documents
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                qtd_dependentes:
+                  type: string
+                  example: "2"
+                cpf_conjuge:
+                  type: string
+                  example: "98765432100"
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/documents/caf:
+    post:
+      summary: CAF
+      description: >-
+        Generated from cURL: curl -X POST "$BASE/v1/documents/caf" -H
+        "Authorization: Bearer $TOKEN" \
+          -F "file=@caf.pdf" -F "municipio_uf_estabelecimento=PA"
+      tags:
+        - Documents
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          schema:
+            type: string
+          example: Bearer $TOKEN
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                municipio_uf_estabelecimento:
+                  type: string
+                  example: PA
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/documents/pay-slip:
+    post:
+      summary: Pay Slip
+      description: >-
+        Generated from cURL: curl -X POST "$BASE/v1/documents/pay-slip" -H
+        "Authorization: Bearer $TOKEN" \
+          -F "file=@contracheque.pdf" \
+          -F "cnpj_fonte_pagadora=12345678000199" -F "nome_empregador=ACME" \
+          -F "nome_funcionario=Maria" -F "data_admissao=01/02/2020"
+      tags:
+        - Documents
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                cnpj_fonte_pagadora:
+                  type: string
+                  example: "12345678000199"
+                nome_empregador:
+                  type: string
+                  example: ACME
+                nome_funcionario:
+                  type: string
+                  example: Maria
+                data_admissao:
+                  type: string
+                  example: 01/02/2020
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/webhook/confirmSubmit:
+    post:
+      summary: Webhook Confirm Subimit (valid)
+      tags:
+        - Webhook
+      parameters:
+        - name: provider
+          in: query
+          required: false
+          schema:
+            type: string
+          example: valid
+        - name: entityId
+          in: query
+          required: false
+          schema:
+            type: string
+          example: "{{entity_id}}"
+        - name: operationId
+          in: query
+          required: false
+          schema:
+            type: string
+          example: "{{document_id}}"
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/webhook/verification/valid:
+    post:
+      summary: Webhook Valid
+      tags:
+        - Webhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              id: 13fb64fd-2b7e-4c3a-8ee4-49a17fe22843
+              organizationId: 019f956d-0ecd-7629-b154-e4b4adfb4e4b
+              projectId: 019fa542-86eb-74f9-ba3e-07bf4add3aff
+              productId: 019e4b63-0314-71ed-aec9-7cf94322ace7
+              cpf: "78723187093"
+              status: COMPLETED
+              type: docs
+              createdAt: 2026-07-31T16:59:24.815Z
+              updatedAt: 2026-07-31T17:15:03.705Z
+              sentAt: 2026-07-31T16:59:24.815Z
+              sentToBackofficeAt: 2026-07-31T16:59:25.942Z
+              finishedAt: 2026-07-31T17:15:03.704Z
+              errorMessage: null
+              errorCode: null
+              backofficeBatchId: "130956089"
+              requestId: 9954b98c-7403-4308-9b3e-2dd1fd5a14eb
+              name: EDUARDO TRINDADE BORGES
+              workflowPresetAlias: documentoscopia_auto_base_face_15min
+              result:
+                id: 423d38dc-69a5-4354-8393-22b1e3314588
+                documentId: 13fb64fd-2b7e-4c3a-8ee4-49a17fe22843
+                status: REJECTED
+                confidenceScore: 0
+                raw_response:
+                  cpf: "78723187093"
+                  docs:
+                    - keys: []
+                      type: selfie
+                      docId: 40903059
+                    - keys:
+                        - value: EDUARDO TRINDADE BORGES
+                          keyName: Nome
+                          keyAlias: nome
+                        - value: DAIANE TRINDADE BORGES
+                          keyName: Filiação Mãe
+                          keyAlias: filiacao_mae
+                        - value: "11835568963"
+                          keyName: CPF
+                          keyAlias: cpf
+                        - value: 17/02/2033
+                          keyName: Data Validade
+                          keyAlias: data_validade
+                        - value: 14/04/2023
+                          keyName: Data Emissão
+                          keyAlias: data_emissao
+                        - value: DETRAN
+                          keyName: Órgão Emissor
+                          keyAlias: orgao_emissor
+                        - value: PR
+                          keyName: Detran UF
+                          keyAlias: detran_uf
+                        - value: "131949618"
+                          keyName: Número RG
+                          keyAlias: doc_identidade_numero
+                        - value: SESP
+                          keyName: Órgão Expedidor RG
+                          keyAlias: doc_identidade_orgao
+                        - value: PR
+                          keyName: UF Órgão Expedidor RG
+                          keyAlias: doc_identidade_uf
+                        - value: JOAO PAULO BORGES
+                          keyName: Filiação Pai
+                          keyAlias: filiacao_pai
+                        - value: PR923097795
+                          keyName: Renach
+                          keyAlias: security_code_2
+                        - value: "2587535978"
+                          keyName: Número Espelho
+                          keyAlias: num_espelho
+                        - value: "90643746154"
+                          keyName: Número Segurança
+                          keyAlias: security_code_1
+                        - value: 26/12/1999
+                          keyName: Data Nascimento
+                          keyAlias: data_nascimento
+                        - value: 22/05/2018
+                          keyName: Data Habilitação
+                          keyAlias: data_habilitacao
+                        - value: "07058257759"
+                          keyName: Número Registro
+                          keyAlias: num_registro
+                      type: cnh
+                      docId: 40903058
+                      docName: Documento de Identidade
+                      docType: doc_identidade
+                  result: 2
+                  checklist: []
+                  data_inicio: 31/07/2026 13:59:25
+                  external_id: 9954b98c-7403-4308-9b3e-2dd1fd5a14eb
+                  penalidades:
+                    - data: 31/07/2026 17:14:58
+                      desc: (RF_01) Não foi possível pesquisar CPF informado (78723187093) na RF
+                      rule: rf_01
+                      type: 1
+                      score: 100
+                    - data: 31/07/2026 17:14:58
+                      desc: (OCR_01) CPF obtido no OCR do documento (11835568963) é diferente de nulo
+                        e divergente com CPF informado (78723187093)
+                      rule: ocr_01
+                      type: 1
+                      score: 100
+                  tipo_documento: CNH
+                  codigo_controle: 130956089
+                  codigo_rejeicao: []
+                  indice_facematch: "1"
+                  indice_avaliacao_autenticidade: "0"
+                processedBy: backoffice
+                createdAt: 2026-07-31T17:15:03.705Z
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/kyc/onboardings:
+    get:
+      summary: List Onboardings by Tenant
+      tags:
+        - Backoffice
+      parameters:
+        - name: tenant_id
+          in: query
+          required: false
+          schema:
+            type: string
+          example: "{{tenant_id}}"
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: string
+          example: "2"
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: string
+          description: max 100
+          example: "20"
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/kyc/onboardings/{onboarding_id}/reject:
+    post:
+      summary: Reject Onboarding
+      tags:
+        - Backoffice
+      parameters:
+        - name: onboarding_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              reason: fraudulent documents
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/kyc/onboardings/{onboarding_id}/approve:
+    post:
+      summary: Approve Onboarding
+      tags:
+        - Backoffice
+      parameters:
+        - name: onboarding_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /v1/documents/neobiz/{entity_id}:
+    get:
+      summary: Get Entity Documents
+      tags:
+        - Backoffice
+      parameters:
+        - name: entity_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
