@@ -40,13 +40,13 @@ export function EndpointRequestExample({
   }, [curlText]);
 
   return (
-    <div>
-      <div className="bg-[#1E1E1E] rounded-md shadow-md overflow-hidden flex flex-col">
-        <div className="flex items-center justify-between px-4 py-2 bg-[#2d3133] border-b border-[#414751]">
-          <span className="text-white text-xs font-semibold">
+    <div className="min-w-0 max-w-full">
+      <div className="bg-[#1E1E1E] rounded-md shadow-md overflow-hidden flex flex-col min-w-0">
+        <div className="flex items-center justify-between px-4 py-2 bg-[#2d3133] border-b border-[#414751] gap-2">
+          <span className="text-white text-xs font-semibold shrink-0">
             Exemplo de Request
           </span>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             <span className="text-gray-400 text-xs font-mono">cURL</span>
             <button
               type="button"
@@ -74,7 +74,7 @@ export function EndpointRequestExample({
             </button>
           </div>
         </div>
-        <div className="p-4 overflow-x-auto code-scroll">
+        <div className="p-4 overflow-x-auto code-scroll min-w-0">
           <pre className="font-mono text-[13px] text-[#d1e4fb] leading-relaxed whitespace-pre">
             {curlText}
           </pre>

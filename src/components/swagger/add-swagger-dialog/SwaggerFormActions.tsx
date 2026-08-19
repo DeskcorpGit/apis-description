@@ -18,14 +18,14 @@ export function SwaggerFormActions({
   const isLoading = submitStatus === 'loading';
 
   return (
-    <div className="flex gap-2 pt-1">
+    <div className="flex flex-wrap sm:flex-nowrap gap-2 pt-1 min-w-0">
       <Button
         type="button"
         variant="outline"
         size="sm"
         onClick={onBack}
         disabled={isLoading}
-        className="gap-1"
+        className="gap-1 shrink-0"
       >
         <ArrowLeft className="size-3.5" />
         Voltar
@@ -34,7 +34,7 @@ export function SwaggerFormActions({
         type="button"
         variant="destructive"
         size="sm"
-        className="flex-1"
+        className="flex-1 sm:flex-none"
         onClick={onClose}
         disabled={isLoading}
       >
@@ -44,7 +44,7 @@ export function SwaggerFormActions({
         type="submit"
         size="sm"
         disabled={isLoading || !hasFileContent}
-        className="flex-1 gap-1.5 bg-brand-green hover:bg-brand-green/80 text-white"
+        className="flex-1 gap-1.5 bg-brand-green hover:bg-brand-green/80 text-white min-w-32.5"
       >
         {isLoading ? (
           <Loader2 className="size-3.5 animate-spin" />

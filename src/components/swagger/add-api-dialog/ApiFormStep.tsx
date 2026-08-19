@@ -5,9 +5,18 @@ import { Input } from '@/components/ui/input';
 import { FormField } from '@/components/swagger/add-api-dialog/FormField';
 import { UserBadge } from '@/components/swagger/add-api-dialog/UserBadge';
 import { validateApiForm } from '@/utils/addApiValidation';
-import type { AddApiFormState, ApiFormStepProps, RequestStatus } from '@/types/addApi';
+import type {
+  AddApiFormState,
+  ApiFormStepProps,
+  RequestStatus,
+} from '@/types/addApi';
 
-const EMPTY_FORM: AddApiFormState = { title: '', company: '', function: '', url: '' };
+const EMPTY_FORM: AddApiFormState = {
+  title: '',
+  company: '',
+  function: '',
+  url: '',
+};
 
 export function ApiFormStep({
   session,
@@ -40,7 +49,11 @@ export function ApiFormStep({
       });
       onSuccess(result);
     } catch (err) {
-      setSubmitError(err instanceof Error ? err.message : 'Erro desconhecido. Tente novamente.');
+      setSubmitError(
+        err instanceof Error
+          ? err.message
+          : 'Erro desconhecido. Tente novamente.',
+      );
       setSubmitStatus('error');
     }
   }
@@ -68,7 +81,11 @@ export function ApiFormStep({
         />
       </FormField>
 
-      <FormField label="Empresa / Fornecedor" id="api-company" error={formErrors.company}>
+      <FormField
+        label="Empresa / Fornecedor"
+        id="api-company"
+        error={formErrors.company}
+      >
         <Input
           id="api-company"
           placeholder="ex: CoreBanx"
@@ -78,7 +95,11 @@ export function ApiFormStep({
         />
       </FormField>
 
-      <FormField label="Função / Categoria" id="api-function" error={formErrors.function}>
+      <FormField
+        label="Função / Categoria"
+        id="api-function"
+        error={formErrors.function}
+      >
         <Input
           id="api-function"
           placeholder="ex: Payments"
@@ -88,7 +109,11 @@ export function ApiFormStep({
         />
       </FormField>
 
-      <FormField label="URL da documentação" id="api-url" error={formErrors.url}>
+      <FormField
+        label="URL da documentação"
+        id="api-url"
+        error={formErrors.url}
+      >
         <Input
           id="api-url"
           type="url"
@@ -105,14 +130,14 @@ export function ApiFormStep({
         </div>
       )}
 
-      <div className="flex gap-2 pt-1">
+      <div className="flex flex-wrap sm:flex-nowrap gap-2 pt-1 min-w-0">
         <Button
           type="button"
           variant="outline"
           size="sm"
           onClick={onBack}
           disabled={submitStatus === 'loading'}
-          className="gap-1"
+          className="gap-1 shrink-0"
         >
           <ArrowLeft className="size-3.5" />
           Voltar
@@ -121,7 +146,7 @@ export function ApiFormStep({
           type="button"
           variant="destructive"
           size="sm"
-          className="flex-1"
+          className="flex-1 sm:flex-none"
           onClick={onClose}
           disabled={submitStatus === 'loading'}
         >
@@ -131,7 +156,7 @@ export function ApiFormStep({
           type="submit"
           size="sm"
           disabled={submitStatus === 'loading'}
-          className="flex-1 gap-1.5 bg-brand-green hover:bg-brand-green/80 text-white"
+          className="flex-1 gap-1.5 bg-brand-green hover:bg-brand-green/80 text-white min-w-32.5"
         >
           {submitStatus === 'loading' ? (
             <Loader2 className="size-3.5 animate-spin" />
