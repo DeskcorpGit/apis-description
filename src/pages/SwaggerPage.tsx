@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { SwaggerDoc } from '@/components/swagger/SwaggerDoc';
 import { ApiCard } from '@/components/swagger/ApiCard';
 import { AddApiDialog } from '@/components/swagger/AddApiDialog';
+import { AddSwaggerDialog } from '@/components/swagger/AddSwaggerDialog';
 import { Apis } from '@/links/Api';
 import { allApisDocCollections } from '../../apis';
 
@@ -12,6 +13,7 @@ export function SwaggerPage() {
   const [activeSpec, setActiveSpec] = useState(allApisDocCollections[0]);
   const [isSwaggerLink, setIsSwaggerLink] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [swaggerDialogOpen, setSwaggerDialogOpen] = useState(false);
 
   return (
     <div className="animate-in fade-in duration-500">
@@ -42,7 +44,11 @@ export function SwaggerPage() {
             <button
               type="button"
               onClick={() => setIsSwaggerLink(false)}
-              className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-200 cursor-pointer`}
+              className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-200 cursor-pointer ${
+                !isSwaggerLink
+                  ? 'bg-brand-green text-white shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
             >
               <FileCode2 className="size-3.5" />
               Documentação Swagger
@@ -79,11 +85,16 @@ export function SwaggerPage() {
             activeSpec={activeSpec}
             setActiveSpec={setActiveSpec}
             SWAGGER_SPECS={allApisDocCollections}
+            onAddFile={() => setSwaggerDialogOpen(true)}
           />
         )}
       </div>
 
       <AddApiDialog open={dialogOpen} onClose={() => setDialogOpen(false)} />
+      <AddSwaggerDialog
+        open={swaggerDialogOpen}
+        onClose={() => setSwaggerDialogOpen(false)}
+      />
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import {
   getApiFileContent,
   submitApiPullRequest,
+  submitSwaggerPullRequest,
   validateToken,
 } from '@/services/github';
 import type {
@@ -9,6 +10,7 @@ import type {
   GitHubSession,
   GitHubUser,
   NewApiEntry,
+  NewSwaggerSpecEntry,
   PullRequestResult,
 } from '@/types/github';
 
@@ -19,6 +21,10 @@ export interface UseGithubReturn {
   login: (token: string) => Promise<void>;
   logout: () => void;
   submitApi: (entry: NewApiEntry) => Promise<PullRequestResult>;
+  submitSwaggerSpec: (
+    entry: NewSwaggerSpecEntry,
+    specInfo?: { specType: string; version: string },
+  ) => Promise<PullRequestResult>;
   validateUserToken: (token: string) => Promise<GitHubUser>;
   fetchApiFile: () => Promise<FileContent>;
 }
@@ -56,9 +62,25 @@ export function useGithub(): UseGithubReturn {
     [session],
   );
 
-  const validateUserToken = useCallback(async (token: string): Promise<GitHubUser> => {
-    return validateToken(token.trim());
-  }, []);
+  const submitSwaggerSpec = useCallback(
+    async (
+      entry: NewSwaggerSpecEntry,
+      specInfo?: { specType: string; version: string },
+    ): Promise<PullRequestResult> => {
+      if (!session) {
+        throw new Error('Sessão do GitHub não autenticada.');
+      }
+      return submitSwaggerPullRequest(session.token, entry, specInfo);
+    },
+    [session],
+  );
+
+  const validateUserToken = useCallback(
+    async (token: string): Promise<GitHubUser> => {
+      return validateToken(token.trim());
+    },
+    [],
+  );
 
   const fetchApiFile = useCallback(async (): Promise<FileContent> => {
     if (!session) {
@@ -72,6 +94,7 @@ export function useGithub(): UseGithubReturn {
     login,
     logout,
     submitApi,
+    submitSwaggerSpec,
     validateUserToken,
     fetchApiFile,
   };

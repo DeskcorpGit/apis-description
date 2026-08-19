@@ -33,6 +33,17 @@ export interface AddSwaggerFormState {
   convertedFromPostman?: boolean;
 }
 
+export type SwaggerFormErrorKey =
+  | 'title'
+  | 'fileName'
+  | 'fileContent'
+  | 'format'
+  | 'specType'
+  | 'version'
+  | 'file';
+
+export type SwaggerFormErrors = Partial<Record<SwaggerFormErrorKey, string>>;
+
 export interface AddSwaggerDialogProps {
   readonly open: boolean;
   readonly onClose: () => void;

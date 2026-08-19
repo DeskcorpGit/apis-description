@@ -1,27 +1,25 @@
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils';
 
-export function StatusCodeIndicator({ code }: { code: string }) {
-  const numericCode = parseInt(code, 10)
-  const statusGroup = Math.floor(numericCode / 100)
-  let colorClass = "bg-muted-foreground"
+function getStatusColorClass(numericCode: number): string {
+  const statusGroup = Math.floor(numericCode / 100);
 
   switch (statusGroup) {
     case 2:
-      colorClass = "bg-brand-green"
-      break
+      return 'bg-brand-green';
     case 3:
-      colorClass = "bg-amber-500"
-      break
+      return 'bg-amber-500';
     case 4:
-      colorClass = "bg-orange-500"
-      break
+      return 'bg-orange-500';
     case 5:
-      colorClass = "bg-red-500"
-      break
+      return 'bg-red-500';
     default:
-      colorClass = "bg-muted-foreground"
-      break
+      return 'bg-muted-foreground';
   }
+}
 
-  return <span className={cn("size-2 rounded-full shrink-0", colorClass)} />
+export function StatusCodeIndicator({ code }: Readonly<{ code: string }>) {
+  const numericCode = Number.parseInt(code, 10);
+  const colorClass = getStatusColorClass(numericCode);
+
+  return <span className={cn('size-2 rounded-full shrink-0', colorClass)} />;
 }

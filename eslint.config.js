@@ -21,11 +21,14 @@ export default defineConfig([
     rules: {
       'react-refresh/only-export-components': [
         'warn',
-        {
-          allowConstantExport: true,
-          extraHOCs: ['lazy'],
-        },
+        { allowConstantExport: true },
       ],
+    },
+  },
+  {
+    files: ['src/components/ui/**/*.{ts,tsx}', 'src/routes.tsx'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
     },
   },
 ]);
