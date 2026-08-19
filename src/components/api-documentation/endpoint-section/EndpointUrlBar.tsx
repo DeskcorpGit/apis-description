@@ -1,6 +1,6 @@
-import { useState, useCallback } from "react";
-import { Copy, CheckCircle2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useState, useCallback } from 'react';
+import { Copy, CheckCircle2 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface EndpointUrlBarProps {
   method: string;
@@ -10,11 +10,11 @@ interface EndpointUrlBarProps {
 }
 
 const methodStyles: Record<string, string> = {
-  GET: "bg-brand-green text-white",
-  POST: "bg-blue-700 text-white",
-  PUT: "bg-orange-600 text-white",
-  PATCH: "bg-amber-600 text-white",
-  DELETE: "bg-red-600 text-white",
+  GET: 'bg-brand-green text-white',
+  POST: 'bg-blue-700 text-white',
+  PUT: 'bg-orange-600 text-white',
+  PATCH: 'bg-amber-600 text-white',
+  DELETE: 'bg-red-600 text-white',
 };
 
 export function EndpointUrlBar({
@@ -22,7 +22,7 @@ export function EndpointUrlBar({
   baseUrl,
   path,
   krakendUrl,
-}: EndpointUrlBarProps) {
+}: Readonly<EndpointUrlBarProps>) {
   const [copied, setCopied] = useState(false);
   const [copiedKrakend, setCopiedKrakend] = useState(false);
   const fullUrl = baseUrl ? `${baseUrl}${path}` : path;
@@ -44,20 +44,20 @@ export function EndpointUrlBar({
   }, [krakendUrl]);
 
   return (
-    <div className="mb-8">
+    <div className="mb-8 min-w-0 max-w-full">
       <div className="flex items-center gap-2 mb-3">
         <span
           className={cn(
-            "px-3 py-1 rounded-sm font-bold text-xs tracking-wider font-mono",
-            methodStyles[method] || "bg-gray-600 text-white",
+            'px-3 py-1 rounded-sm font-bold text-xs tracking-wider font-mono',
+            methodStyles[method] || 'bg-gray-600 text-white',
           )}
         >
           {method}
         </span>
       </div>
-      <div className="flex flex-col gap-2">
-        <div className="bg-[#f8f9fa] dark:bg-zinc-800 border border-border rounded-sm shadow-sm p-4 text-foreground font-mono text-sm break-all flex items-center justify-between gap-3 group/url">
-          <div className="min-w-0">
+      <div className="flex flex-col gap-2 min-w-0">
+        <div className="bg-[#f8f9fa] dark:bg-zinc-800 border border-border rounded-sm shadow-sm p-4 text-foreground font-mono text-sm break-all flex items-center justify-between gap-3 group/url min-w-0">
+          <div className="min-w-0 flex-1 break-all">
             {krakendUrl && (
               <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider font-semibold">
                 Original URL
@@ -69,6 +69,7 @@ export function EndpointUrlBar({
             <span className="font-semibold">{path}</span>
           </div>
           <button
+            type="button"
             onClick={handleCopy}
             className="shrink-0 opacity-0 group-hover/url:opacity-100 transition-opacity p-1 rounded hover:bg-muted"
             aria-label="Copiar URL"
@@ -82,9 +83,9 @@ export function EndpointUrlBar({
         </div>
 
         {krakendUrl && (
-          <div className="bg-[#f8f9fa] dark:bg-zinc-800 border-l-2 border-brand-green border-y border-r border-y-border border-r-border rounded-sm shadow-sm p-4 text-foreground font-mono text-sm break-all flex items-center justify-between gap-3 group/url2">
-            <div className="min-w-0">
-              <div className="text-xs text-brand-green dark:text-green-500 mb-1 uppercase tracking-wider font-semibold flex items-center gap-2">
+          <div className="bg-[#f8f9fa] dark:bg-zinc-800 border-l-2 border-brand-green border-y border-r border-y-border border-r-border rounded-sm shadow-sm p-4 text-foreground font-mono text-sm break-all flex items-center justify-between gap-3 group/url2 min-w-0">
+            <div className="min-w-0 flex-1 break-all">
+              <div className="text-xs text-brand-green dark:text-green-500 mb-1 uppercase tracking-wider font-semibold flex items-center gap-2 flex-wrap">
                 <span>Novo Gateway — KrakenD</span>
                 <span className="bg-brand-green/10 text-brand-green dark:text-green-500 px-1.5 py-0.5 rounded-sm text-[10px]">
                   Recomendado
@@ -93,6 +94,7 @@ export function EndpointUrlBar({
               <span className="font-semibold">{krakendUrl}</span>
             </div>
             <button
+              type="button"
               onClick={handleCopyKrakend}
               className="shrink-0 opacity-0 group-hover/url2:opacity-100 transition-opacity p-1 rounded hover:bg-muted"
               aria-label="Copiar URL KrakenD"

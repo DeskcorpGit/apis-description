@@ -27,12 +27,12 @@ export function AppLayout() {
   }, [isDarkMode]);
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-background text-foreground transition-colors duration-300">
+    <div className="min-h-screen w-full overflow-x-hidden bg-gray-100 dark:bg-background text-foreground transition-colors duration-300">
       <Sidebar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
       <SidebarMobile isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
 
-      <main className="lg:ml-72 min-h-screen pt-16 lg:pt-0">
-        <div className="p-6 lg:p-10 lg:pr-12">
+      <main className="lg:ml-72 xl:ml-80 min-h-screen min-w-0 max-w-full pt-16 lg:pt-0">
+        <div className="p-4 sm:p-6 lg:p-10 lg:pr-12 max-w-full min-w-0">
           <Suspense fallback={<div className="flex justify-center items-center h-64"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div></div>}>
             <Outlet />
           </Suspense>

@@ -9,6 +9,8 @@ const SPECTRAL_BIN = process.platform === 'win32' ? 'npx.cmd' : 'npx';
 const SPECTRAL_ARGS = [
   '@stoplight/spectral-cli@6.11.1',
   'lint',
+  '--ruleset',
+  SPECTRAL_YAML,
   '--fail-severity=error',
 ];
 
@@ -63,7 +65,7 @@ for (const file of files) {
 
   const result = spawnSync(SPECTRAL_BIN, [...SPECTRAL_ARGS, file], {
     encoding: 'utf-8',
-    shell: false,
+    shell: true,
   });
 
   if (result.status === 0) {

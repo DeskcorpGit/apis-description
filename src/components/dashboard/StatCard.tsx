@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef } from "react";
-import type { LucideIcon } from "lucide-react";
+import { useEffect, useState, useRef, useCallback } from 'react';
+import type { LucideIcon } from 'lucide-react';
 
 interface StatCardProps {
   label: string;
@@ -15,10 +15,31 @@ export function StatCard({
   icon: Icon,
   gradient,
   suffix,
-}: StatCardProps) {
+}: Readonly<StatCardProps>) {
   const [displayValue, setDisplayValue] = useState(0);
   const hasAnimated = useRef(false);
   const cardRef = useRef<HTMLDivElement>(null);
+
+  const animateCount = useCallback(() => {
+    const duration = 1200;
+    const steps = 40;
+    let current = 0;
+    let step = 0;
+
+    const timer = setInterval(() => {
+      step++;
+      const progress = step / steps;
+      const eased = 1 - Math.pow(1 - progress, 3);
+      current = Math.round(eased * value);
+
+      setDisplayValue(current);
+
+      if (step >= steps) {
+        setDisplayValue(value);
+        clearInterval(timer);
+      }
+    }, duration / steps);
+  }, [value]);
 
   useEffect(() => {
     if (hasAnimated.current) return;
@@ -39,28 +60,7 @@ export function StatCard({
     }
 
     return () => observer.disconnect();
-  }, [value]);
-
-  function animateCount() {
-    const duration = 1200;
-    const steps = 40;
-    let current = 0;
-    let step = 0;
-
-    const timer = setInterval(() => {
-      step++;
-      const progress = step / steps;
-      const eased = 1 - Math.pow(1 - progress, 3);
-      current = Math.round(eased * value);
-
-      setDisplayValue(current);
-
-      if (step >= steps) {
-        setDisplayValue(value);
-        clearInterval(timer);
-      }
-    }, duration / steps);
-  }
+  }, [animateCount]);
 
   return (
     <div
