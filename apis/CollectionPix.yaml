@@ -83,6 +83,8 @@ paths:
                   example: '111111'
                 accounts:
                   type: array
+                  items:
+                    type: object
                 profileImg:
                   type: string
               required:
