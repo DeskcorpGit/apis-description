@@ -1,9 +1,9 @@
-import type { ApiEndpoint } from "@/types/api";
-import { EndpointHeader } from "./endpoint-section/EndpointHeader";
-import { EndpointUrlBar } from "./endpoint-section/EndpointUrlBar";
-import { EndpointParameters } from "./endpoint-section/EndpointParameters";
-import { EndpointRequestExample } from "./endpoint-section/EndpointRequestExample";
-import { EndpointResponse } from "./endpoint-section/EndpointResponse";
+import type { ApiEndpoint } from '@/types/api';
+import { EndpointHeader } from './endpoint-section/EndpointHeader';
+import { EndpointUrlBar } from './endpoint-section/EndpointUrlBar';
+import { EndpointParameters } from './endpoint-section/EndpointParameters';
+import { EndpointRequestExample } from './endpoint-section/EndpointRequestExample';
+import { EndpointResponse } from './endpoint-section/EndpointResponse';
 
 interface EndpointSectionProps {
   sectionTitle: string;
@@ -17,14 +17,14 @@ export function EndpointSection({
   endpoint,
   baseUrl,
   anchorId,
-}: EndpointSectionProps) {
+}: Readonly<EndpointSectionProps>) {
   const hasBodyParams =
-    endpoint.parameters?.some((p) => p.in === "query" || p.in === "header") ===
-      false || ["POST", "PUT", "PATCH"].includes(endpoint.method);
+    endpoint.parameters?.some((p) => p.in === 'query' || p.in === 'header') ===
+      false || ['POST', 'PUT', 'PATCH'].includes(endpoint.method);
 
   return (
     <section
-      className="mb-16 pb-16 border-b border-zinc-300 dark:border-border scroll-mt-6"
+      className="mb-16 pb-16 border-b border-zinc-300 dark:border-border scroll-mt-6 min-w-0 max-w-full"
       id={anchorId}
     >
       <EndpointHeader sectionTitle={sectionTitle} endpoint={endpoint} />
@@ -36,13 +36,15 @@ export function EndpointSection({
         krakendUrl={endpoint.krakendUrl}
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        <EndpointParameters
-          parameters={endpoint.parameters}
-          requestBody={endpoint.requestBody}
-        />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 min-w-0">
+        <div className="min-w-0">
+          <EndpointParameters
+            parameters={endpoint.parameters}
+            requestBody={endpoint.requestBody}
+          />
+        </div>
 
-        <div className="space-y-6 lg:sticky lg:top-6 lg:self-start">
+        <div className="space-y-6 lg:sticky lg:top-6 lg:self-start min-w-0">
           <EndpointRequestExample
             method={endpoint.method}
             baseUrl={baseUrl}

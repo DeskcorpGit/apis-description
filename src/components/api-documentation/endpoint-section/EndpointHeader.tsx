@@ -1,18 +1,21 @@
-import type { ApiEndpoint } from "@/types/api";
+import type { ApiEndpoint } from '@/types/api';
 
 interface EndpointHeaderProps {
   sectionTitle: string;
   endpoint: ApiEndpoint;
 }
 
-export function EndpointHeader({ sectionTitle, endpoint }: EndpointHeaderProps) {
+export function EndpointHeader({
+  sectionTitle,
+  endpoint,
+}: Readonly<EndpointHeaderProps>) {
   return (
-    <div className="mb-6">
-      <h2 className="text-2xl font-bold text-foreground mb-3 flex items-center gap-3">
+    <div className="mb-6 min-w-0">
+      <h2 className="text-2xl font-bold text-foreground mb-3 wrap-break-word">
         {endpoint.summary || sectionTitle}
       </h2>
       {endpoint.description && (
-        <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+        <p className="text-muted-foreground text-sm leading-relaxed mb-4 wrap-break-word">
           {endpoint.description}
         </p>
       )}
@@ -21,7 +24,7 @@ export function EndpointHeader({ sectionTitle, endpoint }: EndpointHeaderProps) 
           {endpoint.tags.map((tag) => (
             <span
               key={tag}
-              className="text-[10px] font-mono px-2 py-0.5 rounded bg-muted dark:bg-zinc-800 text-muted-foreground border border-border"
+              className="text-[10px] font-mono px-2 py-0.5 rounded bg-muted dark:bg-zinc-800 text-muted-foreground border border-border break-all"
             >
               {tag}
             </span>

@@ -1,14 +1,14 @@
-import { useMemo } from "react";
-import { useParams, Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
-import { allApiSections } from "@/data";
+import { useMemo } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
+import { allApiSections } from '@/data';
 import {
   getApisByPartner,
   getPartnerStats,
   getTotalEndpoints,
-} from "@/data/api-stats";
-import { EndpointSection } from "@/components/api-documentation/EndpointSection";
-import { useHashScroll } from "@/hooks/useHashScroll";
+} from '@/data/api-stats';
+import { EndpointSection } from '@/components/api-documentation/EndpointSection';
+import { useHashScroll } from '@/hooks/useHashScroll';
 
 export function ApiDocumentationPage() {
   const { partner } = useParams<{ partner: string }>();
@@ -26,14 +26,14 @@ export function ApiDocumentationPage() {
     return getPartnerStats().find((p) => p.id === partner) ?? null;
   }, [partner]);
 
-  const title = partnerInfo ? `APIs — ${partnerInfo.name}` : "Todas as APIs";
+  const title = partnerInfo ? `APIs — ${partnerInfo.name}` : 'Todas as APIs';
 
   const description = partnerInfo
     ? partnerInfo.description
     : `Documentação de ${allApiSections.length} seções com todos os ${getTotalEndpoints()} endpoints cadastrados.`;
 
   return (
-    <div className="animate-in fade-in duration-500">
+    <div className="animate-in fade-in duration-500 min-w-0 max-w-full">
       <div className="mb-8">
         {partner && (
           <Link
@@ -45,16 +45,18 @@ export function ApiDocumentationPage() {
             Voltar ao Dashboard
           </Link>
         )}
-        <h1 className="text-3xl font-bold tracking-tight text-foreground mb-2">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground mb-2 wrap-break-word">
           {title}
         </h1>
-        <p className="text-muted-foreground text-sm max-w-2xl">{description}</p>
+        <p className="text-muted-foreground text-sm max-w-2xl wrap-break-word">
+          {description}
+        </p>
       </div>
 
       {sections.length === 0 ? (
         <div className="text-center text-muted-foreground mt-16">
           Nenhum endpoint encontrado
-          {partner ? ` para o parceiro "${partner}"` : ""}.
+          {partner ? ` para o parceiro "${partner}"` : ''}.
         </div>
       ) : (
         sections.map((section) =>
@@ -62,7 +64,7 @@ export function ApiDocumentationPage() {
             const anchorId =
               `${section.title}-${endpoint.method}-${endpoint.path}-${idx}`
                 .toLowerCase()
-                .replace(/[^a-z0-9]+/g, "-");
+                .replace(/[^a-z0-9]+/g, '-');
             return (
               <EndpointSection
                 key={anchorId}
