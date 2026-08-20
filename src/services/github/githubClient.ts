@@ -15,16 +15,74 @@ export async function ghFetch<T>(
   path: string,
   options?: RequestInit,
 ): Promise<T> {
-  const response = await fetch(`${githubConfig.baseUrl}${path}`, {
-    ...options,
-    headers: getRequestHeaders(token),
-  });
+  let response: Response;
+  try {
+    response = await fetch(`${githubConfig.baseUrl}${path}`, {
+      ...options,
+      headers: getRequestHeaders(token),
+    });
+  } catch {
+    throw new Error(
+      `Falha na conexão com o GitHub (${githubConfig.baseUrl}). Verifique sua conexão com a internet ou restrições de rede.`,
+    );
+  }
 
   if (!response.ok) {
-    const body = await response.json().catch(() => ({}));
-    const message =
-      (body as { message?: string }).message ?? `HTTP ${response.status}`;
-    throw new Error(message);
+    const body = (await response.json().catch(() => ({}))) as {
+      message?: string;
+      errors?: Array<{ message?: string }>;
+    };
+
+    const rawMessage = body.message ?? '';
+    const detailMessage = body.errors?.[0]?.message;
+
+    if (response.status === 401 || rawMessage.includes('Bad credentials')) {
+      throw new Error(
+        'Token do GitHub inválido ou expirado. Gere um novo Personal Access Token (PAT) com escopo "repo".',
+      );
+    }
+
+    if (response.status === 403) {
+      if (rawMessage.toLowerCase().includes('rate limit')) {
+        throw new Error(
+          'Limite de requisições da API do GitHub atingido para seu IP ou usuário. Aguarde alguns minutos.',
+        );
+      }
+      throw new Error(
+        `Permissão negada no repositório "${githubConfig.owner}/${githubConfig.repo}". Certifique-se de que seu token tem permissão de escrita ("repo").`,
+      );
+    }
+
+    if (response.status === 404) {
+      throw new Error(
+        `Recurso não encontrado (${path}). Verifique se o repositório "${githubConfig.owner}/${githubConfig.repo}" e a branch base "${githubConfig.baseBranch}" existem e se seu token tem acesso.`,
+      );
+    }
+
+    if (response.status === 422) {
+      if (rawMessage.includes('Reference already exists')) {
+        throw new Error(
+          'Uma branch temporária com este nome já existe no GitHub. Tente enviar novamente.',
+        );
+      }
+      if (rawMessage.includes('A pull request already exists')) {
+        throw new Error(
+          'Já existe um Pull Request aberto para estas alterações no repositório.',
+        );
+      }
+      if (rawMessage.includes('No commits between')) {
+        throw new Error(
+          'Nenhuma alteração foi identificada para criação do Pull Request.',
+        );
+      }
+      throw new Error(
+        `Erro de validação do GitHub: ${detailMessage || rawMessage || 'Dados inválidos.'}`,
+      );
+    }
+
+    throw new Error(
+      rawMessage || `Erro HTTP ${response.status} na comunicação com a API do GitHub.`,
+    );
   }
 
   return response.json() as Promise<T>;
