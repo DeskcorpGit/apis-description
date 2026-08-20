@@ -1,12 +1,10 @@
 import { FileCode2 } from 'lucide-react';
-import { useGithub } from '@/hooks/useGithub';
+import { submitSwaggerPullRequest } from '@/services/github';
 import { SwaggerFormStep } from '@/components/swagger/add-swagger-dialog/SwaggerFormStep';
 import { BaseAddDialog } from '@/components/swagger/BaseAddDialog';
 import type { AddSwaggerDialogProps } from '@/types/addSwagger';
 
 export function AddSwaggerDialog({ open, onClose }: AddSwaggerDialogProps) {
-  const { submitSwaggerSpec } = useGithub();
-
   return (
     <BaseAddDialog
       open={open}
@@ -19,7 +17,9 @@ export function AddSwaggerDialog({ open, onClose }: AddSwaggerDialogProps) {
           session={session}
           onLogout={onLogout}
           onBack={onBack}
-          onSubmitSwagger={submitSwaggerSpec}
+          onSubmitSwagger={(entry, specInfo) =>
+            submitSwaggerPullRequest(session.token, entry, specInfo)
+          }
           onSuccess={onSuccess}
           onClose={handleClose}
         />

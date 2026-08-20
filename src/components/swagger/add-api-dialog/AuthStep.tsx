@@ -20,9 +20,11 @@ export function AuthStep({ onAuthenticate, onClose }: AuthStepProps) {
     try {
       await onAuthenticate(patInput);
       setLoginStatus('idle');
-    } catch {
+    } catch (err) {
       setLoginError(
-        'Token inválido ou sem permissão. Verifique os escopos: Contents (write) e Pull requests (write).',
+        err instanceof Error
+          ? err.message
+          : 'Token inválido ou sem permissão. Verifique se o token possui o escopo "repo".',
       );
       setLoginStatus('error');
     }
@@ -62,16 +64,15 @@ export function AuthStep({ onAuthenticate, onClose }: AuthStepProps) {
               <span className="mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full bg-brand-green/20 text-[10px] font-bold text-brand-green">
                 2
               </span>
-              <span>
-                Dê um nome ao token e defina a expiração
-              </span>
+              <span>Dê um nome ao token e defina a expiração</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full bg-brand-green/20 text-[10px] font-bold text-brand-green">
                 3
               </span>
               <span>
-                Em <strong className="text-foreground">Select scopes</strong>, marque <strong className="text-foreground">repo</strong>
+                Em <strong className="text-foreground">Select scopes</strong>,
+                marque <strong className="text-foreground">repo</strong>
               </span>
             </li>
             <li className="flex items-start gap-2">
@@ -79,14 +80,20 @@ export function AuthStep({ onAuthenticate, onClose }: AuthStepProps) {
                 4
               </span>
               <span>
-                Clique em <strong className="text-foreground">Generate token</strong> e cole abaixo
+                Clique em{' '}
+                <strong className="text-foreground">Generate token</strong> e
+                cole abaixo
               </span>
             </li>
           </ol>
         </div>
       </div>
 
-      <FormField label="GitHub Personal Access Token" id="pat" error={loginError}>
+      <FormField
+        label="GitHub Personal Access Token"
+        id="pat"
+        error={loginError}
+      >
         <div className="relative">
           <KeyRound className="absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" />
           <Input

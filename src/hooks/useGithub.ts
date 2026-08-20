@@ -39,12 +39,41 @@ export function useGithub(): UseGithubReturn {
     }
   });
 
+  const getActiveToken = useCallback((): string => {
+    if (session?.token) return session.token;
+    const stored = sessionStorage.getItem(SESSION_STORAGE_KEY);
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored) as GitHubSession;
+        if (parsed?.token) return parsed.token;
+      } catch {
+        sessionStorage.removeItem(SESSION_STORAGE_KEY);
+      }
+    }
+    throw new Error(
+      'Sessão do GitHub não autenticada. Por favor, autentique-se com seu Personal Access Token (PAT) na primeira etapa.',
+    );
+  }, [session]);
+
   const login = useCallback(async (token: string) => {
     const trimmedToken = token.trim();
-    const user = await validateToken(trimmedToken);
-    const newSession: GitHubSession = { token: trimmedToken, user };
-    sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(newSession));
-    setSession(newSession);
+    if (!trimmedToken) {
+      throw new Error(
+        'O Personal Access Token não pode ser vazio. Por favor, insira um token válido.',
+      );
+    }
+    try {
+      const user = await validateToken(trimmedToken);
+      const newSession: GitHubSession = { token: trimmedToken, user };
+      sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(newSession));
+      setSession(newSession);
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'Não foi possível validar o token do GitHub. Verifique suas credenciais e conexão.';
+      throw new Error(message, { cause: error });
+    }
   }, []);
 
   const logout = useCallback(() => {
@@ -54,12 +83,18 @@ export function useGithub(): UseGithubReturn {
 
   const submitApi = useCallback(
     async (entry: NewApiEntry): Promise<PullRequestResult> => {
-      if (!session) {
-        throw new Error('Sessão do GitHub não autenticada.');
+      try {
+        const token = getActiveToken();
+        return await submitApiPullRequest(token, entry);
+      } catch (error) {
+        const message =
+          error instanceof Error
+            ? error.message
+            : 'Erro inesperado ao criar o Pull Request da API. Tente novamente.';
+        throw new Error(message, { cause: error });
       }
-      return submitApiPullRequest(session.token, entry);
     },
-    [session],
+    [getActiveToken],
   );
 
   const submitSwaggerSpec = useCallback(
@@ -67,27 +102,43 @@ export function useGithub(): UseGithubReturn {
       entry: NewSwaggerSpecEntry,
       specInfo?: { specType: string; version: string },
     ): Promise<PullRequestResult> => {
-      if (!session) {
-        throw new Error('Sessão do GitHub não autenticada.');
+      try {
+        const token = getActiveToken();
+        return await submitSwaggerPullRequest(token, entry, specInfo);
+      } catch (error) {
+        const message =
+          error instanceof Error
+            ? error.message
+            : 'Erro inesperado ao registrar o arquivo Swagger/OpenAPI. Tente novamente.';
+        throw new Error(message, { cause: error });
       }
-      return submitSwaggerPullRequest(session.token, entry, specInfo);
     },
-    [session],
+    [getActiveToken],
   );
 
   const validateUserToken = useCallback(
     async (token: string): Promise<GitHubUser> => {
-      return validateToken(token.trim());
+      const trimmed = token.trim();
+      if (!trimmed) {
+        throw new Error('O Personal Access Token não pode estar vazio.');
+      }
+      return validateToken(trimmed);
     },
     [],
   );
 
   const fetchApiFile = useCallback(async (): Promise<FileContent> => {
-    if (!session) {
-      throw new Error('Sessão do GitHub não autenticada.');
+    try {
+      const token = getActiveToken();
+      return await getApiFileContent(token);
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'Erro ao carregar o arquivo de APIs do repositório.';
+      throw new Error(message, { cause: error });
     }
-    return getApiFileContent(session.token);
-  }, [session]);
+  }, [getActiveToken]);
 
   return {
     session,
