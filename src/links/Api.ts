@@ -36,4 +36,10 @@ export const Apis: ApisProps[] = [
     function: 'Cadastro de Clientes',
     url: 'https://api-amazoncad.apps.ocp-qa.bancoamazonia.sa/',
   },
+  {
+    title: 'Teste OS',
+    company: 'Teste',
+    function: 'Teste',
+    url: 'https://www.google.com/',
+  },
 ];
