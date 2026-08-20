@@ -1,12 +1,10 @@
 import { Plus } from 'lucide-react';
-import { useGithub } from '@/hooks/useGithub';
+import { submitApiPullRequest } from '@/services/github';
 import { ApiFormStep } from '@/components/swagger/add-api-dialog/ApiFormStep';
 import { BaseAddDialog } from '@/components/swagger/BaseAddDialog';
 import type { AddApiDialogProps } from '@/types/addApi';
 
 export function AddApiDialog({ open, onClose }: AddApiDialogProps) {
-  const { submitApi } = useGithub();
-
   return (
     <BaseAddDialog
       open={open}
@@ -19,7 +17,7 @@ export function AddApiDialog({ open, onClose }: AddApiDialogProps) {
           session={session}
           onLogout={onLogout}
           onBack={onBack}
-          onSubmitApi={submitApi}
+          onSubmitApi={(entry) => submitApiPullRequest(session.token, entry)}
           onSuccess={onSuccess}
           onClose={handleClose}
         />
