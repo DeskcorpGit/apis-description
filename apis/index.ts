@@ -1,5 +1,6 @@
 import allExternalEndpoints from './all-external-endpoints.openapi.json?url';
 import collectionPix from './CollectionPix.yaml?url';
+import cadocs from './Cadocs.json?url';
 
 export interface ApiDocSpec {
   name: string;
@@ -14,5 +15,9 @@ export const allApisDocCollections: ApiDocSpec[] = [
   {
     name: 'APIs Pix',
     url: collectionPix,
+  },
+  {
+    name: 'Cadocs',
+    url: cadocs,
   },
 ];
