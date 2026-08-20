@@ -51,7 +51,7 @@ export function useGithub(): UseGithubReturn {
       }
     }
     throw new Error(
-      'Sessão do GitHub não autenticada. Por favor, autentique-se com seu Personal Access Token (PAT) na primeira etapa.',
+      'Sessão do GitHub não autenticada.  Por favor, autentique-se com seu Personal Access Token (PAT) na primeira etapa.',
     );
   }, [session]);
 
