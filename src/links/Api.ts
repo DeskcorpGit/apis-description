@@ -36,4 +36,10 @@ export const Apis: ApisProps[] = [
     function: 'Cadastro de Clientes',
     url: 'https://api-amazoncad.apps.ocp-qa.bancoamazonia.sa/',
   },
+  {
+    title: 'Valid API',
+    company: 'Valid',
+    function: 'Documentoscopia',
+    url: 'https://docs-platform.services-valid.com.br/plataforma',
+  },
 ];
