@@ -1,0 +1,198 @@
+openapi: 3.0.3
+info:
+  title: Cadocs
+  description: API convertida a partir de Collection Postman.
+  version: 1.0.0
+servers:
+  - url: https://authorityos.allenty.io
+paths:
+  /v1/oauth/token:
+    post:
+      summary: auth
+      tags:
+        - config
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  example: client_credentials
+                client_id:
+                  type: string
+                  example: ao-b07c61c60168f505
+                client_secret:
+                  type: string
+                  example: 046d0085c728bd79bd4733ae1122eddbb003a2094ee2ef4b50928e2165a43bd1
+                scope:
+                  type: string
+                  example: cadocs:write
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /api/v1/cadocs/documents:
+    post:
+      summary: 5500 Copy
+      tags:
+        - "5500"
+      parameters:
+        - name: X-Tenant-ID
+          in: header
+          required: false
+          schema:
+            type: string
+          example: "{{tenantId}}"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              documentType: "5500"
+              institutionIspb: "04902979"
+              periodStart: 2025-06-30
+              periodEnd: 2025-06-30
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+    get:
+      summary: list cadocs
+      parameters:
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            type: string
+          example: 7e532cd2-2ec7-4db1-b656-00d84771d89b
+        - name: documentType
+          in: query
+          required: false
+          schema:
+            type: string
+          example: "6209"
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+          example: converted
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: string
+          example: "100"
+        - name: periodTo
+          in: query
+          required: false
+          schema:
+            type: string
+          example: 2026-03
+        - name: periodFrom
+          in: query
+          required: false
+          schema:
+            type: string
+          example: 2026-03
+        - name: "createdFrom "
+          in: query
+          required: false
+          schema:
+            type: string
+          example: 2026-03
+        - name: createdTo
+          in: query
+          required: false
+          schema:
+            type: string
+          example: 2026-03
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /api/v1/cadocs/documents/{docId}/validate:
+    post:
+      summary: 5500 — Validar Copy 2
+      tags:
+        - "5500"
+      parameters:
+        - name: docId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: X-Tenant-ID
+          in: header
+          required: false
+          schema:
+            type: string
+          example: "{{tenantId}}"
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /api/v1/cadocs/documents/{docId}/convert:
+    post:
+      summary: converter Copy 2
+      tags:
+        - "5500"
+      parameters:
+        - name: docId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /api/v1/cadocs/documents/{docId}/export:
+    get:
+      summary: export Copy 2
+      tags:
+        - "5500"
+      parameters:
+        - name: docId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: format
+          in: query
+          required: false
+          schema:
+            type: string
+          example: xml
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /api/v1/cadocs/documents/8754fc06-51c4-4c07-a045-3682d6419f25/export:
+    get:
+      summary: export Copy
+      tags:
+        - "1201"
+      parameters:
+        - name: format
+          in: query
+          required: false
+          schema:
+            type: string
+          example: xml
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
+  /api/v1/cadocs/documents/5ca7d00b-bc98-4a2a-929b-cb48ec4f39b1/convert:
+    post:
+      summary: convert Copy
+      tags:
+        - "1201"
+      parameters:
+        - name: X-Tenant-ID
+          in: header
+          required: false
+          schema:
+            type: string
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+      responses:
+        "200":
+          description: Operação realizada com sucesso.
